@@ -1,0 +1,40 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+let about = {};
+try { const d = await import('../content/about.json'); about = d.default || {}; } catch(e) {}
+---
+<Layout lang="en" title="About — Moataz Samara">
+  <Nav lang="en" />
+  <main class="wrap" style="padding-top:80px;padding-bottom:80px;max-width:760px;">
+    <p style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.15em;color:var(--muted2);text-transform:uppercase;margin-bottom:24px;">ABOUT</p>
+    <h1 style="font-family:var(--font-display);font-size:clamp(36px,5vw,64px);font-weight:300;margin-bottom:32px;">Moataz Samara</h1>
+    <p style="color:var(--muted);line-height:1.8;font-size:18px;margin-bottom:64px;">{about.bio_en}</p>
+    <p style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.15em;color:var(--muted2);text-transform:uppercase;margin-bottom:32px;">EXPERIENCE</p>
+    <div style="display:flex;flex-direction:column;gap:32px;margin-bottom:64px;">
+      {(about.experience || []).map((e) => (
+        <div style="display:grid;grid-template-columns:120px 1fr;gap:24px;align-items:start;">
+          <span style="font-family:var(--font-mono);font-size:11px;color:var(--accent);padding-top:4px;">{e.years}</span>
+          <div>
+            <p style="font-family:var(--font-display);font-size:20px;font-weight:400;color:var(--text);margin-bottom:4px;">{e.role_en}</p>
+            <p style="color:var(--muted);font-size:14px;">{e.org_en}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+    <p style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.15em;color:var(--muted2);text-transform:uppercase;margin-bottom:32px;">EDUCATION</p>
+    <div style="display:flex;flex-direction:column;gap:20px;">
+      {(about.education || []).map((e) => (
+        <div style="display:grid;grid-template-columns:120px 1fr;gap:24px;align-items:start;">
+          <span style="font-family:var(--font-mono);font-size:11px;color:var(--muted2);padding-top:3px;">{e.year}</span>
+          <div>
+            <p style="font-size:15px;color:var(--text);">{e.degree_en}</p>
+            <p style="color:var(--muted);font-size:13px;">{e.institution}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </main>
+  <Footer lang="en" />
+</Layout>

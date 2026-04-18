@@ -1,37 +1,20 @@
 ---
-interface Props {
-  title?: string;
-  description?: string;
-}
-
-const {
-  title = 'Moataz Samara — Software Developer',
-  description = 'Full-stack software developer building modern web experiences.',
-} = Astro.props;
-
-const base = import.meta.env.BASE_URL;
+import '../styles/global.css';
+const { lang = 'en', title = 'Moataz Samara' } = Astro.props;
+const isHe = lang === 'he';
 ---
-
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={description} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta name="theme-color" content="#7c6aff" />
-    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
-    <title>{title}</title>
-  </head>
-  <body>
-    <slot />
-  </body>
+<!DOCTYPE html>
+<html lang={lang} dir={isHe ? 'rtl' : 'ltr'}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  {isHe
+    ? <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&family=Syne:wght@300;400;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    : <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Syne:wght@300;400;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  }
+</head>
+<body><slot /></body>
 </html>

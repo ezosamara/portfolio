@@ -1,0 +1,46 @@
+[
+  {
+    "slug": "tira-municipality",
+    "title_en": "Tira Municipality Digitization",
+    "title_he": "דיגיטציה עיריית טירה",
+    "category": "Digital Transformation",
+    "year": 2024,
+    "description_en": "Full municipal digitization program — procurement, HR, planning, welfare, and supplier portal. 475+ staff trained, 800+ suppliers onboarded across six departments over 12 months.",
+    "description_he": "תוכנית דיגיטציה עירונית מלאה — רכש, כוח אדם, תכנון ובנייה, רווחה ופורטל ספקים. 475+ עובדים הוכשרו, 800+ ספקים הוטמעו בשישה מחלקות במשך 12 חודשים.",
+    "tags": ["Digital Transformation", "Municipality", "AI Systems", "Training"],
+    "featured": true
+  },
+  {
+    "slug": "ezo-studio",
+    "title_en": "EZO Studio — Brand & Web",
+    "title_he": "EZO Studio — מיתוג ואתרים",
+    "category": "Brand Identity",
+    "year": 2020,
+    "description_en": "Founded EZO Studio to bridge Arab and Jewish markets. Full-service digital agency delivering branding, Webflow development, PR campaigns, and AI-powered automation for SMBs.",
+    "description_he": "ייסוד משרד EZO לגישור בין שוקי ערבי ויהודי. סוכנות דיגיטל מלאה: מיתוג, בניית אתרי Webflow, קמפיינים ויחסי ציבור ואוטומציה מבוססת AI.",
+    "tags": ["Branding", "Webflow", "PR", "Automation"],
+    "featured": true
+  },
+  {
+    "slug": "meretz-campaigns",
+    "title_en": "Meretz Party — Political PR",
+    "title_he": "מפלגת מרץ — יחסי ציבור פוליטיים",
+    "category": "PR & Strategy",
+    "year": 2023,
+    "description_en": "9 years as PR expert for Meretz Party. Built political marketing strategy, managed Knesset candidate media appearances, and led Arab community outreach across 5 national elections.",
+    "description_he": "9 שנות עבודה כמומחה יחסי ציבור במפלגת מרץ. בניית אסטרטגיה שיווקית פוליטית, ניהול הופעות תקשורת מועמדים לכנסת והנגשה לחברה הערבית ב-5 בחירות לאומיות.",
+    "tags": ["Political PR", "Campaigns", "Strategy", "Media"],
+    "featured": true
+  },
+  {
+    "slug": "maoz-research",
+    "title_en": "Ma'oz — Government Research",
+    "title_he": "מעוז — מחקר ממשלתי",
+    "category": "Research & Strategy",
+    "year": 2019,
+    "description_en": "Social research commissioned by Interior, Transport, and Health Ministries plus local authorities. Field surveys, depth interviews, benchmarking, and policy document writing.",
+    "description_he": "מחקר חברתי מטעם משרד הפנים, התחבורה, הבריאות ורשויות מקומיות. סקרים שטחיים, ראיונות עומק, Benchmark וכתיבת מסמכי מדיניות.",
+    "tags": ["Research", "Government", "Policy", "Data"],
+    "featured": false
+  }
+]

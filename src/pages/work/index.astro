@@ -1,0 +1,18 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import WorkCard from '../../components/WorkCard.astro';
+import Footer from '../../components/Footer.astro';
+let works = [];
+try { const d = await import('../../content/works.json'); works = d.default || []; } catch(e) {}
+---
+<Layout lang="en" title="Work — Moataz Samara">
+  <Nav lang="en" />
+  <main class="wrap" style="padding-top:80px;padding-bottom:80px;">
+    <p style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.15em;color:var(--muted2);text-transform:uppercase;margin-bottom:24px;">SELECTED WORK</p>
+    <h1 style="font-family:var(--font-display);font-size:clamp(36px,5vw,64px);font-weight:300;margin-bottom:48px;">Projects</h1>
+    <div class="grid">{works.map(w => <WorkCard title={w.title_en} category={w.category} year={w.year} slug={w.slug} lang="en" />)}</div>
+  </main>
+  <Footer lang="en" />
+</Layout>
+<style>.grid{display:grid;grid-template-columns:1fr;gap:16px;}@media(min-width:768px){.grid{grid-template-columns:1fr 1fr;}}</style>

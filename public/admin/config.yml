@@ -1,0 +1,24 @@
+backend:
+  name: git-gateway
+  branch: main
+media_folder: "public/uploads"
+public_folder: "/uploads"
+site_url: https://ezostudio.netlify.app
+collections:
+  - name: works
+    label: Case Studies
+    folder: src/content
+    create: true
+    slug: "{{slug}}"
+    format: json
+    fields:
+      - {label: Slug, name: slug, widget: string}
+      - {label: Title EN, name: title_en, widget: string}
+      - {label: Title HE, name: title_he, widget: string}
+      - {label: Category, name: category, widget: select, options: [Brand Identity, Web, Digital Transformation, PR & Strategy, Research & Strategy, Automation]}
+      - {label: Year, name: year, widget: number}
+      - {label: Description EN, name: description_en, widget: text}
+      - {label: Description HE, name: description_he, widget: text}
+      - {label: Tags, name: tags, widget: list}
+      - {label: Image, name: image, widget: image, required: false}
+      - {label: Featured, name: featured, widget: boolean, default: false}

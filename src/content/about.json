@@ -1,0 +1,17 @@
+{
+  "bio_en": "Project manager and digital marketing expert with 5+ years of experience. MA in Political Communication (Tel Aviv University), BA in Communications (Kinneret College). Founder of EZO Studio — bridging Arab and Jewish markets through digital strategy, brand design, and technology.",
+  "bio_he": "מנהל פרויקטים ומומחה שיווק דיגיטלי עם ניסיון של 5+ שנים. תואר שני תקשורת פוליטית (אוניברסיטת תל אביב), תואר ראשון בתקשורת (מכללת כנרת). מייסד EZO Studio — גישור בין שוקי ערבי ויהודי דרך אסטרטגיה דיגיטלית, מיתוג וטכנולוגיה.",
+  "experience": [
+    {"years": "2020–present", "role_en": "Founder", "role_he": "מייסד", "org_en": "EZO Studio, Tira", "org_he": "EZO Studio, טירה"},
+    {"years": "2022–2024", "role_en": "Digitization Manager", "role_he": "מנהל דיגיטציה", "org_en": "Tira Municipality", "org_he": "עיריית טירה"},
+    {"years": "2014–2023", "role_en": "PR Expert", "role_he": "מומחה יחסי ציבור", "org_en": "Meretz Party, Tel Aviv", "org_he": "מפלגת מרץ, תל אביב"},
+    {"years": "2018–2019", "role_en": "Research Assistant", "role_he": "עוזר מחקר", "org_en": "Ma'oz, Lod", "org_he": "מעוז, לוד"}
+  ],
+  "education": [
+    {"year": "2025–2026", "degree_en": "Webflow Certification", "degree_he": "תעודת Webflow", "institution": "Webflow University"},
+    {"year": "2020", "degree_en": "Strategic Business Development", "degree_he": "פיתוח אסטרטגי עסקי", "institution": "LAHAV, Tel Aviv University"},
+    {"year": "2019", "degree_en": "Digital Campaign Management", "degree_he": "ניהול קמפיינים דיגיטליים", "institution": "Digitalent"},
+    {"year": "2018", "degree_en": "MA Political Communication", "degree_he": "תואר שני תקשורת פוליטית", "institution": "Tel Aviv University"},
+    {"year": "2015", "degree_en": "BA Communications", "degree_he": "תואר ראשון בתקשורת", "institution": "Kinneret College"}
+  ]
+}

@@ -1,0 +1,74 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import WorkCard from '../../components/WorkCard.astro';
+let works = [];
+try { const d = await import('../../content/works.json'); works = d.default || []; } catch(e) {}
+---
+<Layout lang="he" title="מועתז סמארה — אסטרטגיה דיגיטלית · מיתוג · יחסי ציבור">
+  <Nav lang="he" />
+  <div class="marquee-bar"><div class="marquee-track"><span>מועתז סמארה · מנהל פרויקטים · שיווק דיגיטלי · יחסי ציבור · EZO STUDIO · מיתוג · בניית אתרים · טרנספורמציה דיגיטלית · אסטרטגיה פוליטית · </span><span aria-hidden="true">מועתז סמארה · מנהל פרויקטים · שיווק דיגיטלי · יחסי ציבור · EZO STUDIO · מיתוג · בניית אתרים · טרנספורמציה דיגיטלית · אסטרטגיה פוליטית · </span></div></div>
+  <section class="hero">
+    <div class="hero-grid"></div>
+    <div class="wrap hero-content">
+      <p class="eyebrow">מייסד · EZO STUDIO · ניסיון 5+ שנים</p>
+      <h1 class="hero-h1">
+        <span>אסטרטגיה דיגיטלית,</span><br />
+        <span>מיתוג,</span><br />
+        <span>והמערכות שמאחוריהם.</span>
+      </h1>
+      <div class="ctas">
+        <a href="#work" class="btn-primary">לצפייה בעבודות</a>
+        <a href="/he/contact" class="btn-ghost">צור קשר</a>
+      </div>
+    </div>
+  </section>
+  <section class="work-section" id="work">
+    <div class="wrap">
+      <p class="sec-label">עבודות נבחרות · 2019–2025</p>
+      <div class="work-grid">
+        {works.map(w => <WorkCard title={w.title_he} category={w.category} year={w.year} slug={w.slug} lang="he" />)}
+      </div>
+    </div>
+  </section>
+  <section class="caps-section">
+    <div class="wrap">
+      <p class="sec-label">תחומי פעילות</p>
+      <div class="caps-grid">
+        <div class="cap-card"><h3 class="cap-title">שיווק דיגיטלי וקמפיינים</h3><p class="cap-desc">ניהול קמפיינים, יצירת תוכן, אנליטיקה ואסטרטגיה שיווקית</p></div>
+        <div class="cap-card"><h3 class="cap-title">מיתוג ובניית אתרים</h3><p class="cap-desc">זהות מותגית, מערכות לוגו, בניית אתרי Webflow ואוטומציה</p></div>
+        <div class="cap-card"><h3 class="cap-title">טרנספורמציה דיגיטלית</h3><p class="cap-desc">מערכות מושתתות AI, דיגיטציה של תהליכים, פריסה עירונית</p></div>
+        <div class="cap-card"><h3 class="cap-title">יחסי ציבור ואסטרטגיה פוליטית</h3><p class="cap-desc">קמפיינים פוליטיים, ניהול מועמדים לכנסת, הופעות תקשורת</p></div>
+      </div>
+    </div>
+  </section>
+  <Footer lang="he" />
+</Layout>
+<style>
+.marquee-bar{background:var(--surface);border-bottom:1px solid var(--border);overflow:hidden;white-space:nowrap;padding:10px 0;}
+.marquee-track{display:inline-flex;animation:marquee 30s linear infinite;}
+.marquee-track span{font-family:var(--font-mono);font-size:11px;letter-spacing:0.15em;color:var(--muted2);padding-right:40px;}
+.hero{position:relative;min-height:92vh;display:flex;align-items:center;overflow:hidden;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:64px 64px;opacity:0.3;pointer-events:none;}
+.hero-content{position:relative;z-index:1;padding:64px 0;}
+.eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:0.18em;color:var(--accent);margin-bottom:24px;text-transform:uppercase;}
+.hero-h1{font-family:var(--font-display);font-size:clamp(44px,7vw,88px);font-weight:300;line-height:0.95;letter-spacing:-0.02em;color:var(--text);margin-bottom:48px;}
+.ctas{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-primary{background:var(--accent);color:#0a0a0a;font-family:var(--font-mono);font-size:12px;padding:12px 28px;border-radius:var(--radius);font-weight:500;transition:opacity 0.2s;}
+.btn-primary:hover{opacity:0.85;}
+.btn-ghost{border:1px solid var(--border2);color:var(--muted);font-family:var(--font-mono);font-size:12px;padding:12px 28px;border-radius:var(--radius);transition:all 0.2s;}
+.btn-ghost:hover{border-color:var(--text);color:var(--text);}
+.work-section,.caps-section{padding:96px 0;}
+.caps-section{border-top:1px solid var(--border);}
+.sec-label{font-family:var(--font-mono);font-size:11px;letter-spacing:0.15em;color:var(--muted2);text-transform:uppercase;margin-bottom:32px;}
+.work-grid{display:grid;grid-template-columns:1fr;gap:16px;}
+@media(min-width:768px){.work-grid{grid-template-columns:1fr 1fr;}}
+.caps-grid{display:grid;grid-template-columns:1fr;gap:16px;}
+@media(min-width:640px){.caps-grid{grid-template-columns:1fr 1fr;}}
+@media(min-width:1024px){.caps-grid{grid-template-columns:repeat(4,1fr);}}
+.cap-card{border:1px solid var(--border);padding:24px;border-radius:var(--radius-md);transition:border-color 0.2s;}
+.cap-card:hover{border-color:var(--border2);}
+.cap-title{font-family:var(--font-display);font-size:16px;font-weight:400;color:var(--text);margin-bottom:8px;}
+.cap-desc{font-size:13px;color:var(--muted);line-height:1.5;}
+</style>
