@@ -1,6 +1,5 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://ezosamara.github.io',
-  base: '/portfolio',
+  site: 'https://moataz-samara-studio.netlify.app',
 });
