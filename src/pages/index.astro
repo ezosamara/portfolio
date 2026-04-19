@@ -5,70 +5,387 @@ import Footer from '../components/Footer.astro';
 import WorkCard from '../components/WorkCard.astro';
 let works = [];
 try { const d = await import('../content/works.json'); works = d.default || []; } catch(e) {}
+let about = {};
+try { const d = await import('../content/about.json'); about = d.default || {}; } catch(e) {}
 ---
 <Layout lang="en" title="Moataz Samara — Digital Strategy · Brand Design · PR">
   <Nav lang="en" />
-  <div class="marquee-bar"><div class="marquee-track"><span>MOATAZ SAMARA · PROJECT MANAGER · DIGITAL MARKETING · PR EXPERT · EZO STUDIO · BRAND DESIGN · WEB DEVELOPMENT · DIGITAL TRANSFORMATION · POLITICAL STRATEGY · </span><span aria-hidden="true">MOATAZ SAMARA · PROJECT MANAGER · DIGITAL MARKETING · PR EXPERT · EZO STUDIO · BRAND DESIGN · WEB DEVELOPMENT · DIGITAL TRANSFORMATION · POLITICAL STRATEGY · </span></div></div>
-  <section class="hero">
-    <div class="hero-grid"></div>
-    <div class="wrap hero-content">
-      <p class="eyebrow">FOUNDER · EZO STUDIO · 5+ YEARS EXPERIENCE</p>
-      <h1 class="hero-h1">
-        <span>Digital strategy,</span><br />
-        <span>brand design,</span><br />
-        <span>and the systems behind them.</span>
+
+  <!-- ░░ HERO ░░ -->
+  <section class="hero line-grid">
+    <div class="hero-scan"></div>
+    <div class="wrap hero-wrap">
+
+      <div class="hero-top reveal">
+        <div class="status-badge">
+          <span class="status-dot"></span>
+          <span>Available for projects</span>
+        </div>
+        <span class="hero-loc mono">Tira · IL</span>
+      </div>
+
+      <h1 class="hero-name">
+        <span class="hero-word reveal reveal-delay-1">MOATAZ</span>
+        <span class="hero-word hero-word-dim reveal reveal-delay-2">SAMARA</span>
       </h1>
-      <div class="ctas">
-        <a href="#work" class="btn-primary">See the work</a>
-        <a href="/contact" class="btn-ghost">Get in touch</a>
+
+      <div class="hero-meta reveal reveal-delay-3">
+        <p class="hero-desc">Project Manager · Digital Marketing · Brand Design · PR Expert</p>
+        <p class="hero-langs mono">Arabic · Hebrew · English</p>
       </div>
+
+      <div class="hero-stats reveal reveal-delay-4">
+        <div class="hstat"><span class="hstat-n">5+</span><span class="hstat-l">Years</span></div>
+        <div class="hstat-sep"></div>
+        <div class="hstat"><span class="hstat-n">475+</span><span class="hstat-l">Staff Trained</span></div>
+        <div class="hstat-sep"></div>
+        <div class="hstat"><span class="hstat-n">9</span><span class="hstat-l">Years PR</span></div>
+        <div class="hstat-sep"></div>
+        <div class="hstat"><span class="hstat-n">6+</span><span class="hstat-l">Webflow Sites</span></div>
+        <div class="hero-ctas">
+          <a href="#work" class="btn-acc">See projects</a>
+          <a href="/contact" class="btn-ghost">Contact →</a>
+        </div>
+      </div>
+
     </div>
   </section>
-  <section class="work-section" id="work">
+
+  <!-- ░░ TICKER ░░ -->
+  <div class="ticker-bar">
+    <div class="ticker-track">
+      {[...Array(2)].map(() => (
+        <span class="ticker-item">MOATAZ SAMARA <span class="t-acc">✦</span> PROJECT MANAGER <span class="t-acc">✦</span> DIGITAL MARKETING <span class="t-acc">✦</span> PR EXPERT <span class="t-acc">✦</span> EZO STUDIO <span class="t-acc">✦</span> BRAND DESIGN <span class="t-acc">✦</span> WEBFLOW <span class="t-acc">✦</span> AI SYSTEMS <span class="t-acc">✦</span> </span>
+      ))}
+    </div>
+  </div>
+
+  <!-- ░░ WORK ░░ -->
+  <section class="sec" id="work">
     <div class="wrap">
-      <p class="sec-label">SELECTED WORK · 2019–2025</p>
-      <div class="work-grid">
-        {works.map(w => <WorkCard title={w.title_en} category={w.category} year={w.year} slug={w.slug} lang="en" />)}
+      <div class="sec-head reveal">
+        <div class="sec-label-row">
+          <span class="sec-num mono">02</span>
+          <span class="sec-title">Selected Work</span>
+        </div>
+        <a href="/work" class="sec-more">All projects →</a>
+      </div>
+      <div class="cards-grid">
+        {works.filter(w => w.featured).map((w, i) => (
+          <div class="reveal" style={`transition-delay:${i * 0.12}s`}>
+            <WorkCard title={w.title_en} category={w.category} year={w.year} slug={w.slug} lang="en" description={w.description_en} index={i} />
+          </div>
+        ))}
       </div>
     </div>
   </section>
-  <section class="caps-section">
+
+  <!-- ░░ CAPABILITIES ░░ -->
+  <section class="sec sec-surface dot-grid">
     <div class="wrap">
-      <p class="sec-label">WHAT I DO</p>
-      <div class="caps-grid">
-        <div class="cap-card"><h3 class="cap-title">Digital Marketing & Campaigns</h3><p class="cap-desc">Campaign management, content creation, analytics and growth strategy</p></div>
-        <div class="cap-card"><h3 class="cap-title">Brand & Web Development</h3><p class="cap-desc">Brand identity, logo systems, Webflow builds and automation</p></div>
-        <div class="cap-card"><h3 class="cap-title">Digital Transformation</h3><p class="cap-desc">AI-powered systems, workflow digitization, municipal-scale deployment</p></div>
-        <div class="cap-card"><h3 class="cap-title">PR & Political Strategy</h3><p class="cap-desc">Political campaigns, Knesset candidate management, media appearances</p></div>
+      <div class="sec-head reveal">
+        <div class="sec-label-row">
+          <span class="sec-num mono">03</span>
+          <span class="sec-title">What I Do</span>
+        </div>
+      </div>
+      <div class="caps-list">
+        {[
+          {n:'01', t:'Digital Marketing & Campaigns', d:'Campaign management, content strategy, analytics, paid media and growth from zero to scale across Arab and Jewish markets.'},
+          {n:'02', t:'Brand Identity & Webflow', d:'Full identity systems — logo, guide, social, print — built into production Webflow sites without handing off to another agency.'},
+          {n:'03', t:'Digital Transformation', d:'AI-powered workflows, full municipal digitization at scale. 6 departments, 475+ staff trained, 800+ suppliers onboarded.'},
+          {n:'04', t:'PR & Political Strategy', d:'9 years managing political campaigns across 5 national elections. Knesset candidate media, Arab–Jewish community outreach.'},
+        ].map((c, i) => (
+          <div class="cap-row reveal" style={`transition-delay:${i * 0.1}s`}>
+            <span class="cap-n mono">{c.n}</span>
+            <h3 class="cap-t">{c.t}</h3>
+            <p class="cap-d">{c.d}</p>
+            <span class="cap-arrow">→</span>
+          </div>
+        ))}
       </div>
     </div>
   </section>
+
+  <!-- ░░ UNIQUE ░░ -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-label-row">
+          <span class="sec-num mono">04</span>
+          <span class="sec-title">Unique Profile</span>
+        </div>
+      </div>
+      <div class="unique-grid">
+        {(about.unique_en || []).map((u, i) => (
+          <div class="u-card reveal" style={`transition-delay:${i * 0.08}s`}>
+            <span class="u-tag">{u.tag}</span>
+            <h3 class="u-title">{u.title}</h3>
+            <p class="u-body">{u.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ WEBFLOW ░░ -->
+  <section class="sec sec-surface">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-label-row">
+          <span class="sec-num mono">05</span>
+          <span class="sec-title">Webflow Builds</span>
+        </div>
+      </div>
+      <div class="sites-list">
+        {(about.websites || []).map((s, i) => (
+          <a href={s.url} target="_blank" class="site-row reveal" style={`transition-delay:${i * 0.07}s`}>
+            <span class="site-cat mono">{s.category_en}</span>
+            <span class="site-name">{s.name}</span>
+            <span class="site-desc">{s.desc_en}</span>
+            <span class="site-arr">↗</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ CTA ░░ -->
+  <section class="cta-sec">
+    <div class="wrap cta-inner reveal">
+      <div class="cta-left">
+        <p class="mono cta-pre">Ready to build?</p>
+        <h2 class="cta-h">Let's create<br/><em>something real.</em></h2>
+      </div>
+      <div class="cta-right">
+        <a href="/contact" class="btn-acc btn-lg">Start a project</a>
+        <a href="mailto:ezoprmk@gmail.com" class="cta-mail">ezoprmk@gmail.com</a>
+      </div>
+    </div>
+  </section>
+
   <Footer lang="en" />
 </Layout>
+
 <style>
-.marquee-bar{background:var(--surface);border-bottom:1px solid var(--border);overflow:hidden;white-space:nowrap;padding:10px 0;}
-.marquee-track{display:inline-flex;animation:marquee 30s linear infinite;}
-.marquee-track span{font-family:var(--font-mono);font-size:11px;letter-spacing:0.15em;color:var(--muted2);padding-right:40px;}
-.hero{position:relative;min-height:92vh;display:flex;align-items:center;overflow:hidden;}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:64px 64px;opacity:0.3;pointer-events:none;}
-.hero-content{position:relative;z-index:1;padding:64px 0;}
-.eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:0.18em;color:var(--accent);margin-bottom:24px;text-transform:uppercase;}
-.hero-h1{font-family:var(--font-display);font-size:clamp(44px,7vw,88px);font-weight:300;line-height:0.95;letter-spacing:-0.02em;color:var(--text);margin-bottom:48px;}
-.ctas{display:flex;gap:12px;flex-wrap:wrap;}
-.btn-primary{background:var(--accent);color:#0a0a0a;font-family:var(--font-mono);font-size:12px;letter-spacing:0.1em;padding:12px 28px;border-radius:var(--radius);font-weight:500;transition:opacity 0.2s;}
-.btn-primary:hover{opacity:0.85;}
-.btn-ghost{border:1px solid var(--border2);color:var(--muted);font-family:var(--font-mono);font-size:12px;letter-spacing:0.1em;padding:12px 28px;border-radius:var(--radius);transition:all 0.2s;}
-.btn-ghost:hover{border-color:var(--text);color:var(--text);}
-.work-section,.caps-section{padding:96px 0;}
-.caps-section{border-top:1px solid var(--border);}
-.sec-label{font-family:var(--font-mono);font-size:11px;letter-spacing:0.15em;color:var(--muted2);text-transform:uppercase;margin-bottom:32px;}
-.work-grid{display:grid;grid-template-columns:1fr;gap:16px;}
-@media(min-width:768px){.work-grid{grid-template-columns:1fr 1fr;}}
-.caps-grid{display:grid;grid-template-columns:1fr;gap:16px;}
-@media(min-width:640px){.caps-grid{grid-template-columns:1fr 1fr;}}
-@media(min-width:1024px){.caps-grid{grid-template-columns:repeat(4,1fr);}}
-.cap-card{border:1px solid var(--border);padding:24px;border-radius:var(--radius-md);transition:border-color 0.2s;}
-.cap-card:hover{border-color:var(--border2);}
-.cap-title{font-family:var(--font-display);font-size:16px;font-weight:400;color:var(--text);margin-bottom:8px;}
-.cap-desc{font-size:13px;color:var(--muted);line-height:1.5;}
+/* ── HERO ── */
+.hero{
+  min-height:100vh;display:flex;align-items:center;
+  padding:120px 0 80px;position:relative;overflow:hidden;
+}
+.hero::after{
+  content:'';position:absolute;
+  top:-30%;left:50%;transform:translateX(-50%);
+  width:800px;height:600px;
+  background:radial-gradient(ellipse, rgba(212,255,0,0.04) 0%, transparent 70%);
+  pointer-events:none;
+}
+.hero-scan{
+  position:absolute;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  opacity:0.15;top:0;
+  animation:scanline 8s linear infinite;
+}
+@keyframes scanline{0%{top:0;}100%{top:100%;}}
+.hero-wrap{position:relative;z-index:1;width:100%;}
+.hero-top{
+  display:flex;align-items:center;
+  justify-content:space-between;margin-bottom:48px;
+}
+.status-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:0.12em;
+  color:var(--accent);border:1px solid rgba(212,255,0,0.2);
+  padding:6px 16px;border-radius:100px;
+  background:rgba(212,255,0,0.04);
+}
+.status-dot{
+  width:6px;height:6px;background:var(--accent);border-radius:50%;
+  animation:pulse 2s ease-in-out infinite;
+  box-shadow:0 0 6px var(--accent);
+}
+.hero-loc{color:var(--muted);}
+
+.hero-name{
+  display:flex;flex-direction:column;
+  margin-bottom:48px;
+  overflow:hidden;
+}
+.hero-word{
+  font-family:var(--font-display);
+  font-size:clamp(80px,13vw,200px);
+  font-weight:700;
+  line-height:0.85;
+  letter-spacing:-0.04em;
+  color:var(--text);
+  display:block;
+  text-transform:uppercase;
+}
+.hero-word-dim{
+  color:transparent;
+  -webkit-text-stroke:1px rgba(242,237,230,0.2);
+  text-stroke:1px rgba(242,237,230,0.2);
+}
+
+.hero-meta{margin-bottom:40px;}
+.hero-desc{font-family:var(--font-mono);font-size:12px;letter-spacing:0.1em;color:var(--text2);text-transform:uppercase;margin-bottom:6px;}
+.hero-langs{color:var(--muted);}
+
+.hero-stats{
+  display:flex;align-items:center;gap:0;flex-wrap:wrap;
+  border-top:1px solid var(--border);padding-top:32px;
+}
+.hstat{display:flex;flex-direction:column;gap:4px;padding:0 32px 0 0;}
+.hstat:first-child{padding-left:0;}
+.hstat-n{
+  font-family:var(--font-display);
+  font-size:clamp(28px,3.5vw,44px);
+  font-weight:300;color:var(--accent);line-height:1;
+}
+.hstat-l{font-family:var(--font-mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);}
+.hstat-sep{width:1px;height:48px;background:var(--border);margin:0 32px;}
+.hero-ctas{display:flex;gap:16px;align-items:center;margin-left:auto;}
+
+/* ── BUTTONS ── */
+.btn-acc{
+  background:var(--accent);color:#040404;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;
+  padding:14px 32px;border-radius:var(--radius);font-weight:600;
+  transition:opacity 0.2s,transform 0.2s,box-shadow 0.2s;
+  white-space:nowrap;display:inline-block;
+}
+.btn-acc:hover{opacity:0.9;transform:translateY(-1px);box-shadow:0 8px 30px rgba(212,255,0,0.2);}
+.btn-lg{padding:18px 48px;font-size:12px;}
+.btn-ghost{font-family:var(--font-mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text2);transition:color 0.2s;display:inline-block;}
+.btn-ghost:hover{color:var(--accent);}
+
+/* ── TICKER ── */
+.ticker-bar{
+  overflow:hidden;white-space:nowrap;padding:12px 0;
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  background:var(--surface);
+}
+.ticker-track{display:inline-flex;animation:marquee 40s linear infinite;}
+.ticker-item{
+  font-family:var(--font-mono);font-size:11px;letter-spacing:0.15em;
+  color:var(--muted);padding-right:0;
+}
+.t-acc{color:var(--accent);margin:0 4px;}
+
+/* ── SECTIONS ── */
+.sec{padding:120px 0;}
+.sec-surface{background:var(--surface);}
+.sec-head{
+  display:flex;align-items:flex-end;
+  justify-content:space-between;margin-bottom:64px;
+}
+.sec-label-row{display:flex;align-items:baseline;gap:16px;}
+.sec-num{color:var(--muted);font-size:11px;}
+.sec-title{
+  font-family:var(--font-display);
+  font-size:clamp(28px,4vw,48px);
+  font-weight:300;color:var(--text);
+  letter-spacing:-0.02em;
+}
+.sec-more{
+  font-family:var(--font-mono);font-size:11px;letter-spacing:0.12em;
+  color:var(--accent);transition:opacity 0.2s;
+}
+.sec-more:hover{opacity:0.7;}
+
+/* ── CARDS ── */
+.cards-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:20px;
+}
+@media(min-width:768px){.cards-grid{grid-template-columns:1fr 1fr;}}
+
+/* ── CAPS ── */
+.caps-list{display:flex;flex-direction:column;border-top:1px solid var(--border);}
+.cap-row{
+  display:grid;
+  grid-template-columns:40px 1fr 1fr 20px;
+  gap:32px;
+  align-items:center;
+  padding:36px 0;
+  border-bottom:1px solid var(--border);
+  transition:background 0.2s;cursor:default;
+}
+.cap-row:hover{background:rgba(212,255,0,0.02);}
+.cap-n{color:var(--muted);}
+.cap-t{font-family:var(--font-display);font-size:clamp(18px,2vw,24px);font-weight:300;color:var(--text);}
+.cap-d{font-size:13px;color:var(--text2);line-height:1.65;}
+.cap-arrow{font-size:18px;color:var(--muted);justify-self:end;}
+.cap-row:hover .cap-arrow{color:var(--accent);}
+
+/* ── UNIQUE ── */
+.unique-grid{
+  display:grid;grid-template-columns:1fr;gap:1px;
+  background:var(--border);border:1px solid var(--border);
+  border-radius:var(--radius-md);overflow:hidden;
+}
+@media(min-width:768px){.unique-grid{grid-template-columns:1fr 1fr;}}
+@media(min-width:1200px){.unique-grid{grid-template-columns:repeat(3,1fr);}}
+.u-card{background:var(--bg);padding:36px;transition:background 0.2s;}
+.u-card:hover{background:var(--surface2);}
+.u-tag{font-family:var(--font-mono);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:16px;opacity:0.9;}
+.u-title{font-family:var(--font-display);font-size:19px;font-weight:300;color:var(--text);margin-bottom:12px;line-height:1.3;}
+.u-body{font-size:13px;color:var(--text2);line-height:1.7;}
+
+/* ── SITES ── */
+.sites-list{display:flex;flex-direction:column;border-top:1px solid var(--border);}
+.site-row{
+  display:grid;
+  grid-template-columns:160px 1fr 1fr 20px;
+  gap:24px;align-items:center;
+  padding:24px 0;border-bottom:1px solid var(--border);
+  transition:background 0.2s,padding-left 0.3s var(--ease);
+}
+.site-row:hover{background:rgba(212,255,0,0.02);padding-left:12px;}
+.site-cat{color:var(--muted);}
+.site-name{font-family:var(--font-display);font-size:clamp(18px,2vw,22px);font-weight:300;color:var(--text);transition:color 0.2s;}
+.site-row:hover .site-name{color:var(--accent);}
+.site-desc{font-size:13px;color:var(--text2);}
+.site-arr{font-size:16px;color:var(--muted);transition:color 0.2s,transform 0.2s;justify-self:end;}
+.site-row:hover .site-arr{color:var(--accent);transform:translate(2px,-2px);}
+
+/* ── CTA ── */
+.cta-sec{
+  background:var(--accent);
+  padding:100px 0;
+  position:relative;overflow:hidden;
+}
+.cta-sec::before{
+  content:'MS';
+  position:absolute;right:-40px;top:50%;transform:translateY(-50%);
+  font-family:var(--font-display);font-size:280px;font-weight:700;
+  color:rgba(4,4,4,0.08);line-height:1;pointer-events:none;
+}
+.cta-inner{
+  display:flex;align-items:center;
+  justify-content:space-between;gap:48px;flex-wrap:wrap;
+}
+.cta-pre{color:rgba(4,4,4,0.45);font-size:11px;letter-spacing:0.18em;margin-bottom:12px;}
+.cta-h{
+  font-family:var(--font-display);
+  font-size:clamp(36px,5vw,72px);
+  font-weight:300;color:#040404;
+  letter-spacing:-0.025em;line-height:1.1;
+}
+.cta-h em{font-style:normal;font-weight:700;}
+.cta-right{display:flex;flex-direction:column;gap:16px;align-items:flex-start;}
+.cta-sec .btn-acc{background:#040404;color:var(--accent);}
+.cta-mail{
+  font-family:var(--font-mono);font-size:12px;letter-spacing:0.08em;
+  color:rgba(4,4,4,0.5);transition:color 0.2s;
+}
+.cta-mail:hover{color:#040404;}
 </style>
+
+<script>
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);} });
+}, {threshold:0.06});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>

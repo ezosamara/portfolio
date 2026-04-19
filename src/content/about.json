@@ -1,11 +1,67 @@
 {
   "bio_en": "Project manager and digital marketing expert with 5+ years of experience. MA in Political Communication (Tel Aviv University), BA in Communications (Kinneret College). Founder of EZO Studio — bridging Arab and Jewish markets through digital strategy, brand design, and technology.",
   "bio_he": "מנהל פרויקטים ומומחה שיווק דיגיטלי עם ניסיון של 5+ שנים. תואר שני תקשורת פוליטית (אוניברסיטת תל אביב), תואר ראשון בתקשורת (מכללת כנרת). מייסד EZO Studio — גישור בין שוקי ערבי ויהודי דרך אסטרטגיה דיגיטלית, מיתוג וטכנולוגיה.",
+  "unique_en": [
+    {"tag": "Trilingual", "title": "Arabic · Hebrew · English", "body": "Native Arabic, fluent Hebrew, professional English. Built to operate across every Israeli market without translation loss."},
+    {"tag": "Political", "title": "9 Years in National Politics", "body": "Managed media for Knesset candidates across 5 national elections with Meretz. Real pressure, real stakes, real results."},
+    {"tag": "Scale", "title": "Municipal Digitization at Scale", "body": "Led full digital transformation of Tira Municipality — 6 departments, 475+ staff trained, 800+ suppliers onboarded to live systems."},
+    {"tag": "Dual Skill", "title": "Designer + Strategist", "body": "Full brand identity systems AND digital strategy under one roof. No handoffs, no agency gaps. End-to-end ownership."},
+    {"tag": "AI-Native", "title": "AI-Powered Workflows", "body": "Integrates AI tools into real operations — not as experiments, but as deployed systems that save time and scale output."},
+    {"tag": "Cross-Market", "title": "Arab–Jewish Market Bridge", "body": "Uniquely positioned to reach both communities with cultural fluency — not just translation, but authentic market understanding."}
+  ],
+  "unique_he": [
+    {"tag": "תלת-לשוני", "title": "ערבית · עברית · אנגלית", "body": "ערבית שפת אם, עברית שוטפת, אנגלית מקצועית. פועל בכל שוקי ישראל ללא אובדן בתרגום."},
+    {"tag": "פוליטי", "title": "9 שנים בפוליטיקה הלאומית", "body": "ניהול מדיה למועמדים לכנסת ב-5 בחירות לאומיות עם מרץ. לחץ אמיתי, סיכונים אמיתיים, תוצאות אמיתיות."},
+    {"tag": "קנה מידה", "title": "דיגיטציה עירונית בקנה מידה", "body": "הוביל טרנספורמציה דיגיטלית מלאה של עיריית טירה — 6 מחלקות, 475+ עובדים הוכשרו, 800+ ספקים נקלטו למערכות."},
+    {"tag": "כפול", "title": "מעצב + אסטרטג", "body": "מערכות מיתוג מלאות ואסטרטגיה דיגיטלית תחת קורת גג אחת. ללא העברות, ללא פערי סוכנות. בעלות מקצה לקצה."},
+    {"tag": "AI-Native", "title": "זרימות עבודה מבוססות AI", "body": "משלב כלי AI בפעולות אמיתיות — לא כניסויים, אלא כמערכות מוטמעות שחוסכות זמן ומגדילות תפוקה."},
+    {"tag": "גשר", "title": "גשר בין שוקי ערבי-יהודי", "body": "ממוקם ייחודית להגיע לשתי הקהילות עם שטף תרבותי — לא רק תרגום, אלא הבנת שוק אותנטית."}
+  ],
+  "websites": [
+    {"name": "MN Towers", "url": "https://mntowers.com", "category_en": "Real Estate", "category_he": "נדל\"ן", "desc_en": "Premium residential tower development", "desc_he": "פיתוח מגדל מגורים פרמיום"},
+    {"name": "Raghda Beauty", "url": "https://raghdabeauty.com", "category_en": "Beauty", "category_he": "יופי", "desc_en": "Luxury beauty salon brand and booking", "desc_he": "מותג סלון יופי יוקרתי והזמנות"},
+    {"name": "VentureXP", "url": "https://venturexp.com", "category_en": "Tech / VC", "category_he": "טק / הון סיכון", "desc_en": "Venture capital firm web presence", "desc_he": "נוכחות רשת לחברת הון סיכון"},
+    {"name": "RMF Precious Metals", "url": "https://rmfpreciousmetals.com", "category_en": "Finance", "category_he": "פיננסים", "desc_en": "Precious metals trading platform", "desc_he": "פלטפורמת מסחר במתכות יקרות"},
+    {"name": "Spotless", "url": "https://spotlesscleaning.com", "category_en": "Services", "category_he": "שירותים", "desc_en": "Commercial cleaning company brand", "desc_he": "מותג חברת ניקיון מסחרי"},
+    {"name": "Maplewood Moving", "url": "https://maplewoodmoving.com", "category_en": "Logistics", "category_he": "לוגיסטיקה", "desc_en": "Premium moving & relocation service", "desc_he": "שירות הובלה ומעבר דירה פרמיום"}
+  ],
   "experience": [
-    {"years": "2020–present", "role_en": "Founder", "role_he": "מייסד", "org_en": "EZO Studio, Tira", "org_he": "EZO Studio, טירה"},
-    {"years": "2022–2024", "role_en": "Digitization Manager", "role_he": "מנהל דיגיטציה", "org_en": "Tira Municipality", "org_he": "עיריית טירה"},
-    {"years": "2014–2023", "role_en": "PR Expert", "role_he": "מומחה יחסי ציבור", "org_en": "Meretz Party, Tel Aviv", "org_he": "מפלגת מרץ, תל אביב"},
-    {"years": "2018–2019", "role_en": "Research Assistant", "role_he": "עוזר מחקר", "org_en": "Ma'oz, Lod", "org_he": "מעוז, לוד"}
+    {
+      "years": "2020–present",
+      "role_en": "Founder",
+      "role_he": "מייסד",
+      "org_en": "EZO Studio, Tira",
+      "org_he": "EZO Studio, טירה",
+      "bullets_en": ["Full brand identity systems for clients across Israel", "Webflow development and digital strategy", "AI workflow integration for business clients"],
+      "bullets_he": ["מערכות זהות מותגית מלאות ללקוחות ברחבי ישראל", "פיתוח Webflow ואסטרטגיה דיגיטלית", "שילוב זרימות עבודה של AI ללקוחות עסקיים"]
+    },
+    {
+      "years": "2022–2024",
+      "role_en": "Digitization Manager",
+      "role_he": "מנהל דיגיטציה",
+      "org_en": "Tira Municipality",
+      "org_he": "עיריית טירה",
+      "bullets_en": ["Led full municipal digitization across 6 departments", "Trained 475+ staff on new digital systems", "Onboarded 800+ suppliers to live procurement platforms"],
+      "bullets_he": ["הוביל דיגיטציה עירונית מלאה ב-6 מחלקות", "הכשיר 475+ עובדים על מערכות דיגיטליות חדשות", "קלט 800+ ספקים לפלטפורמות רכש פעילות"]
+    },
+    {
+      "years": "2014–2023",
+      "role_en": "PR Expert",
+      "role_he": "מומחה יחסי ציבור",
+      "org_en": "Meretz Party, Tel Aviv",
+      "org_he": "מפלגת מרץ, תל אביב",
+      "bullets_en": ["Managed media strategy across 5 national elections", "Knesset candidate communications and public appearances", "Arab–Jewish community outreach and coalition building"],
+      "bullets_he": ["ניהל אסטרטגיית מדיה ב-5 בחירות לאומיות", "תקשורת ומראות ציבוריות של מועמדים לכנסת", "הסברה לקהילה ערבית-יהודית ובניית קואליציות"]
+    },
+    {
+      "years": "2018–2019",
+      "role_en": "Research Assistant",
+      "role_he": "עוזר מחקר",
+      "org_en": "Ma'oz, Lod",
+      "org_he": "מעוז, לוד",
+      "bullets_en": ["Political and social research support", "Data analysis and report writing", "Field research across Arab communities in Israel"],
+      "bullets_he": ["תמיכת מחקר פוליטי וחברתי", "ניתוח נתונים וכתיבת דוחות", "מחקר שטח בקהילות ערביות בישראל"]
+    }
   ],
   "education": [
     {"year": "2025–2026", "degree_en": "Webflow Certification", "degree_he": "תעודת Webflow", "institution": "Webflow University"},

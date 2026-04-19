@@ -1,18 +1,118 @@
 ---
-const { title, category, year, slug, lang = 'en' } = Astro.props;
+const { title, category, year, slug, lang = 'en', description = '', image = '', index = 0 } = Astro.props;
 const base = lang === 'he' ? '/he' : '';
+const num = String(index + 1).padStart(2, '0');
+
+const palettes = {
+  'Digital Transformation': { bg: 'linear-gradient(145deg,#040f08 0%,#071a0d 50%,#0a2e18 100%)', dot: '#00ff88' },
+  'Brand Identity':         { bg: 'linear-gradient(145deg,#08040f 0%,#110a1e 50%,#1e0d38 100%)', dot: '#9b6fff' },
+  'PR & Strategy':          { bg: 'linear-gradient(145deg,#0f0600 0%,#1e0c00 50%,#341500 100%)', dot: '#ff8800' },
+  'Research & Strategy':    { bg: 'linear-gradient(145deg,#040810 0%,#07101e 50%,#0d1e38 100%)', dot: '#00ccff' },
+};
+const palette = palettes[category] || { bg: 'linear-gradient(145deg,#080808,#141414)', dot: '#d4ff00' };
 ---
-<a href={`${base}/work/${slug}`} class="work-card">
-  <div class="card-meta"><span class="cat">{category}</span><span class="yr">{year}</span></div>
-  <h3 class="card-title">{title}</h3>
-  <span class="arrow">→</span>
+<a href={`${base}/work/${slug}`} class="wcard">
+  <div class="wcard-visual" style={`background:${image ? `url('${image}') center/cover no-repeat` : palette.bg}`}>
+    <span class="wcard-num">{num}</span>
+    <div class="wcard-orb" style={`background:${palette.dot};box-shadow:0 0 60px 20px ${palette.dot}33`}></div>
+    <div class="wcard-scan"></div>
+  </div>
+  <div class="wcard-body">
+    <span class="wcard-cat">{category}</span>
+    <h3 class="wcard-title">{title}</h3>
+    {description && <p class="wcard-desc">{description.substring(0, 100)}...</p>}
+    <div class="wcard-foot">
+      <span class="wcard-year">{year}</span>
+      <span class="wcard-arrow">View →</span>
+    </div>
+  </div>
 </a>
+
 <style>
-.work-card{display:block;background:var(--surface);border:1px solid var(--border);padding:32px;border-radius:var(--radius-md);transition:border-color 0.2s,transform 0.2s;position:relative;}
-.work-card:hover{border-color:var(--accent);transform:translateY(-2px);}
-.card-meta{display:flex;justify-content:space-between;margin-bottom:16px;}
-.cat,.yr{font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;}
-.card-title{font-family:var(--font-display);font-size:22px;font-weight:400;color:var(--text);line-height:1.2;margin-bottom:24px;}
-.arrow{font-size:18px;color:var(--muted2);transition:color 0.2s;}
-.work-card:hover .arrow{color:var(--accent);}
+.wcard{
+  display:flex;flex-direction:column;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius-md);
+  overflow:hidden;
+  transition:border-color 0.4s var(--ease), transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  cursor:pointer;position:relative;
+}
+.wcard:hover{
+  border-color:var(--accent);
+  transform:translateY(-6px);
+  box-shadow:0 0 0 1px var(--accent), 0 24px 80px -16px rgba(212,255,0,0.15), 0 0 60px -20px rgba(212,255,0,0.08);
+}
+
+/* Visual */
+.wcard-visual{
+  height:280px;position:relative;overflow:hidden;
+}
+.wcard-num{
+  position:absolute;top:20px;left:24px;
+  font-family:var(--font-mono);font-size:11px;
+  letter-spacing:0.15em;color:rgba(255,255,255,0.2);
+  z-index:2;
+}
+.wcard-orb{
+  position:absolute;bottom:-30px;right:-20px;
+  width:120px;height:120px;border-radius:50%;
+  opacity:0.4;
+  transition:opacity 0.4s, transform 0.4s var(--ease);
+  filter:blur(20px);
+}
+.wcard:hover .wcard-orb{opacity:0.7;transform:scale(1.3);}
+
+/* Scan line */
+.wcard-scan{
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom, transparent 40%, rgba(255,255,255,0.03) 50%, transparent 60%);
+  transform:translateY(-100%);
+  transition:transform 0.6s var(--ease);
+}
+.wcard:hover .wcard-scan{transform:translateY(100%);}
+
+/* Body */
+.wcard-body{
+  padding:24px 28px 28px;
+  display:flex;flex-direction:column;flex:1;
+  border-top:1px solid var(--border);
+  transition:border-color 0.4s;
+}
+.wcard:hover .wcard-body{border-color:rgba(212,255,0,0.15);}
+
+.wcard-cat{
+  font-family:var(--font-mono);font-size:10px;
+  letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:10px;display:block;
+  opacity:0.8;
+}
+.wcard-title{
+  font-family:var(--font-display);
+  font-size:clamp(20px,2.2vw,26px);
+  font-weight:400;color:var(--text);
+  line-height:1.2;margin-bottom:12px;
+  transition:color 0.3s;
+}
+.wcard:hover .wcard-title{color:var(--accent);}
+.wcard-desc{
+  font-size:13px;color:var(--text2);
+  line-height:1.65;margin-bottom:20px;flex:1;
+}
+.wcard-foot{
+  display:flex;align-items:center;
+  justify-content:space-between;
+  border-top:1px solid var(--border);
+  padding-top:16px;
+}
+.wcard-year{
+  font-family:var(--font-mono);font-size:11px;
+  letter-spacing:0.1em;color:var(--muted);
+}
+.wcard-arrow{
+  font-family:var(--font-mono);font-size:11px;
+  letter-spacing:0.1em;color:var(--text2);
+  transition:color 0.3s, transform 0.3s var(--ease);
+}
+.wcard:hover .wcard-arrow{color:var(--accent);transform:translateX(4px);}
 </style>

@@ -3,29 +3,63 @@ const { lang = 'en' } = Astro.props;
 const isHe = lang === 'he';
 const base = isHe ? '/he' : '';
 ---
-<nav class="nav">
-  <div class="wrap nav-inner">
+<header class="nav">
+  <div class="nav-inner">
     <a href={base + '/'} class="nav-logo">
-      <span class="logo-mark">MS</span>
-      <span class="logo-sub">EZO Studio</span>
+      <span class="logo-bracket">[</span>EZO<span class="logo-bracket">]</span>
     </a>
-    <ul class="nav-links">
-      <li><a href={base + '/work'}>{isHe ? 'עבודות' : 'Work'}</a></li>
-      <li><a href={base + '/about'}>{isHe ? 'אודות' : 'About'}</a></li>
-      <li><a href={base + '/contact'}>{isHe ? 'צור קשר' : 'Contact'}</a></li>
-    </ul>
-    <a href={isHe ? '/' : '/he'} class="lang-toggle">{isHe ? 'EN' : 'עב'}</a>
+    <nav class="nav-links">
+      <a href={base + '/work'} class="nav-link">{isHe ? 'עבודות' : 'Work'}</a>
+      <a href={base + '/about'} class="nav-link">{isHe ? 'אודות' : 'About'}</a>
+      <a href={base + '/contact'} class="nav-link">{isHe ? 'צור קשר' : 'Contact'}</a>
+    </nav>
+    <a href={isHe ? '/' : '/he'} class="nav-lang">{isHe ? 'EN' : 'עב'}</a>
   </div>
-</nav>
+</header>
+
 <style>
-.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;height:56px;}
-.nav-logo{display:flex;align-items:center;gap:8px;font-family:var(--font-mono);}
-.logo-mark{color:var(--accent);font-size:13px;font-weight:500;letter-spacing:0.05em;}
-.logo-sub{color:var(--muted2);font-size:11px;letter-spacing:0.08em;}
-.nav-links{display:flex;list-style:none;gap:32px;}
-.nav-links a{font-family:var(--font-mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);transition:color 0.2s;}
-.nav-links a:hover{color:var(--text);}
-.lang-toggle{font-family:var(--font-mono);font-size:11px;letter-spacing:0.1em;color:var(--muted);border:1px solid var(--border);padding:4px 10px;border-radius:var(--radius);transition:all 0.2s;}
-.lang-toggle:hover{color:var(--accent);border-color:var(--accent);}
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  padding:0;
+  border-bottom:1px solid var(--border);
+  background:rgba(4,4,4,0.88);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+}
+.nav-inner{
+  max-width:var(--max-w);margin:0 auto;
+  padding:0 32px;
+  display:flex;align-items:center;
+  justify-content:space-between;height:56px;
+}
+@media(min-width:1024px){.nav-inner{padding:0 80px;}}
+.nav-logo{
+  font-family:var(--font-mono);font-size:13px;
+  letter-spacing:0.2em;color:var(--text);
+  font-weight:500;transition:color 0.2s;
+}
+.logo-bracket{color:var(--accent);}
+.nav-logo:hover{color:var(--accent);}
+.nav-links{display:flex;gap:36px;}
+.nav-link{
+  font-family:var(--font-mono);font-size:11px;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--text2);transition:color 0.2s;
+  position:relative;
+}
+.nav-link::after{
+  content:'';position:absolute;left:0;bottom:-2px;
+  width:0;height:1px;background:var(--accent);
+  transition:width 0.3s var(--ease);
+}
+.nav-link:hover{color:var(--accent);}
+.nav-link:hover::after{width:100%;}
+.nav-lang{
+  font-family:var(--font-mono);font-size:11px;
+  letter-spacing:0.12em;color:var(--muted);
+  border:1px solid var(--border2);
+  padding:5px 12px;border-radius:var(--radius);
+  transition:all 0.2s;
+}
+.nav-lang:hover{color:var(--accent);border-color:var(--accent);box-shadow:0 0 12px var(--accent-glow);}
 </style>
