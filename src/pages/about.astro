@@ -19,6 +19,13 @@ try { const d = await import('../content/about.json'); about = d.default || {}; 
           <div>
             <p style="font-family:var(--font-display);font-size:20px;font-weight:400;color:var(--text);margin-bottom:4px;">{e.role_en}</p>
             <p style="color:var(--muted);font-size:14px;">{e.org_en}</p>
+            <ul style="margin-top:8px;display:flex;flex-direction:column;gap:4px;padding-right:0;">
+              {(e.bullets_en || []).map(b => (
+                <li style="font-size:13px;color:var(--muted);list-style:none;padding-left:16px;position:relative;">
+                  <span style="position:absolute;left:0;color:var(--accent);">·</span>{b}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       ))}

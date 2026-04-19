@@ -1,11 +1,67 @@
 {
   "bio_en": "Project manager and digital marketing expert with 5+ years of experience. MA in Political Communication (Tel Aviv University), BA in Communications (Kinneret College). Founder of EZO Studio — bridging Arab and Jewish markets through digital strategy, brand design, and technology.",
   "bio_he": "מנהל פרויקטים ומומחה שיווק דיגיטלי עם ניסיון של 5+ שנים. תואר שני תקשורת פוליטית (אוניברסיטת תל אביב), תואר ראשון בתקשורת (מכללת כנרת). מייסד EZO Studio — גישור בין שוקי ערבי ויהודי דרך אסטרטגיה דיגיטלית, מיתוג וטכנולוגיה.",
+  "unique_en": [
+    {"tag": "Digital Marketing", "title": "Campaign management at scale", "body": "5+ years running digital campaigns — content strategy, paid media, analytics, and growth. From political campaigns reaching hundreds of thousands to SMB brand launches."},
+    {"tag": "PR & Media", "title": "Public relations across cultures", "body": "PR expert for Meretz Party for 9 years. Managed Knesset candidate media appearances, produced events, and created buzz across Arab and Jewish media simultaneously."},
+    {"tag": "Digital Transformation", "title": "Municipal-scale digitization", "body": "Led full digital transformation of Tira Municipality — 6 departments, 475+ staff trained, 800+ suppliers onboarded. Real deployment, not consulting."},
+    {"tag": "Brand & Web", "title": "Identity systems and Webflow builds", "body": "Full brand identity systems — logo, guide, social, print — paired with Webflow development. From brief to live site without handing off to another agency."},
+    {"tag": "AI & Automation", "title": "AI-powered workflows", "body": "Building and deploying AI-powered automation systems for businesses and organizations. Data processing, CRM integration, workflow digitization."},
+    {"tag": "Research", "title": "Government-level research", "body": "Research for Interior, Transport, and Health Ministries. Surveys, depth interviews, benchmarking, and policy documentation at institutional scale."}
+  ],
+  "unique_he": [
+    {"tag": "שיווק דיגיטלי", "title": "ניהול קמפיינים בקנה מידה", "body": "5+ שנות ניהול קמפיינים דיגיטליים — אסטרטגיית תוכן, מדיה ממומנת, אנליטיקה וצמיחה. מקמפיינים פוליטיים ועד השקות מותגים עסקיים."},
+    {"tag": "יחסי ציבור ומדיה", "title": "יחסי ציבור חוצי תרבויות", "body": "מומחה יחסי ציבור במפלגת מרץ במשך 9 שנים. ניהול הופעות תקשורת מועמדים לכנסת, הפקת אירועים ויצירת באז בתקשורת ערבית ויהודית בו-זמנית."},
+    {"tag": "טרנספורמציה דיגיטלית", "title": "דיגיטציה בקנה מידה עירוני", "body": "הובלת טרנספורמציה דיגיטלית מלאה של עיריית טירה — 6 מחלקות, 475+ עובדים הוכשרו, 800+ ספקים הוטמעו. פריסה אמיתית, לא ייעוץ."},
+    {"tag": "מיתוג ואתרים", "title": "מערכות זהות ובניית Webflow", "body": "מערכות זהות מותגית מלאות — לוגו, מדריך, סושיאל, דפוס — בשילוב פיתוח Webflow. מהבריף ועד האתר החי ללא העברה לסוכנות אחרת."},
+    {"tag": "AI ואוטומציה", "title": "תהליכי עבודה מבוססי AI", "body": "בניה ופריסה של מערכות אוטומציה מבוססות AI לעסקים וארגונים. עיבוד נתונים, אינטגרציית CRM, דיגיטציה של תהליכים."},
+    {"tag": "מחקר", "title": "מחקר ברמה ממשלתית", "body": "מחקר עבור משרדי הפנים, התחבורה והבריאות. סקרים, ראיונות עומק, Benchmark ותיעוד מדיניות בקנה מידה מוסדי."}
+  ],
+  "websites": [
+    {"name": "MN Towers", "url": "https://mn-towers.webflow.io", "category_en": "Real Estate", "category_he": "נדל\"ן", "desc_en": "Luxury residential developer rebrand. Full identity system, web, and social.", "desc_he": "מיתוג מחדש של יזם נדל\"ן יוקרה. מערכת זהות מלאה, אתר וסושיאל."},
+    {"name": "Raghda Beauty", "url": "https://raghdabeauty.com", "category_en": "Beauty & E-commerce", "category_he": "יופי ואי-קומרס", "desc_en": "Beauty brand identity and Webflow storefront from logo through launch.", "desc_he": "זהות מותגית ואתר Webflow לאי-קומרס יופי מהלוגו ועד ההשקה."},
+    {"name": "VentureXP", "url": "https://venturexp.webflow.io", "category_en": "Business Consulting", "category_he": "ייעוץ עסקי", "desc_en": "Corporate consulting firm website with CMS blog and lead capture.", "desc_he": "אתר חברת ייעוץ עסקי עם בלוג CMS ולכידת לידים."},
+    {"name": "RMF Precious Metals", "url": "https://rmf-pgm.webflow.io", "category_en": "B2B Industrial", "category_he": "תעשייה B2B", "desc_en": "B2B corporate site for catalytic converter recycling and precious metals trading.", "desc_he": "אתר קורפורייט B2B למחזור ממירים קטליטיים ומסחר במתכות יקרות."},
+    {"name": "Spotless", "url": "https://spotless-cleaning.webflow.io", "category_en": "Services", "category_he": "שירותים", "desc_en": "Cleaning services brand with booking system and service area coverage.", "desc_he": "מותג שירותי ניקיון עם מערכת הזמנות וכיסוי אזורי שירות."},
+    {"name": "Maplewood Moving", "url": "https://maplewood-moving.webflow.io", "category_en": "Moving & Logistics", "category_he": "הובלה ולוגיסטיקה", "desc_en": "Moving company website with instant quote calculator and service zones.", "desc_he": "אתר חברת הובלה עם מחשבון הצעות מחיר מיידי ואזורי שירות."}
+  ],
   "experience": [
-    {"years": "2020–present", "role_en": "Founder", "role_he": "מייסד", "org_en": "EZO Studio, Tira", "org_he": "EZO Studio, טירה"},
-    {"years": "2022–2024", "role_en": "Digitization Manager", "role_he": "מנהל דיגיטציה", "org_en": "Tira Municipality", "org_he": "עיריית טירה"},
-    {"years": "2014–2023", "role_en": "PR Expert", "role_he": "מומחה יחסי ציבור", "org_en": "Meretz Party, Tel Aviv", "org_he": "מפלגת מרץ, תל אביב"},
-    {"years": "2018–2019", "role_en": "Research Assistant", "role_he": "עוזר מחקר", "org_en": "Ma'oz, Lod", "org_he": "מעוז, לוד"}
+    {
+      "years": "2020–present",
+      "role_en": "Founder",
+      "role_he": "מייסד",
+      "org_en": "EZO Studio, Tira",
+      "org_he": "EZO Studio, טירה",
+      "bullets_en": ["Digital marketing campaigns, content strategy, analytics", "PR, media appearances, influencer and political figure management", "Brand identity systems — logo, guide, social, print", "Webflow development, automation, AI-powered workflows", "Digital transformation consulting and deployment"],
+      "bullets_he": ["קמפיינים דיגיטליים, אסטרטגיית תוכן, אנליטיקה", "יחסי ציבור, הופעות תקשורת, ליווי פוליטיקאים ואנשי תקשורת", "מערכות זהות מותגית — לוגו, מדריך, סושיאל, דפוס", "פיתוח Webflow, אוטומציה, תהליכי עבודה מבוססי AI", "ייעוץ ופריסת טרנספורמציה דיגיטלית"]
+    },
+    {
+      "years": "2022–2024",
+      "role_en": "Digitization Manager",
+      "role_he": "מנהל דיגיטציה",
+      "org_en": "Tira Municipality",
+      "org_he": "עיריית טירה",
+      "bullets_en": ["Implemented technology processes across 6 departments", "Reduced manual intervention and errors in procurement, HR, planning, welfare", "Routed data between departments: HR, Planning, Welfare, Supplier Portal", "Led digital literacy program for at-risk youth"],
+      "bullets_he": ["הטמעת תהליכים טכנולוגיים ב-6 מחלקות", "הפחתת התערבות ידנית ושגיאות ברכש, כוח אדם, תכנון ורווחה", "ניתוב מידע בין מחלקות: כוח אדם, תכנון, רווחה, פורטל ספקים", "ניהול תוכנית אוריינות דיגיטלית לנוער בסיכון"]
+    },
+    {
+      "years": "2014–2023",
+      "role_en": "PR Expert",
+      "role_he": "מומחה יחסי ציבור",
+      "org_en": "Meretz Party, Tel Aviv",
+      "org_he": "מפלגת מרץ, תל אביב",
+      "bullets_en": ["Built political marketing strategy across 5 national elections", "Managed Knesset candidate media appearances and messaging", "Led Arab community outreach through content, events, and media buzz"],
+      "bullets_he": ["בניית אסטרטגיה שיווקית פוליטית ב-5 בחירות לאומיות", "ניהול הופעות תקשורת ומסרים של מועמדים לכנסת", "הנגשת המפלגה לחברה הערבית דרך תוכן, אירועים ובאז תקשורתי"]
+    },
+    {
+      "years": "2018–2019",
+      "role_en": "Research Assistant",
+      "role_he": "עוזר מחקר",
+      "org_en": "Ma'oz, Lod",
+      "org_he": "מעוז, לוד",
+      "bullets_en": ["Social issues research for Interior, Transport, Health Ministries", "Field surveys, depth interviews, measurement and evaluation", "Market research and benchmarking for decision making", "Policy document writing for procedures and work plans"],
+      "bullets_he": ["מחקר סוגיות חברתיות עבור משרדי פנים, תחבורה ובריאות", "סקרי שטח, ראיונות עומק, מדידה והערכה", "חקר שוק ובניית Benchmark לקבלת החלטות", "כתיבת מסמכי מדיניות לנהלים ותוכניות עבודה"]
+    }
   ],
   "education": [
     {"year": "2025–2026", "degree_en": "Webflow Certification", "degree_he": "תעודת Webflow", "institution": "Webflow University"},

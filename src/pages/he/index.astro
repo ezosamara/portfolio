@@ -5,6 +5,8 @@ import Footer from '../../components/Footer.astro';
 import WorkCard from '../../components/WorkCard.astro';
 let works = [];
 try { const d = await import('../../content/works.json'); works = d.default || []; } catch(e) {}
+let about = {};
+try { const d = await import('../../content/about.json'); about = d.default || {}; } catch(e) {}
 ---
 <Layout lang="he" title="מועתז סמארה — אסטרטגיה דיגיטלית · מיתוג · יחסי ציבור">
   <Nav lang="he" />
@@ -29,6 +31,35 @@ try { const d = await import('../../content/works.json'); works = d.default || [
       <p class="sec-label">עבודות נבחרות · 2019–2025</p>
       <div class="work-grid">
         {works.map(w => <WorkCard title={w.title_he} category={w.category} year={w.year} slug={w.slug} lang="he" />)}
+      </div>
+    </div>
+  </section>
+  <section class="unique-section">
+    <div class="wrap">
+      <p class="sec-label">למה מועתז</p>
+      <div class="unique-grid">
+        {(about.unique_he || []).map(u => (
+          <div class="u-card">
+            <span class="u-tag">{u.tag}</span>
+            <h3 class="u-title">{u.title}</h3>
+            <p class="u-body">{u.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="sites-section">
+    <div class="wrap">
+      <p class="sec-label">בניית אתרים Webflow</p>
+      <div class="sites-grid">
+        {(about.websites || []).map(s => (
+          <a href={s.url} target="_blank" class="site-card">
+            <span class="site-cat">{s.category_he}</span>
+            <h3 class="site-name">{s.name}</h3>
+            <p class="site-desc">{s.desc_he}</p>
+            <span class="site-arrow">↗</span>
+          </a>
+        ))}
       </div>
     </div>
   </section>
