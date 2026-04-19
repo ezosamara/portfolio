@@ -2,17 +2,27 @@
 const { title, category, year, slug, lang = 'en' } = Astro.props;
 const base = lang === 'he' ? '/he' : '';
 ---
-<a href={`${base}/work/${slug}`} class="work-card">
-  <div class="card-meta"><span class="cat">{category}</span><span class="yr">{year}</span></div>
-  <h3 class="card-title">{title}</h3>
-  <span class="arrow">→</span>
+<a href={`${base}/work/${slug}`} class="work-card-row">
+  <span class="wc-cat">{category}</span>
+  <h3 class="wc-title">{title}</h3>
+  <span class="wc-year">{year}</span>
+  <span class="wc-arrow">→</span>
 </a>
 <style>
-.work-card{display:block;background:var(--surface);border:1px solid var(--border);padding:32px;border-radius:var(--radius-md);transition:border-color 0.2s,transform 0.2s;position:relative;}
-.work-card:hover{border-color:var(--accent);transform:translateY(-2px);}
-.card-meta{display:flex;justify-content:space-between;margin-bottom:16px;}
-.cat,.yr{font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;}
-.card-title{font-family:var(--font-display);font-size:22px;font-weight:400;color:var(--text);line-height:1.2;margin-bottom:24px;}
-.arrow{font-size:18px;color:var(--muted2);transition:color 0.2s;}
-.work-card:hover .arrow{color:var(--accent);}
+.work-card-row {
+  display:grid;
+  grid-template-columns:160px 1fr auto auto;
+  gap:24px;
+  align-items:center;
+  padding:28px 0;
+  border-bottom:1px solid var(--border);
+  transition:padding-left 0.3s cubic-bezier(0.16,1,0.3,1);
+}
+.work-card-row:first-child{border-top:1px solid var(--border);}
+.work-card-row:hover{padding-left:20px;}
+.work-card-row:hover .wc-arrow,.work-card-row:hover .wc-title{color:var(--accent);}
+.wc-cat{font-family:var(--font-mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);}
+.wc-title{font-family:var(--font-display);font-size:clamp(20px,2.5vw,28px);font-weight:300;color:var(--text);transition:color 0.2s;}
+.wc-year{font-family:var(--font-mono);font-size:11px;color:var(--muted);}
+.wc-arrow{font-size:18px;color:var(--text2);transition:color 0.2s;margin-left:16px;}
 </style>

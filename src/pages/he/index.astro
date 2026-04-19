@@ -10,36 +10,88 @@ try { const d = await import('../../content/about.json'); about = d.default || {
 ---
 <Layout lang="he" title="מועתז סמארה — אסטרטגיה דיגיטלית · מיתוג · יחסי ציבור">
   <Nav lang="he" />
-  <div class="marquee-bar"><div class="marquee-track"><span>מועתז סמארה · מנהל פרויקטים · שיווק דיגיטלי · יחסי ציבור · EZO STUDIO · מיתוג · בניית אתרים · טרנספורמציה דיגיטלית · אסטרטגיה פוליטית · </span><span aria-hidden="true">מועתז סמארה · מנהל פרויקטים · שיווק דיגיטלי · יחסי ציבור · EZO STUDIO · מיתוג · בניית אתרים · טרנספורמציה דיגיטלית · אסטרטגיה פוליטית · </span></div></div>
+
+  <!-- HERO -->
   <section class="hero">
-    <div class="hero-grid"></div>
-    <div class="wrap hero-content">
-      <p class="eyebrow">מייסד · EZO STUDIO · ניסיון 5+ שנים</p>
-      <h1 class="hero-h1">
-        <span>אסטרטגיה דיגיטלית,</span><br />
-        <span>מיתוג,</span><br />
-        <span>והמערכות שמאחוריהם.</span>
+    <div class="wrap hero-wrap">
+      <div class="hero-eyebrow reveal">
+        <span class="mono-label">מועתז סמארה</span>
+        <span class="mono-sep">—</span>
+        <span class="mono-label">EZO Studio</span>
+        <span class="mono-sep">·</span>
+        <span class="mono-label accent">פתוח לפרויקטים</span>
+      </div>
+      <h1 class="hero-title">
+        <span class="line reveal reveal-delay-1">אסטרטגיה דיגיטלית,</span>
+        <span class="line line-indent reveal reveal-delay-2">מיתוג,</span>
+        <span class="line reveal reveal-delay-3">והמערכות</span>
+        <span class="line line-indent reveal reveal-delay-4">שמאחוריהם.</span>
       </h1>
-      <div class="ctas">
-        <a href="#work" class="btn-primary">לצפייה בעבודות</a>
-        <a href="/he/contact" class="btn-ghost">צור קשר</a>
+      <div class="hero-footer reveal">
+        <div class="hero-desc">
+          <p>מנהל פרויקטים · שיווק דיגיטלי · יחסי ציבור</p>
+          <p>ערבית · עברית · אנגלית</p>
+        </div>
+        <div class="hero-ctas">
+          <a href="#work" class="btn-primary">לצפייה בעבודות</a>
+          <a href="/he/contact" class="btn-ghost">צור קשר →</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-number">01</div>
+  </section>
+
+  <!-- WORK -->
+  <section class="section" id="work">
+    <div class="wrap">
+      <p class="sec-counter reveal">02 · עבודות נבחרות</p>
+      <div class="work-list">
+        {works.map((w, i) => (
+          <a href={`/he/work/${w.slug}`} class="work-row reveal" style={`transition-delay:${i * 0.08}s`}>
+            <span class="work-num mono-label">0{i+1}</span>
+            <div class="work-info">
+              <h2 class="work-title">{w.title_he}</h2>
+              <p class="work-meta">{w.description_he?.substring(0, 80)}...</p>
+            </div>
+            <div class="work-right">
+              <span class="work-cat">{w.category}</span>
+              <span class="work-year">{w.year}</span>
+              <span class="work-arrow">→</span>
+            </div>
+          </a>
+        ))}
       </div>
     </div>
   </section>
-  <section class="work-section" id="work">
+
+  <!-- CAPABILITIES -->
+  <section class="section section-alt">
     <div class="wrap">
-      <p class="sec-label">עבודות נבחרות · 2019–2025</p>
-      <div class="work-grid">
-        {works.map(w => <WorkCard title={w.title_he} category={w.category} year={w.year} slug={w.slug} lang="he" />)}
+      <p class="sec-counter reveal">03 · תחומי פעילות</p>
+      <div class="caps-list">
+        {[
+          {n:'01', t:'שיווק דיגיטלי וקמפיינים', d:'ניהול קמפיינים, יצירת תוכן, אנליטיקה ואסטרטגיה שיווקית'},
+          {n:'02', t:'מיתוג ובניית אתרים', d:'זהות מותגית, מערכות לוגו, בניית אתרי Webflow ואוטומציה'},
+          {n:'03', t:'טרנספורמציה דיגיטלית', d:'מערכות מושתתות AI, דיגיטציה של תהליכים, פריסה עירונית'},
+          {n:'04', t:'יחסי ציבור ואסטרטגיה פוליטית', d:'קמפיינים פוליטיים, ניהול מועמדים לכנסת, הופעות תקשורת'}
+        ].map((c, i) => (
+          <div class="cap-row reveal" style={`transition-delay:${i * 0.1}s`}>
+            <span class="cap-num mono-label">{c.n}</span>
+            <h3 class="cap-title">{c.t}</h3>
+            <p class="cap-desc">{c.d}</p>
+          </div>
+        ))}
       </div>
     </div>
   </section>
-  <section class="unique-section">
+
+  <!-- WHY MOATAZ -->
+  <section class="section">
     <div class="wrap">
-      <p class="sec-label">למה מועתז</p>
+      <p class="sec-counter reveal">04 · למה מועתז</p>
       <div class="unique-grid">
-        {(about.unique_he || []).map(u => (
-          <div class="u-card">
+        {(about.unique_he || []).map((u, i) => (
+          <div class="u-card reveal" style={`transition-delay:${i * 0.08}s`}>
             <span class="u-tag">{u.tag}</span>
             <h3 class="u-title">{u.title}</h3>
             <p class="u-body">{u.body}</p>
@@ -48,58 +100,218 @@ try { const d = await import('../../content/about.json'); about = d.default || {
       </div>
     </div>
   </section>
-  <section class="sites-section">
+
+  <!-- WEBFLOW SITES -->
+  <section class="section section-alt">
     <div class="wrap">
-      <p class="sec-label">בניית אתרים Webflow</p>
-      <div class="sites-grid">
-        {(about.websites || []).map(s => (
-          <a href={s.url} target="_blank" class="site-card">
-            <span class="site-cat">{s.category_he}</span>
-            <h3 class="site-name">{s.name}</h3>
-            <p class="site-desc">{s.desc_he}</p>
+      <p class="sec-counter reveal">05 · בניית אתרים Webflow</p>
+      <div class="sites-list">
+        {(about.websites || []).map((s, i) => (
+          <a href={s.url} target="_blank" class="site-row reveal" style={`transition-delay:${i * 0.08}s`}>
+            <span class="site-cat mono-label">{s.category_he}</span>
+            <span class="site-name">{s.name}</span>
+            <span class="site-desc">{s.desc_he}</span>
             <span class="site-arrow">↗</span>
           </a>
         ))}
       </div>
     </div>
   </section>
-  <section class="caps-section">
+
+  <!-- CTA -->
+  <section class="section cta-section">
     <div class="wrap">
-      <p class="sec-label">תחומי פעילות</p>
-      <div class="caps-grid">
-        <div class="cap-card"><h3 class="cap-title">שיווק דיגיטלי וקמפיינים</h3><p class="cap-desc">ניהול קמפיינים, יצירת תוכן, אנליטיקה ואסטרטגיה שיווקית</p></div>
-        <div class="cap-card"><h3 class="cap-title">מיתוג ובניית אתרים</h3><p class="cap-desc">זהות מותגית, מערכות לוגו, בניית אתרי Webflow ואוטומציה</p></div>
-        <div class="cap-card"><h3 class="cap-title">טרנספורמציה דיגיטלית</h3><p class="cap-desc">מערכות מושתתות AI, דיגיטציה של תהליכים, פריסה עירונית</p></div>
-        <div class="cap-card"><h3 class="cap-title">יחסי ציבור ואסטרטגיה פוליטית</h3><p class="cap-desc">קמפיינים פוליטיים, ניהול מועמדים לכנסת, הופעות תקשורת</p></div>
+      <h2 class="display-lg reveal">בואו נבנה<br/><em>משהו אמיתי.</em></h2>
+      <div class="cta-row reveal reveal-delay-2">
+        <a href="/he/contact" class="btn-primary btn-large">לפרויקט חדש</a>
+        <a href="mailto:ezoprmk@gmail.com" class="cta-email">ezoprmk@gmail.com</a>
       </div>
     </div>
   </section>
+
   <Footer lang="he" />
 </Layout>
+
 <style>
-.marquee-bar{background:var(--surface);border-bottom:1px solid var(--border);overflow:hidden;white-space:nowrap;padding:10px 0;}
-.marquee-track{display:inline-flex;animation:marquee 30s linear infinite;}
-.marquee-track span{font-family:var(--font-mono);font-size:11px;letter-spacing:0.15em;color:var(--muted2);padding-right:40px;}
-.hero{position:relative;min-height:92vh;display:flex;align-items:center;overflow:hidden;}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:64px 64px;opacity:0.3;pointer-events:none;}
-.hero-content{position:relative;z-index:1;padding:64px 0;}
-.eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:0.18em;color:var(--accent);margin-bottom:24px;text-transform:uppercase;}
-.hero-h1{font-family:var(--font-display);font-size:clamp(44px,7vw,88px);font-weight:300;line-height:0.95;letter-spacing:-0.02em;color:var(--text);margin-bottom:48px;}
-.ctas{display:flex;gap:12px;flex-wrap:wrap;}
-.btn-primary{background:var(--accent);color:#0a0a0a;font-family:var(--font-mono);font-size:12px;padding:12px 28px;border-radius:var(--radius);font-weight:500;transition:opacity 0.2s;}
+.hero {
+  min-height:100vh;
+  display:flex;
+  align-items:flex-end;
+  padding-bottom:80px;
+  position:relative;
+  padding-top:120px;
+}
+.hero-wrap{width:100%;}
+.hero-eyebrow {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:48px;
+  flex-wrap:wrap;
+}
+.mono-label {
+  font-family:var(--font-mono);
+  font-size:11px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--text2);
+}
+.mono-sep{color:var(--border2);font-family:var(--font-mono);}
+.accent{color:var(--accent)!important;}
+.hero-title {
+  display:flex;
+  flex-direction:column;
+  margin-bottom:80px;
+}
+.line {
+  font-family:var(--font-display);
+  font-size:clamp(52px,8.5vw,130px);
+  font-weight:300;
+  line-height:0.92;
+  letter-spacing:-0.03em;
+  color:var(--text);
+  display:block;
+}
+.line-indent{padding-right:clamp(40px,8vw,140px);}
+.hero-footer {
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:40px;
+  flex-wrap:wrap;
+  border-top:1px solid var(--border);
+  padding-top:32px;
+}
+.hero-desc p {
+  font-family:var(--font-mono);
+  font-size:11px;
+  letter-spacing:0.1em;
+  color:var(--text2);
+  text-transform:uppercase;
+  line-height:2;
+}
+.hero-ctas{display:flex;gap:16px;align-items:center;}
+.hero-number {
+  position:absolute;
+  bottom:80px;
+  left:80px;
+  font-family:var(--font-mono);
+  font-size:120px;
+  font-weight:300;
+  color:var(--border);
+  line-height:1;
+  pointer-events:none;
+  user-select:none;
+}
+.btn-primary {
+  background:var(--accent);
+  color:#0a0a0a;
+  font-family:var(--font-mono);
+  font-size:11px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  padding:14px 32px;
+  border-radius:var(--radius);
+  font-weight:500;
+  transition:opacity 0.2s;
+  white-space:nowrap;
+}
 .btn-primary:hover{opacity:0.85;}
-.btn-ghost{border:1px solid var(--border2);color:var(--muted);font-family:var(--font-mono);font-size:12px;padding:12px 28px;border-radius:var(--radius);transition:all 0.2s;}
-.btn-ghost:hover{border-color:var(--text);color:var(--text);}
-.work-section,.caps-section{padding:96px 0;}
-.caps-section{border-top:1px solid var(--border);}
-.sec-label{font-family:var(--font-mono);font-size:11px;letter-spacing:0.15em;color:var(--muted2);text-transform:uppercase;margin-bottom:32px;}
-.work-grid{display:grid;grid-template-columns:1fr;gap:16px;}
-@media(min-width:768px){.work-grid{grid-template-columns:1fr 1fr;}}
-.caps-grid{display:grid;grid-template-columns:1fr;gap:16px;}
-@media(min-width:640px){.caps-grid{grid-template-columns:1fr 1fr;}}
-@media(min-width:1024px){.caps-grid{grid-template-columns:repeat(4,1fr);}}
-.cap-card{border:1px solid var(--border);padding:24px;border-radius:var(--radius-md);transition:border-color 0.2s;}
-.cap-card:hover{border-color:var(--border2);}
-.cap-title{font-family:var(--font-display);font-size:16px;font-weight:400;color:var(--text);margin-bottom:8px;}
-.cap-desc{font-size:13px;color:var(--muted);line-height:1.5;}
+.btn-large{padding:18px 48px;font-size:13px;}
+.btn-ghost {
+  font-family:var(--font-mono);
+  font-size:11px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--text2);
+  transition:color 0.2s;
+}
+.btn-ghost:hover{color:var(--text);}
+.section{padding:120px 0;}
+.section-alt{background:var(--surface);}
+.cta-section{padding:160px 0;text-align:center;}
+.cta-section .display-lg{margin-bottom:64px;}
+.cta-section em{font-style:normal;color:var(--accent);}
+.cta-row{display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap;}
+.cta-email{font-family:var(--font-mono);font-size:13px;color:var(--text2);transition:color 0.2s;}
+.cta-email:hover{color:var(--accent);}
+.work-list{display:flex;flex-direction:column;}
+.work-row {
+  display:grid;
+  grid-template-columns:48px 1fr auto;
+  gap:32px;
+  align-items:center;
+  padding:32px 0;
+  border-bottom:1px solid var(--border);
+  transition:padding-right 0.3s var(--ease);
+  cursor:pointer;
+}
+.work-row:first-child{border-top:1px solid var(--border);}
+.work-row:hover{padding-right:16px;}
+.work-row:hover .work-arrow{color:var(--accent);}
+.work-row:hover .work-title{color:var(--accent);}
+.work-num{color:var(--muted);}
+.work-title {
+  font-family:var(--font-display);
+  font-size:clamp(22px,3vw,36px);
+  font-weight:300;
+  color:var(--text);
+  margin-bottom:6px;
+  transition:color 0.2s;
+}
+.work-meta{font-size:13px;color:var(--muted);line-height:1.5;}
+.work-right{display:flex;flex-direction:column;align-items:flex-start;gap:8px;}
+.work-cat,.work-year{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);}
+.work-arrow{font-size:20px;color:var(--text2);transition:color 0.2s;}
+.caps-list{display:flex;flex-direction:column;}
+.cap-row {
+  display:grid;
+  grid-template-columns:48px 1fr 1fr;
+  gap:32px;
+  padding:40px 0;
+  border-bottom:1px solid var(--border);
+  align-items:start;
+}
+.cap-row:first-child{border-top:1px solid var(--border);}
+.cap-num{color:var(--muted);padding-top:4px;}
+.cap-title{font-family:var(--font-display);font-size:clamp(20px,2.5vw,28px);font-weight:300;color:var(--text);}
+.cap-desc{font-size:14px;color:var(--text2);line-height:1.6;max-width:400px;}
+.unique-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--border);border:1px solid var(--border);}
+@media(min-width:768px){.unique-grid{grid-template-columns:1fr 1fr;}}
+@media(min-width:1024px){.unique-grid{grid-template-columns:repeat(3,1fr);}}
+.u-card{background:var(--bg);padding:40px;transition:background 0.2s;}
+.u-card:hover{background:var(--surface2);}
+.u-tag{font-family:var(--font-mono);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:20px;}
+.u-title{font-family:var(--font-display);font-size:20px;font-weight:300;color:var(--text);margin-bottom:16px;line-height:1.3;}
+.u-body{font-size:13px;color:var(--text2);line-height:1.7;}
+.sites-list{display:flex;flex-direction:column;}
+.site-row {
+  display:grid;
+  grid-template-columns:140px 1fr 1fr 24px;
+  gap:32px;
+  align-items:center;
+  padding:28px 0;
+  border-bottom:1px solid var(--border);
+  transition:padding-right 0.3s var(--ease);
+}
+.site-row:first-child{border-top:1px solid var(--border);}
+.site-row:hover{padding-right:16px;}
+.site-row:hover .site-arrow{color:var(--accent);}
+.site-cat{color:var(--muted);}
+.site-name{font-family:var(--font-display);font-size:clamp(18px,2vw,24px);font-weight:300;color:var(--text);transition:color 0.2s;}
+.site-row:hover .site-name{color:var(--accent);}
+.site-desc{font-size:13px;color:var(--text2);}
+.site-arrow{font-size:18px;color:var(--text2);transition:color 0.2s;}
 </style>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
