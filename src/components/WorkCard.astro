@@ -1,28 +1,126 @@
 ---
-const { title, category, year, slug, lang = 'en' } = Astro.props;
+const { title, category, year, slug, lang = 'en', description = '', image = '' } = Astro.props;
 const base = lang === 'he' ? '/he' : '';
+
+const gradients = {
+  'Digital Transformation': 'linear-gradient(135deg, #0a1f12 0%, #0f3520 50%, #1a5c38 100%)',
+  'Brand Identity':         'linear-gradient(135deg, #12091f 0%, #21103d 50%, #3a1d6e 100%)',
+  'PR & Strategy':          'linear-gradient(135deg, #1f0e08 0%, #3d1a0a 50%, #6b300f 100%)',
+  'Research & Strategy':    'linear-gradient(135deg, #08121f 0%, #0d2035 50%, #153352 100%)',
+};
+const gradient = gradients[category] || 'linear-gradient(135deg, #111 0%, #1e1e1e 100%)';
 ---
-<a href={`${base}/work/${slug}`} class="work-card-row">
-  <span class="wc-cat">{category}</span>
-  <h3 class="wc-title">{title}</h3>
-  <span class="wc-year">{year}</span>
-  <span class="wc-arrow">→</span>
+<a href={`${base}/work/${slug}`} class="work-card">
+  <div class="card-visual" style={image ? `background:url('${image}') center/cover no-repeat` : `background:${gradient}`}>
+    <span class="card-year">{year}</span>
+    <span class="card-cat-bg">{category}</span>
+  </div>
+  <div class="card-body">
+    <span class="card-cat">{category}</span>
+    <h3 class="card-title">{title}</h3>
+    {description && <p class="card-desc">{description.substring(0, 110)}...</p>}
+    <span class="card-cta">View project <span class="cta-arrow">→</span></span>
+  </div>
 </a>
+
 <style>
-.work-card-row {
-  display:grid;
-  grid-template-columns:160px 1fr auto auto;
-  gap:24px;
-  align-items:center;
-  padding:28px 0;
-  border-bottom:1px solid var(--border);
-  transition:padding-left 0.3s cubic-bezier(0.16,1,0.3,1);
+.work-card {
+  display:flex;
+  flex-direction:column;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius-md);
+  overflow:hidden;
+  transition:border-color 0.3s var(--ease), transform 0.3s var(--ease);
+  cursor:pointer;
 }
-.work-card-row:first-child{border-top:1px solid var(--border);}
-.work-card-row:hover{padding-left:20px;}
-.work-card-row:hover .wc-arrow,.work-card-row:hover .wc-title{color:var(--accent);}
-.wc-cat{font-family:var(--font-mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);}
-.wc-title{font-family:var(--font-display);font-size:clamp(20px,2.5vw,28px);font-weight:300;color:var(--text);transition:color 0.2s;}
-.wc-year{font-family:var(--font-mono);font-size:11px;color:var(--muted);}
-.wc-arrow{font-size:18px;color:var(--text2);transition:color 0.2s;margin-left:16px;}
+.work-card:hover {
+  border-color:var(--accent);
+  transform:translateY(-4px);
+}
+.card-visual {
+  height:260px;
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  align-items:flex-end;
+  padding:24px;
+}
+.card-year {
+  font-family:var(--font-mono);
+  font-size:11px;
+  letter-spacing:0.12em;
+  color:rgba(255,255,255,0.4);
+  position:relative;
+  z-index:1;
+}
+.card-cat-bg {
+  position:absolute;
+  bottom:-10px;
+  right:-10px;
+  font-family:var(--font-display);
+  font-size:80px;
+  font-weight:700;
+  color:rgba(255,255,255,0.04);
+  line-height:1;
+  pointer-events:none;
+  white-space:nowrap;
+}
+.work-card:hover .card-visual::after {
+  opacity:1;
+}
+.card-visual::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  background:rgba(212,255,0,0.04);
+  opacity:0;
+  transition:opacity 0.3s;
+}
+.card-body {
+  padding:28px 28px 32px;
+  display:flex;
+  flex-direction:column;
+  flex:1;
+}
+.card-cat {
+  font-family:var(--font-mono);
+  font-size:10px;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:12px;
+  display:block;
+}
+.card-title {
+  font-family:var(--font-display);
+  font-size:clamp(22px,2.5vw,30px);
+  font-weight:300;
+  color:var(--text);
+  line-height:1.15;
+  margin-bottom:16px;
+  transition:color 0.2s;
+}
+.work-card:hover .card-title { color:var(--accent); }
+.card-desc {
+  font-size:13px;
+  color:var(--text2);
+  line-height:1.65;
+  margin-bottom:24px;
+  flex:1;
+}
+.card-cta {
+  font-family:var(--font-mono);
+  font-size:11px;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--muted);
+  transition:color 0.2s;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.work-card:hover .card-cta { color:var(--accent); }
+.cta-arrow { transition:transform 0.2s; }
+.work-card:hover .cta-arrow { transform:translateX(4px); }
 </style>

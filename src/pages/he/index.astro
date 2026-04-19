@@ -13,70 +13,66 @@ try { const d = await import('../../content/about.json'); about = d.default || {
 
   <!-- HERO -->
   <section class="hero">
-    <div class="wrap hero-wrap">
-      <div class="hero-eyebrow reveal">
-        <span class="mono-label">מועתז סמארה</span>
-        <span class="mono-sep">—</span>
-        <span class="mono-label">EZO Studio</span>
-        <span class="mono-sep">·</span>
-        <span class="mono-label accent">פתוח לפרויקטים</span>
+    <div class="wrap">
+      <div class="hero-tag reveal">
+        <span class="dot"></span>
+        <span>פתוח לפרויקטים</span>
       </div>
-      <h1 class="hero-title">
-        <span class="line reveal reveal-delay-1">אסטרטגיה דיגיטלית,</span>
-        <span class="line line-indent reveal reveal-delay-2">מיתוג,</span>
-        <span class="line reveal reveal-delay-3">והמערכות</span>
-        <span class="line line-indent reveal reveal-delay-4">שמאחוריהם.</span>
-      </h1>
-      <div class="hero-footer reveal">
-        <div class="hero-desc">
-          <p>מנהל פרויקטים · שיווק דיגיטלי · יחסי ציבור</p>
-          <p>ערבית · עברית · אנגלית</p>
-        </div>
-        <div class="hero-ctas">
-          <a href="#work" class="btn-primary">לצפייה בעבודות</a>
-          <a href="/he/contact" class="btn-ghost">צור קשר →</a>
-        </div>
+      <h1 class="hero-name reveal reveal-delay-1">מועתז<br/>סמארה</h1>
+      <p class="hero-sub reveal reveal-delay-2">מנהל פרויקטים · שיווק דיגיטלי · מיתוג · יחסי ציבור</p>
+      <div class="hero-stats reveal reveal-delay-3">
+        <div class="stat"><span class="stat-n">5+</span><span class="stat-l">שנות ניסיון</span></div>
+        <div class="stat-div"></div>
+        <div class="stat"><span class="stat-n">475+</span><span class="stat-l">עובדים הוכשרו</span></div>
+        <div class="stat-div"></div>
+        <div class="stat"><span class="stat-n">9</span><span class="stat-l">שנות יחסי ציבור</span></div>
+        <div class="stat-div"></div>
+        <div class="stat"><span class="stat-n">6+</span><span class="stat-l">אתרי Webflow</span></div>
+      </div>
+      <div class="hero-ctas reveal reveal-delay-4">
+        <a href="#work" class="btn-primary">לצפייה בפרויקטים</a>
+        <a href="/he/contact" class="btn-ghost">צור קשר →</a>
       </div>
     </div>
-    <div class="hero-number">01</div>
   </section>
 
-  <!-- WORK -->
+  <!-- SELECTED WORK -->
   <section class="section" id="work">
     <div class="wrap">
-      <p class="sec-counter reveal">02 · עבודות נבחרות</p>
-      <div class="work-list">
-        {works.map((w, i) => (
-          <a href={`/he/work/${w.slug}`} class="work-row reveal" style={`transition-delay:${i * 0.08}s`}>
-            <span class="work-num mono-label">0{i+1}</span>
-            <div class="work-info">
-              <h2 class="work-title">{w.title_he}</h2>
-              <p class="work-meta">{w.description_he?.substring(0, 80)}...</p>
-            </div>
-            <div class="work-right">
-              <span class="work-cat">{w.category}</span>
-              <span class="work-year">{w.year}</span>
-              <span class="work-arrow">→</span>
-            </div>
-          </a>
+      <div class="sec-head reveal">
+        <p class="sec-label">עבודות נבחרות</p>
+        <a href="/he/work" class="sec-link">לכל הפרויקטים →</a>
+      </div>
+      <div class="work-grid">
+        {works.filter(w => w.featured).map((w, i) => (
+          <div class="reveal" style={`transition-delay:${i * 0.1}s`}>
+            <WorkCard
+              title={w.title_he}
+              category={w.category}
+              year={w.year}
+              slug={w.slug}
+              lang="he"
+              description={w.description_he}
+            />
+          </div>
         ))}
       </div>
     </div>
   </section>
 
   <!-- CAPABILITIES -->
-  <section class="section section-alt">
+  <section class="section section-dark">
     <div class="wrap">
-      <p class="sec-counter reveal">03 · תחומי פעילות</p>
-      <div class="caps-list">
+      <p class="sec-label reveal">תחומי פעילות</p>
+      <div class="caps-grid">
         {[
-          {n:'01', t:'שיווק דיגיטלי וקמפיינים', d:'ניהול קמפיינים, יצירת תוכן, אנליטיקה ואסטרטגיה שיווקית'},
-          {n:'02', t:'מיתוג ובניית אתרים', d:'זהות מותגית, מערכות לוגו, בניית אתרי Webflow ואוטומציה'},
-          {n:'03', t:'טרנספורמציה דיגיטלית', d:'מערכות מושתתות AI, דיגיטציה של תהליכים, פריסה עירונית'},
-          {n:'04', t:'יחסי ציבור ואסטרטגיה פוליטית', d:'קמפיינים פוליטיים, ניהול מועמדים לכנסת, הופעות תקשורת'}
+          {icon:'⚡', t:'שיווק דיגיטלי', d:'ניהול קמפיינים, אסטרטגיית תוכן, אנליטיקה, מדיה ממומנת וצמיחה מאפס.'},
+          {icon:'✦', t:'מיתוג ו-Webflow', d:'מערכות זהות מלאות — לוגו, מדריך, סושיאל, דפוס — ופיתוח Webflow.'},
+          {icon:'◈', t:'טרנספורמציה דיגיטלית', d:'תהליכי עבודה מבוססי AI, דיגיטציה עירונית, 6 מחלקות, 475+ עובדים.'},
+          {icon:'◎', t:'יחסי ציבור ופוליטיקה', d:'9 שנות ניהול קמפיינים פוליטיים, הופעות תקשורת והנגשה בין-קהילתית.'},
         ].map((c, i) => (
-          <div class="cap-row reveal" style={`transition-delay:${i * 0.1}s`}>
-            <span class="cap-num mono-label">{c.n}</span>
+          <div class="cap-card reveal" style={`transition-delay:${i * 0.1}s`}>
+            <span class="cap-icon">{c.icon}</span>
             <h3 class="cap-title">{c.t}</h3>
             <p class="cap-desc">{c.d}</p>
           </div>
@@ -88,7 +84,7 @@ try { const d = await import('../../content/about.json'); about = d.default || {
   <!-- WHY MOATAZ -->
   <section class="section">
     <div class="wrap">
-      <p class="sec-counter reveal">04 · למה מועתז</p>
+      <p class="sec-label reveal">למה מועתז</p>
       <div class="unique-grid">
         {(about.unique_he || []).map((u, i) => (
           <div class="u-card reveal" style={`transition-delay:${i * 0.08}s`}>
@@ -102,16 +98,18 @@ try { const d = await import('../../content/about.json'); about = d.default || {
   </section>
 
   <!-- WEBFLOW SITES -->
-  <section class="section section-alt">
+  <section class="section section-dark">
     <div class="wrap">
-      <p class="sec-counter reveal">05 · בניית אתרים Webflow</p>
-      <div class="sites-list">
+      <p class="sec-label reveal">בניית אתרים Webflow</p>
+      <div class="sites-grid">
         {(about.websites || []).map((s, i) => (
-          <a href={s.url} target="_blank" class="site-row reveal" style={`transition-delay:${i * 0.08}s`}>
-            <span class="site-cat mono-label">{s.category_he}</span>
-            <span class="site-name">{s.name}</span>
-            <span class="site-desc">{s.desc_he}</span>
-            <span class="site-arrow">↗</span>
+          <a href={s.url} target="_blank" class="site-card reveal" style={`transition-delay:${i * 0.08}s`}>
+            <div class="site-top">
+              <span class="site-cat">{s.category_he}</span>
+              <span class="site-arrow">↗</span>
+            </div>
+            <h3 class="site-name">{s.name}</h3>
+            <p class="site-desc">{s.desc_he}</p>
           </a>
         ))}
       </div>
@@ -119,12 +117,15 @@ try { const d = await import('../../content/about.json'); about = d.default || {
   </section>
 
   <!-- CTA -->
-  <section class="section cta-section">
-    <div class="wrap">
-      <h2 class="display-lg reveal">בואו נבנה<br/><em>משהו אמיתי.</em></h2>
-      <div class="cta-row reveal reveal-delay-2">
-        <a href="/he/contact" class="btn-primary btn-large">לפרויקט חדש</a>
-        <a href="mailto:ezoprmk@gmail.com" class="cta-email">ezoprmk@gmail.com</a>
+  <section class="cta-band">
+    <div class="wrap cta-inner reveal">
+      <div>
+        <p class="cta-label">מוכנים לעבוד יחד?</p>
+        <h2 class="cta-title">בואו נבנה משהו אמיתי.</h2>
+      </div>
+      <div class="cta-actions">
+        <a href="/he/contact" class="btn-primary btn-lg">לפרויקט חדש</a>
+        <a href="mailto:ezoprmk@gmail.com" class="btn-outline">ezoprmk@gmail.com</a>
       </div>
     </div>
   </section>
@@ -134,184 +135,98 @@ try { const d = await import('../../content/about.json'); about = d.default || {
 
 <style>
 .hero {
-  min-height:100vh;
-  display:flex;
-  align-items:flex-end;
-  padding-bottom:80px;
-  position:relative;
-  padding-top:120px;
+  min-height:100vh;display:flex;align-items:center;
+  padding:140px 0 80px;position:relative;
+  background:radial-gradient(ellipse 80% 60% at 50% 0%, rgba(212,255,0,0.04) 0%, transparent 70%);
 }
-.hero-wrap{width:100%;}
-.hero-eyebrow {
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin-bottom:48px;
-  flex-wrap:wrap;
+.hero-tag {
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--accent);border:1px solid rgba(212,255,0,0.2);
+  padding:6px 14px;border-radius:100px;margin-bottom:40px;
 }
-.mono-label {
-  font-family:var(--font-mono);
-  font-size:11px;
-  letter-spacing:0.12em;
-  text-transform:uppercase;
-  color:var(--text2);
-}
-.mono-sep{color:var(--border2);font-family:var(--font-mono);}
-.accent{color:var(--accent)!important;}
-.hero-title {
-  display:flex;
-  flex-direction:column;
-  margin-bottom:80px;
-}
-.line {
+.dot{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s ease-in-out infinite;}
+.hero-name {
   font-family:var(--font-display);
-  font-size:clamp(52px,8.5vw,130px);
-  font-weight:300;
-  line-height:0.92;
-  letter-spacing:-0.03em;
-  color:var(--text);
-  display:block;
+  font-size:clamp(72px,11vw,160px);font-weight:300;
+  line-height:0.88;letter-spacing:-0.04em;color:var(--text);margin-bottom:40px;
 }
-.line-indent{padding-right:clamp(40px,8vw,140px);}
-.hero-footer {
-  display:flex;
-  align-items:flex-end;
-  justify-content:space-between;
-  gap:40px;
-  flex-wrap:wrap;
-  border-top:1px solid var(--border);
-  padding-top:32px;
+.hero-sub {
+  font-family:var(--font-mono);font-size:13px;letter-spacing:0.08em;
+  color:var(--text2);margin-bottom:56px;
 }
-.hero-desc p {
-  font-family:var(--font-mono);
-  font-size:11px;
-  letter-spacing:0.1em;
-  color:var(--text2);
-  text-transform:uppercase;
-  line-height:2;
+.hero-stats {
+  display:flex;align-items:center;gap:32px;flex-wrap:wrap;
+  margin-bottom:56px;padding:32px 0;
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
 }
-.hero-ctas{display:flex;gap:16px;align-items:center;}
-.hero-number {
-  position:absolute;
-  bottom:80px;
-  left:80px;
-  font-family:var(--font-mono);
-  font-size:120px;
-  font-weight:300;
-  color:var(--border);
-  line-height:1;
-  pointer-events:none;
-  user-select:none;
-}
+.stat{display:flex;flex-direction:column;gap:4px;}
+.stat-n{font-family:var(--font-display);font-size:clamp(28px,3vw,40px);font-weight:300;color:var(--accent);line-height:1;}
+.stat-l{font-family:var(--font-mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);}
+.stat-div{width:1px;height:40px;background:var(--border);}
+.hero-ctas{display:flex;gap:16px;flex-wrap:wrap;}
 .btn-primary {
-  background:var(--accent);
-  color:#0a0a0a;
-  font-family:var(--font-mono);
-  font-size:11px;
-  letter-spacing:0.12em;
-  text-transform:uppercase;
-  padding:14px 32px;
-  border-radius:var(--radius);
-  font-weight:500;
-  transition:opacity 0.2s;
-  white-space:nowrap;
+  background:var(--accent);color:#0a0a0a;
+  font-family:var(--font-mono);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;
+  padding:16px 36px;border-radius:var(--radius);font-weight:600;
+  transition:opacity 0.2s,transform 0.2s;white-space:nowrap;display:inline-block;
 }
-.btn-primary:hover{opacity:0.85;}
-.btn-large{padding:18px 48px;font-size:13px;}
-.btn-ghost {
-  font-family:var(--font-mono);
-  font-size:11px;
-  letter-spacing:0.12em;
-  text-transform:uppercase;
-  color:var(--text2);
-  transition:color 0.2s;
-}
+.btn-primary:hover{opacity:0.88;transform:translateY(-1px);}
+.btn-lg{padding:18px 48px;font-size:13px;}
+.btn-ghost{font-family:var(--font-mono);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text2);transition:color 0.2s;display:inline-block;padding:16px 0;}
 .btn-ghost:hover{color:var(--text);}
+.btn-outline{font-family:var(--font-mono);font-size:12px;letter-spacing:0.08em;color:var(--text2);border:1px solid var(--border2);padding:18px 36px;border-radius:var(--radius);transition:all 0.2s;white-space:nowrap;display:inline-block;}
+.btn-outline:hover{color:var(--accent);border-color:var(--accent);}
 .section{padding:120px 0;}
-.section-alt{background:var(--surface);}
-.cta-section{padding:160px 0;text-align:center;}
-.cta-section .display-lg{margin-bottom:64px;}
-.cta-section em{font-style:normal;color:var(--accent);}
-.cta-row{display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap;}
-.cta-email{font-family:var(--font-mono);font-size:13px;color:var(--text2);transition:color 0.2s;}
-.cta-email:hover{color:var(--accent);}
-.work-list{display:flex;flex-direction:column;}
-.work-row {
-  display:grid;
-  grid-template-columns:48px 1fr auto;
-  gap:32px;
-  align-items:center;
-  padding:32px 0;
-  border-bottom:1px solid var(--border);
-  transition:padding-right 0.3s var(--ease);
-  cursor:pointer;
-}
-.work-row:first-child{border-top:1px solid var(--border);}
-.work-row:hover{padding-right:16px;}
-.work-row:hover .work-arrow{color:var(--accent);}
-.work-row:hover .work-title{color:var(--accent);}
-.work-num{color:var(--muted);}
-.work-title {
-  font-family:var(--font-display);
-  font-size:clamp(22px,3vw,36px);
-  font-weight:300;
-  color:var(--text);
-  margin-bottom:6px;
-  transition:color 0.2s;
-}
-.work-meta{font-size:13px;color:var(--muted);line-height:1.5;}
-.work-right{display:flex;flex-direction:column;align-items:flex-start;gap:8px;}
-.work-cat,.work-year{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);}
-.work-arrow{font-size:20px;color:var(--text2);transition:color 0.2s;}
-.caps-list{display:flex;flex-direction:column;}
-.cap-row {
-  display:grid;
-  grid-template-columns:48px 1fr 1fr;
-  gap:32px;
-  padding:40px 0;
-  border-bottom:1px solid var(--border);
-  align-items:start;
-}
-.cap-row:first-child{border-top:1px solid var(--border);}
-.cap-num{color:var(--muted);padding-top:4px;}
-.cap-title{font-family:var(--font-display);font-size:clamp(20px,2.5vw,28px);font-weight:300;color:var(--text);}
-.cap-desc{font-size:14px;color:var(--text2);line-height:1.6;max-width:400px;}
-.unique-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--border);border:1px solid var(--border);}
+.section-dark{background:var(--surface);}
+.sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:56px;}
+.sec-label{font-family:var(--font-mono);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:56px;}
+.sec-head .sec-label{margin-bottom:0;}
+.sec-link{font-family:var(--font-mono);font-size:11px;letter-spacing:0.1em;color:var(--accent);transition:opacity 0.2s;}
+.sec-link:hover{opacity:0.7;}
+.work-grid{display:grid;grid-template-columns:1fr;gap:24px;}
+@media(min-width:768px){.work-grid{grid-template-columns:1fr 1fr;}}
+.caps-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;}
+@media(min-width:640px){.caps-grid{grid-template-columns:1fr 1fr;}}
+.cap-card{background:var(--surface);padding:40px 36px;transition:background 0.2s;}
+.cap-card:hover{background:var(--surface2);}
+.cap-icon{display:block;font-size:24px;margin-bottom:20px;filter:grayscale(1);transition:filter 0.2s;}
+.cap-card:hover .cap-icon{filter:none;}
+.cap-title{font-family:var(--font-display);font-size:22px;font-weight:300;color:var(--text);margin-bottom:12px;}
+.cap-desc{font-size:14px;color:var(--text2);line-height:1.65;}
+.unique-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;}
 @media(min-width:768px){.unique-grid{grid-template-columns:1fr 1fr;}}
 @media(min-width:1024px){.unique-grid{grid-template-columns:repeat(3,1fr);}}
 .u-card{background:var(--bg);padding:40px;transition:background 0.2s;}
 .u-card:hover{background:var(--surface2);}
 .u-tag{font-family:var(--font-mono);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:20px;}
-.u-title{font-family:var(--font-display);font-size:20px;font-weight:300;color:var(--text);margin-bottom:16px;line-height:1.3;}
+.u-title{font-family:var(--font-display);font-size:19px;font-weight:300;color:var(--text);margin-bottom:14px;line-height:1.3;}
 .u-body{font-size:13px;color:var(--text2);line-height:1.7;}
-.sites-list{display:flex;flex-direction:column;}
-.site-row {
-  display:grid;
-  grid-template-columns:140px 1fr 1fr 24px;
-  gap:32px;
-  align-items:center;
-  padding:28px 0;
-  border-bottom:1px solid var(--border);
-  transition:padding-right 0.3s var(--ease);
-}
-.site-row:first-child{border-top:1px solid var(--border);}
-.site-row:hover{padding-right:16px;}
-.site-row:hover .site-arrow{color:var(--accent);}
-.site-cat{color:var(--muted);}
-.site-name{font-family:var(--font-display);font-size:clamp(18px,2vw,24px);font-weight:300;color:var(--text);transition:color 0.2s;}
-.site-row:hover .site-name{color:var(--accent);}
-.site-desc{font-size:13px;color:var(--text2);}
-.site-arrow{font-size:18px;color:var(--text2);transition:color 0.2s;}
+.sites-grid{display:grid;grid-template-columns:1fr;gap:16px;}
+@media(min-width:640px){.sites-grid{grid-template-columns:1fr 1fr;}}
+@media(min-width:1024px){.sites-grid{grid-template-columns:repeat(3,1fr);}}
+.site-card{display:flex;flex-direction:column;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-md);padding:28px;transition:border-color 0.2s,transform 0.2s;}
+.site-card:hover{border-color:var(--accent);transform:translateY(-3px);}
+.site-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.site-cat{font-family:var(--font-mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);}
+.site-arrow{font-size:16px;color:var(--muted);transition:color 0.2s,transform 0.2s;}
+.site-card:hover .site-arrow{color:var(--accent);transform:translate(2px,-2px);}
+.site-name{font-family:var(--font-display);font-size:22px;font-weight:300;color:var(--text);margin-bottom:10px;transition:color 0.2s;}
+.site-card:hover .site-name{color:var(--accent);}
+.site-desc{font-size:13px;color:var(--text2);line-height:1.6;}
+.cta-band{background:var(--accent);padding:80px 0;}
+.cta-inner{display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap;}
+.cta-label{font-family:var(--font-mono);font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(10,10,10,0.5);margin-bottom:8px;}
+.cta-title{font-family:var(--font-display);font-size:clamp(28px,4vw,52px);font-weight:300;color:#0a0a0a;letter-spacing:-0.02em;}
+.cta-actions{display:flex;gap:16px;flex-wrap:wrap;align-items:center;}
+.cta-band .btn-primary{background:#0a0a0a;color:var(--accent);}
+.cta-band .btn-outline{border-color:rgba(10,10,10,0.3);color:#0a0a0a;}
+.cta-band .btn-outline:hover{border-color:#0a0a0a;}
 </style>
 
 <script>
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);} });
+}, {threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>

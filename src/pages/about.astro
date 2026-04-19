@@ -7,41 +7,185 @@ try { const d = await import('../content/about.json'); about = d.default || {}; 
 ---
 <Layout lang="en" title="About — Moataz Samara">
   <Nav lang="en" />
-  <main class="wrap" style="padding-top:80px;padding-bottom:80px;max-width:760px;">
-    <p style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.15em;color:var(--muted2);text-transform:uppercase;margin-bottom:24px;">ABOUT</p>
-    <h1 style="font-family:var(--font-display);font-size:clamp(36px,5vw,64px);font-weight:300;margin-bottom:32px;">Moataz Samara</h1>
-    <p style="color:var(--muted);line-height:1.8;font-size:18px;margin-bottom:64px;">{about.bio_en}</p>
-    <p style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.15em;color:var(--muted2);text-transform:uppercase;margin-bottom:32px;">EXPERIENCE</p>
-    <div style="display:flex;flex-direction:column;gap:32px;margin-bottom:64px;">
-      {(about.experience || []).map((e) => (
-        <div style="display:grid;grid-template-columns:120px 1fr;gap:24px;align-items:start;">
-          <span style="font-family:var(--font-mono);font-size:11px;color:var(--accent);padding-top:4px;">{e.years}</span>
-          <div>
-            <p style="font-family:var(--font-display);font-size:20px;font-weight:400;color:var(--text);margin-bottom:4px;">{e.role_en}</p>
-            <p style="color:var(--muted);font-size:14px;">{e.org_en}</p>
-            <ul style="margin-top:8px;display:flex;flex-direction:column;gap:4px;padding-right:0;">
-              {(e.bullets_en || []).map(b => (
-                <li style="font-size:13px;color:var(--muted);list-style:none;padding-left:16px;position:relative;">
-                  <span style="position:absolute;left:0;color:var(--accent);">·</span>{b}
-                </li>
-              ))}
-            </ul>
-          </div>
+  <main>
+    <!-- INTRO -->
+    <section class="about-hero">
+      <div class="wrap">
+        <p class="eyebrow">About</p>
+        <h1 class="about-name">Moataz<br/>Samara</h1>
+        <p class="about-bio">{about.bio_en}</p>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="about-section">
+      <div class="wrap about-grid">
+        <div class="about-sidebar">
+          <p class="section-label">Experience</p>
         </div>
-      ))}
-    </div>
-    <p style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.15em;color:var(--muted2);text-transform:uppercase;margin-bottom:32px;">EDUCATION</p>
-    <div style="display:flex;flex-direction:column;gap:20px;">
-      {(about.education || []).map((e) => (
-        <div style="display:grid;grid-template-columns:120px 1fr;gap:24px;align-items:start;">
-          <span style="font-family:var(--font-mono);font-size:11px;color:var(--muted2);padding-top:3px;">{e.year}</span>
-          <div>
-            <p style="font-size:15px;color:var(--text);">{e.degree_en}</p>
-            <p style="color:var(--muted);font-size:13px;">{e.institution}</p>
-          </div>
+        <div class="about-content">
+          {(about.experience || []).map((e, i) => (
+            <div class="exp-row">
+              <div class="exp-head">
+                <span class="exp-years">{e.years}</span>
+                <div>
+                  <p class="exp-role">{e.role_en}</p>
+                  <p class="exp-org">{e.org_en}</p>
+                </div>
+              </div>
+              {(e.bullets_en || []).length > 0 && (
+                <ul class="exp-bullets">
+                  {(e.bullets_en || []).map(b => (
+                    <li><span class="bullet-dot">·</span>{b}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section class="about-section about-section-alt">
+      <div class="wrap about-grid">
+        <div class="about-sidebar">
+          <p class="section-label">Education</p>
+        </div>
+        <div class="about-content">
+          {(about.education || []).map(e => (
+            <div class="edu-row">
+              <span class="edu-year">{e.year}</span>
+              <div>
+                <p class="edu-degree">{e.degree_en}</p>
+                <p class="edu-inst">{e.institution}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="about-cta">
+      <div class="wrap">
+        <h2 class="cta-title">Let's work together.</h2>
+        <div class="cta-row">
+          <a href="/contact" class="btn-primary">Get in touch</a>
+          <a href="mailto:ezoprmk@gmail.com" class="cta-email">ezoprmk@gmail.com</a>
+        </div>
+      </div>
+    </section>
   </main>
   <Footer lang="en" />
 </Layout>
+
+<style>
+/* HERO */
+.about-hero {
+  padding:160px 0 80px;
+  border-bottom:1px solid var(--border);
+  background:radial-gradient(ellipse 60% 50% at 80% 50%, rgba(212,255,0,0.03) 0%, transparent 70%);
+}
+.eyebrow {
+  font-family:var(--font-mono);font-size:11px;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:32px;
+}
+.about-name {
+  font-family:var(--font-display);
+  font-size:clamp(64px,9vw,120px);
+  font-weight:300;line-height:0.88;
+  letter-spacing:-0.04em;color:var(--text);
+  margin-bottom:48px;
+}
+.about-bio {
+  font-size:18px;color:var(--text2);
+  line-height:1.75;max-width:640px;
+}
+
+/* SECTIONS */
+.about-section { padding:80px 0;border-bottom:1px solid var(--border); }
+.about-section-alt { background:var(--surface); }
+.about-grid {
+  display:grid;
+  grid-template-columns:200px 1fr;
+  gap:64px;
+  align-items:start;
+}
+@media(max-width:767px){.about-grid{grid-template-columns:1fr;gap:32px;}}
+.about-sidebar { padding-top:4px; }
+.section-label {
+  font-family:var(--font-mono);font-size:11px;letter-spacing:0.18em;
+  text-transform:uppercase;color:var(--muted);
+  position:sticky;top:80px;
+}
+
+/* EXPERIENCE */
+.about-content { display:flex;flex-direction:column;gap:48px; }
+.exp-row { padding-bottom:48px;border-bottom:1px solid var(--border); }
+.exp-row:last-child { border-bottom:none;padding-bottom:0; }
+.exp-head {
+  display:grid;grid-template-columns:140px 1fr;
+  gap:24px;align-items:start;margin-bottom:20px;
+}
+.exp-years {
+  font-family:var(--font-mono);font-size:11px;
+  letter-spacing:0.08em;color:var(--accent);padding-top:4px;
+}
+.exp-role {
+  font-family:var(--font-display);font-size:22px;
+  font-weight:300;color:var(--text);margin-bottom:4px;
+}
+.exp-org { font-size:14px;color:var(--text2); }
+.exp-bullets {
+  margin-top:4px;display:flex;flex-direction:column;
+  gap:6px;list-style:none;
+  padding-left:calc(140px + 24px);
+}
+@media(max-width:767px){.exp-bullets{padding-left:0;}}
+.exp-bullets li {
+  font-size:13px;color:var(--muted);
+  display:flex;gap:10px;line-height:1.5;
+}
+.bullet-dot { color:var(--accent);flex-shrink:0; }
+
+/* EDUCATION */
+.edu-row {
+  display:grid;grid-template-columns:140px 1fr;
+  gap:24px;align-items:start;
+  padding-bottom:24px;border-bottom:1px solid var(--border);
+}
+.edu-row:last-child{border-bottom:none;padding-bottom:0;}
+.edu-year {
+  font-family:var(--font-mono);font-size:11px;
+  color:var(--muted);padding-top:3px;
+}
+.edu-degree{font-size:15px;color:var(--text);margin-bottom:4px;}
+.edu-inst{font-size:13px;color:var(--text2);}
+
+/* CTA */
+.about-cta {
+  padding:120px 0;
+  background:var(--accent);
+}
+.cta-title {
+  font-family:var(--font-display);
+  font-size:clamp(36px,5vw,72px);
+  font-weight:300;letter-spacing:-0.025em;
+  color:#0a0a0a;margin-bottom:48px;
+}
+.cta-row{display:flex;gap:24px;flex-wrap:wrap;align-items:center;}
+.btn-primary {
+  background:#0a0a0a;color:var(--accent);
+  font-family:var(--font-mono);font-size:12px;
+  letter-spacing:0.1em;text-transform:uppercase;
+  padding:16px 36px;border-radius:var(--radius);
+  font-weight:600;transition:opacity 0.2s;display:inline-block;
+}
+.btn-primary:hover{opacity:0.8;}
+.cta-email {
+  font-family:var(--font-mono);font-size:13px;
+  color:rgba(10,10,10,0.6);transition:color 0.2s;
+}
+.cta-email:hover{color:#0a0a0a;}
+</style>
