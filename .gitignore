@@ -1,17 +1,31 @@
-# Personal documents — keep local
-*.pdf
-
-# OS
+node_modules
+dist
+dist-ssr
+*.local
+.vscode/*
+!.vscode/extensions.json
+.idea
 .DS_Store
-Thumbs.db
-
-# Editors
-.vscode/
-.idea/
-
-# Node
-node_modules/
-dist/
-build/
+*.log
 .env
 .env.local
+.env.*.local
+.vercel
+
+# Build artifacts
+*.tsbuildinfo
+vite.config.d.ts
+vite.config.js
+
+# Editor/misc
+*.backup
+
+# Personal documents and binary assets — host externally, link from site
+*.pdf
+*.docx
+*.doc
+portfolio-assets/
+
+# The monolithic backup — keep local, don't ship
+portfolio.tsx.backup
+portfolio.tsx.old
