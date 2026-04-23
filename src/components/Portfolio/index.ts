@@ -1,0 +1,11 @@
+export { Navigation } from "./Navigation";
+export { Section } from "./Section";
+export { Hero } from "./Hero";
+export { About } from "./About";
+export { Services } from "./Services";
+export { Work } from "./Work";
+export { Timeline } from "./Timeline";
+export { TLItem } from "./TLItem";
+export { GitHubSection } from "./GitHubSection";
+export { Contact } from "./Contact";
+export { Footer } from "./Footer";
