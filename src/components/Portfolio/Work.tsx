@@ -81,59 +81,99 @@ export function Work({ lang, mob }: Props) {
             <Link to={`/work/${p.slug}`} style={{ textDecoration: "none", display: "block", height: "100%" }}>
               <Glass
                 mob={mob}
-                style={{ height: "100%" }}
+                style={{ height: "100%", padding: 0, overflow: "hidden" }}
                 onMouseMove={tilt(mob)}
                 onMouseLeave={untilt(mob)}
                 onMouseOver={(e) => (e.currentTarget.style.borderColor = C.cyan)}
                 onMouseOut={(e) => (e.currentTarget.style.borderColor = C.brd)}
               >
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-                  <Tag label={t.categoryLabels[p.category]} />
-                  {p.url && (
-                    <a
-                      href={p.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      style={{
-                        color: C.mu,
-                        fontSize: 17,
-                        textDecoration: "none",
-                        transition: "color .2s",
-                      }}
-                      onMouseOver={(e) => (e.currentTarget.style.color = C.cyan)}
-                      onMouseOut={(e) => (e.currentTarget.style.color = C.mu)}
-                    >
-                      ↗
-                    </a>
-                  )}
+                {/* Hero image with gradient fallback */}
+                {p.hero ? (
+                  <img
+                    src={p.hero}
+                    alt={p.title[lang]}
+                    loading="lazy"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      target.style.display = "none";
+                      const placeholder = target.nextElementSibling as HTMLElement;
+                      if (placeholder) placeholder.style.display = "flex";
+                    }}
+                    style={{
+                      width: "100%",
+                      aspectRatio: "16/9",
+                      objectFit: "cover",
+                      borderRadius: "10px 10px 0 0",
+                      display: "block",
+                    }}
+                  />
+                ) : null}
+                <div
+                  style={{
+                    display: p.hero ? "none" : "flex",
+                    width: "100%",
+                    aspectRatio: "16/9",
+                    borderRadius: "10px 10px 0 0",
+                    background: `linear-gradient(135deg, rgba(0,229,255,0.25) 0%, rgba(123,97,255,0.25) 100%), ${C.sf}`,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <span style={{ fontSize: 40, fontWeight: 800, opacity: 0.3, color: C.tx }}>
+                    {p.title[lang].charAt(0)}
+                  </span>
                 </div>
-                <h3
-                  style={{
-                    color: C.tx,
-                    fontFamily: hf,
-                    fontWeight: 700,
-                    fontSize: mob ? 14 : 15,
-                    margin: 0,
-                  }}
-                >
-                  {p.title[lang]}
-                </h3>
-                <p
-                  style={{
-                    color: C.mu,
-                    fontSize: mob ? 12 : 13,
-                    lineHeight: 1.6,
-                    flex: 1,
-                    margin: 0,
-                  }}
-                >
-                  {p.shortDesc[lang]}
-                </p>
-                <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-                  {p.tags.map((tg) => (
-                    <Tag key={tg} label={tg} color={C.vio} />
-                  ))}
+
+                {/* Card content */}
+                <div style={{ padding: mob ? "12px 14px 14px" : "14px 16px 16px", display: "flex", flexDirection: "column", gap: 8 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                    <Tag label={t.categoryLabels[p.category]} />
+                    {p.url && (
+                      <a
+                        href={p.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        style={{
+                          color: C.mu,
+                          fontSize: 17,
+                          textDecoration: "none",
+                          transition: "color .2s",
+                        }}
+                        onMouseOver={(e) => (e.currentTarget.style.color = C.cyan)}
+                        onMouseOut={(e) => (e.currentTarget.style.color = C.mu)}
+                      >
+                        ↗
+                      </a>
+                    )}
+                  </div>
+                  <h3
+                    style={{
+                      color: C.tx,
+                      fontFamily: hf,
+                      fontWeight: 700,
+                      fontSize: mob ? 14 : 15,
+                      margin: 0,
+                    }}
+                  >
+                    {p.title[lang]}
+                  </h3>
+                  <p
+                    style={{
+                      color: C.mu,
+                      fontSize: mob ? 12 : 13,
+                      lineHeight: 1.6,
+                      flex: 1,
+                      margin: 0,
+                    }}
+                  >
+                    {p.shortDesc[lang]}
+                  </p>
+                  <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                    {p.tags.map((tg) => (
+                      <Tag key={tg} label={tg} color={C.vio} />
+                    ))}
+                  </div>
                 </div>
               </Glass>
             </Link>
