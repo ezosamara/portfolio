@@ -19,7 +19,7 @@ export function Hero({ lang, mob, sm }: Props) {
 
   /* ── Cursor spotlight (pointer:fine only) ── */
   const spotRef = useRef<HTMLDivElement>(null);
-  const sectionRef = useRef<HTMLSectionElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const hasFine = useRef(false);
 
   useEffect(() => {
