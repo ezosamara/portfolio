@@ -100,8 +100,9 @@ export async function fetchProjects(databaseId: string): Promise<Project[]> {
     const url = getUrl(p['URL']);
     if (url) project.url = url;
 
+    // Hero image: Notion file URL if available, else static fallback
     const hero = getFiles(p['Hero Image']);
-    if (hero) project.hero = hero;
+    project.hero = hero || `/projects/${project.slug}.jpg`;
 
     const year = getRichText(p['Year']);
     if (year) project.year = year;
