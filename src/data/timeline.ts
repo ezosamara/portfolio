@@ -1,6 +1,11 @@
 import type { TimelineItem } from "@/types";
+import { timeline as _notionTimeline } from './timeline.generated';
 
-export const TIMELINE: TimelineItem[] = [
+// ============================================================================
+// STATIC FALLBACK — used when Notion-generated data is empty.
+// ============================================================================
+
+const STATIC_TIMELINE: TimelineItem[] = [
   {
     year: "2020–Present",
     type: "work",
@@ -109,3 +114,10 @@ export const TIMELINE: TimelineItem[] = [
     desc: { en: "Bachelor of Communications.", he: "תואר ראשון בתקשורת." },
   },
 ];
+
+// ============================================================================
+// EXPORT — Notion-generated data takes priority over static fallback
+// ============================================================================
+
+export const TIMELINE: TimelineItem[] =
+  _notionTimeline.length > 0 ? _notionTimeline : STATIC_TIMELINE;

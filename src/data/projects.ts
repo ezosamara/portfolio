@@ -1,4 +1,5 @@
 import type { Project, ProjectCategory } from "@/types";
+import { projects as _notionProjects } from './projects.generated';
 
 export const PROJECT_CATEGORIES: ("All" | ProjectCategory)[] = [
   "All",
@@ -11,12 +12,12 @@ export const PROJECT_CATEGORIES: ("All" | ProjectCategory)[] = [
 ];
 
 // ============================================================================
-// PROJECTS — the CMS source of truth.
-// Each project is a standalone record with i18n title/desc and optional
-// rich detail rendered by /pages/ProjectDetail.tsx
+// STATIC FALLBACK — used when Notion-generated data is empty.
+// Once Notion CMS is populated and `npm run fetch` runs at build time,
+// the generated array takes over automatically.
 // ============================================================================
 
-export const PROJECTS: Project[] = [
+const STATIC_PROJECTS: Project[] = [
   {
     slug: "kheit-cpa-platform",
     category: "Web Dev",
@@ -254,6 +255,13 @@ export const PROJECTS: Project[] = [
     },
   },
 ];
+
+// ============================================================================
+// EXPORT — Notion-generated data takes priority over static fallback
+// ============================================================================
+
+export const PROJECTS: Project[] =
+  _notionProjects.length > 0 ? _notionProjects : STATIC_PROJECTS;
 
 // ============================================================================
 // HELPERS

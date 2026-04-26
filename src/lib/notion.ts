@@ -1,10 +1,14 @@
 // ============================================================
 // Notion Client Wrapper — Build-time data fetcher
 // Used by scripts/fetch-notion.ts during `npm run fetch`
+//
+// Outputs data in the app's canonical LocalizedText format:
+//   { en: string, he: string }
+// so generated files are directly consumable by components.
 // ============================================================
 
 import { Client } from '@notionhq/client';
-import type { Project, TimelineItem } from '../data/types';
+import type { Project, ProjectDetail, ProjectCategory, TimelineItem, TimelineType } from '../types';
 
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
@@ -70,41 +74,82 @@ function getFiles(prop: any): string {
 export async function fetchProjects(databaseId: string): Promise<Project[]> {
   const response = await notion.databases.query({
     database_id: databaseId,
+    filter: { property: 'Published', checkbox: { equals: true } },
     sorts: [{ property: 'Title EN', direction: 'ascending' }],
   });
 
   return response.results.map((page: any) => {
     const p = page.properties;
-    return {
-      id: page.id,
+
+    // --- Required fields ---
+    const project: Project = {
       slug: getRichText(p['Slug']),
-      titleEN: getTitleText(p['Title EN']),
-      titleHE: getRichText(p['Title HE']),
-      category: getSelect(p['Category']),
+      category: (getSelect(p['Category']) || 'Web Dev') as ProjectCategory,
       tags: getMultiSelect(p['Tags']),
-      techStack: getMultiSelect(p['Tech Stack']),
-      shortDescEN: getRichText(p['Short Desc EN']),
-      shortDescHE: getRichText(p['Short Desc HE']),
-      overviewEN: getRichText(p['Overview EN']),
-      overviewHE: getRichText(p['Overview HE']),
-      challengeEN: getRichText(p['Challenge EN']),
-      challengeHE: getRichText(p['Challenge HE']),
-      solutionEN: getRichText(p['Solution EN']),
-      solutionHE: getRichText(p['Solution HE']),
-      outcomeEN: getRichText(p['Outcome EN']),
-      outcomeHE: getRichText(p['Outcome HE']),
-      clientEN: getRichText(p['Client EN']),
-      clientHE: getRichText(p['Client HE']),
-      roleEN: getRichText(p['Role EN']),
-      roleHE: getRichText(p['Role HE']),
-      durationEN: getRichText(p['Duration EN']),
-      durationHE: getRichText(p['Duration HE']),
-      year: getRichText(p['Year']),
-      url: getUrl(p['URL']) || getUrl(p['userDefined:URL']),
-      heroImage: getFiles(p['Hero Image']),
-      featured: getCheckbox(p['Featured']),
-      published: getCheckbox(p['Published']),
+      title: {
+        en: getTitleText(p['Title EN']),
+        he: getRichText(p['Title HE']),
+      },
+      shortDesc: {
+        en: getRichText(p['Short Desc EN']),
+        he: getRichText(p['Short Desc HE']),
+      },
     };
+
+    // --- Optional scalar fields ---
+    const url = getUrl(p['URL']);
+    if (url) project.url = url;
+
+    const hero = getFiles(p['Hero Image']);
+    if (hero) project.hero = hero;
+
+    const year = getRichText(p['Year']);
+    if (year) project.year = year;
+
+    if (getCheckbox(p['Featured'])) project.featured = true;
+
+    // --- Optional localized fields ---
+    const clientEN = getRichText(p['Client EN']);
+    const clientHE = getRichText(p['Client HE']);
+    if (clientEN || clientHE) project.client = { en: clientEN, he: clientHE };
+
+    const roleEN = getRichText(p['Role EN']);
+    const roleHE = getRichText(p['Role HE']);
+    if (roleEN || roleHE) project.role = { en: roleEN, he: roleHE };
+
+    const durationEN = getRichText(p['Duration EN']);
+    const durationHE = getRichText(p['Duration HE']);
+    if (durationEN || durationHE) project.duration = { en: durationEN, he: durationHE };
+
+    // --- Detail block (nested) ---
+    const overviewEN = getRichText(p['Overview EN']);
+    const overviewHE = getRichText(p['Overview HE']);
+    const challengeEN = getRichText(p['Challenge EN']);
+    const challengeHE = getRichText(p['Challenge HE']);
+    const solutionEN = getRichText(p['Solution EN']);
+    const solutionHE = getRichText(p['Solution HE']);
+    const outcomeEN = getRichText(p['Outcome EN']);
+    const outcomeHE = getRichText(p['Outcome HE']);
+    const techStack = getMultiSelect(p['Tech Stack']);
+
+    const hasDetail =
+      overviewEN || overviewHE ||
+      challengeEN || challengeHE ||
+      solutionEN || solutionHE ||
+      outcomeEN || outcomeHE ||
+      techStack.length > 0;
+
+    if (hasDetail) {
+      const detail: ProjectDetail = {};
+      if (overviewEN || overviewHE) detail.overview = { en: overviewEN, he: overviewHE };
+      if (challengeEN || challengeHE) detail.challenge = { en: challengeEN, he: challengeHE };
+      if (solutionEN || solutionHE) detail.solution = { en: solutionEN, he: solutionHE };
+      if (outcomeEN || outcomeHE) detail.outcome = { en: outcomeEN, he: outcomeHE };
+      if (techStack.length > 0) detail.techStack = techStack;
+      project.detail = detail;
+    }
+
+    return project;
   });
 }
 
@@ -117,18 +162,24 @@ export async function fetchTimeline(databaseId: string): Promise<TimelineItem[]>
   return response.results.map((page: any) => {
     const p = page.properties;
     return {
-      id: page.id,
-      titleEN: getTitleText(p['Title EN']),
-      titleHE: getRichText(p['Title HE']),
-      orgEN: getRichText(p['Org EN']),
-      orgHE: getRichText(p['Org HE']),
-      locationEN: getRichText(p['Location EN']),
-      locationHE: getRichText(p['Location HE']),
       year: getRichText(p['Year']),
-      type: getSelect(p['Type']) as 'work' | 'edu',
-      descriptionEN: getRichText(p['Description EN']),
-      descriptionHE: getRichText(p['Description HE']),
-      order: getNumber(p['Order']),
+      type: (getSelect(p['Type']) || 'work') as TimelineType,
+      title: {
+        en: getTitleText(p['Title EN']),
+        he: getRichText(p['Title HE']),
+      },
+      org: {
+        en: getRichText(p['Org EN']),
+        he: getRichText(p['Org HE']),
+      },
+      loc: {
+        en: getRichText(p['Location EN']),
+        he: getRichText(p['Location HE']),
+      },
+      desc: {
+        en: getRichText(p['Description EN']),
+        he: getRichText(p['Description HE']),
+      },
     };
   });
 }
