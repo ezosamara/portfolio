@@ -32,15 +32,6 @@ function NarrativeCard({ heading, body, accent, ff, hf }: { heading: string; bod
   );
 }
 
-const CAT_ICON: Record<string, string> = {
-  Branding: "🎨",
-  "Web Dev": "💻",
-  "AI & Automation": "🤖",
-  "PR & Comms": "🎙️",
-  "Digital Marketing": "📣",
-  Video: "🎬",
-};
-
 export function ProjectDetail({ lang, setLang }: Props) {
   const { slug } = useParams<{ slug: string }>();
   const project = slug ? getProjectBySlug(slug) : undefined;
@@ -68,8 +59,40 @@ export function ProjectDetail({ lang, setLang }: Props) {
 
       {/* Hero band */}
       <div style={{ paddingTop: 56, position: "relative", zIndex: 1, background: "rgba(13,18,32,.9)", borderBottom: `1px solid ${C.brd}` }}>
-        <div style={{ height: mob ? 200 : 320, background: "linear-gradient(135deg,rgba(0,229,255,.07) 0%,rgba(123,97,255,.09) 100%)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <span style={{ fontSize: 64, opacity: 0.25 }}>{CAT_ICON[project.category] ?? "📁"}</span>
+        {/* Hero image with gradient fallback */}
+        <div style={{ position: "relative", overflow: "hidden" }}>
+          {project.hero ? (
+            <img
+              src={project.hero}
+              alt={project.title[lang]}
+              onError={(e) => {
+                const target = e.currentTarget;
+                target.style.display = "none";
+                const placeholder = target.nextElementSibling as HTMLElement;
+                if (placeholder) placeholder.style.display = "flex";
+              }}
+              style={{
+                width: "100%",
+                height: mob ? 200 : 320,
+                objectFit: "cover",
+                display: "block",
+              }}
+            />
+          ) : null}
+          <div
+            style={{
+              display: project.hero ? "none" : "flex",
+              width: "100%",
+              height: mob ? 200 : 320,
+              background: `linear-gradient(135deg, rgba(0,229,255,0.25) 0%, rgba(123,97,255,0.25) 100%), ${C.sf}`,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <span style={{ fontSize: 64, fontWeight: 800, opacity: 0.3, color: C.tx }}>
+              {project.title[lang].charAt(0)}
+            </span>
+          </div>
         </div>
         <div style={{ maxWidth: 900, margin: "0 auto", padding: `32px ${px}px 40px` }}>
           <Link to="/#work" style={{ color: C.mu, textDecoration: "none", fontSize: 13, fontWeight: 600, display: "inline-flex", alignItems: "center", gap: 6, marginBottom: 20, transition: "color .2s" }}
