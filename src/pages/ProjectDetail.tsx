@@ -7,6 +7,7 @@ import { getProjectBySlug, getRelatedProjects, PROJECTS } from "@/data/projects"
 import { useWindowWidth } from "@/hooks";
 import { StarCanvas, Nebula, ScrollProgress, Tag, Glass, tilt, untilt } from "@/components/UI";
 import { Navigation } from "@/components/Portfolio";
+import { TiraDataViz } from "@/components/Portfolio/TiraDataViz";
 import { Gallery } from "@/components/Portfolio/Gallery";
 import { MetricCallouts } from "@/components/Portfolio/MetricCallouts";
 import { DeptBreakdown } from "@/components/Portfolio/DeptBreakdown";
@@ -140,6 +141,9 @@ export function ProjectDetail({ lang, setLang }: Props) {
                 {d?.solution && <NarrativeCard heading={t.solution} body={d.solution[lang]} accent={C.vio} ff={t.ff} hf={hf} />}
                 {d?.outcome && <NarrativeCard heading={t.outcome} body={d.outcome[lang]} accent="#22d3a5" ff={t.ff} hf={hf} />}
               </div>
+            )}
+            {slug === "tira-municipality" && (
+              <TiraDataViz lang={lang} mob={mob} hf={hf} ff={t.ff} />
             )}
             {d?.techStack && d.techStack.length > 0 && (
               <div style={{ marginBottom: 32 }}>
