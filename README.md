@@ -67,3 +67,4 @@ To remove that too, edit `LANGUAGES` in `src/data/skills.ts`.
 - [ ] Wire Contact form to Formspree or EmailJS
 - [ ] Add `public/og-image.png` for social previews
 - [ ] Consider `localStorage` for lang persistence across sessions (1-line change in App.tsx)
+
