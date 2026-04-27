@@ -257,11 +257,18 @@ const STATIC_PROJECTS: Project[] = [
 ];
 
 // ============================================================================
-// EXPORT — Notion-generated data takes priority over static fallback
+// EXPORT — Notion-generated data takes priority over static fallback.
+// Featured projects are sorted to the top of the array so they appear
+// first in the homepage Work grid.
 // ============================================================================
 
-export const PROJECTS: Project[] =
+const _raw: Project[] =
   _notionProjects.length > 0 ? _notionProjects : STATIC_PROJECTS;
+
+export const PROJECTS: Project[] = [
+  ..._raw.filter((p) => p.featured),
+  ..._raw.filter((p) => !p.featured),
+];
 
 // ============================================================================
 // HELPERS
