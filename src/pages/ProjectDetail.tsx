@@ -9,6 +9,7 @@ import { StarCanvas, Nebula, ScrollProgress, Tag, Glass, tilt, untilt } from "@/
 import { Navigation } from "@/components/Portfolio";
 import { Gallery } from "@/components/Portfolio/Gallery";
 import { MetricCallouts } from "@/components/Portfolio/MetricCallouts";
+import { DeptBreakdown } from "@/components/Portfolio/DeptBreakdown";
 
 interface Props {
   lang: Lang;
@@ -150,6 +151,9 @@ export function ProjectDetail({ lang, setLang }: Props) {
             )}
             {d?.metrics && d.metrics.length > 0 && (
               <MetricCallouts metrics={d.metrics} lang={lang} hf={hf} mob={mob} />
+            )}
+            {project.slug === "tira-municipality" && (
+              <DeptBreakdown lang={lang} />
             )}
             {d?.gallery && d.gallery.length > 0 && (
               <Gallery images={d.gallery} title={project.title[lang]} mob={mob} lang={lang} />
