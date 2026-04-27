@@ -105,6 +105,7 @@ export async function fetchProjects(databaseId: string): Promise<Project[]> {
       'kheit-cpa': 'kheit-cpa-platform.jpg',
       'tira-meat': 'tira-meat-boutique.jpg',
       'tira-municipality': 'tira-municipality-digitalization.jpg',
+            'mn-towers': 'mn-towers.jpg',
     };
     const filename = heroFilenameMap[project.slug] || `${project.slug}.jpg`;
     project.hero = `/projects/${filename}`;

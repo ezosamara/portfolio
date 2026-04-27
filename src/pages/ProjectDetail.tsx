@@ -11,6 +11,7 @@ import { TiraDataViz } from "@/components/Portfolio/TiraDataViz";
 import { Gallery } from "@/components/Portfolio/Gallery";
 import { MetricCallouts } from "@/components/Portfolio/MetricCallouts";
 import { DeptBreakdown } from "@/components/Portfolio/DeptBreakdown";
+import MNBrandShowcase from "@/components/Portfolio/MNBrandShowcase";
 
 interface Props {
   lang: Lang;
@@ -156,6 +157,7 @@ export function ProjectDetail({ lang, setLang }: Props) {
             {d?.metrics && d.metrics.length > 0 && (
               <MetricCallouts metrics={d.metrics} lang={lang} hf={hf} mob={mob} />
             )}
+                        {project.slug === "mn-towers" && <MNBrandShowcase lang={lang} />}
             {project.slug === "tira-municipality" && (
               <DeptBreakdown lang={lang} />
             )}
