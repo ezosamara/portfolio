@@ -40,7 +40,7 @@ function Card({ p, lang, hf, mob, big }: {
               onClick={e => e.stopPropagation()}
               style={{ color: C.mu, fontSize: 17, textDecoration: "none", transition: "color .2s" }}
               onMouseOver={e => (e.currentTarget.style.color = C.cyan)}
-              onMouseOut={e => (e.currentTarget.style.color = C.mu)}>&nearr;</a>}
+              onMouseOut={e => (e.currentTarget.style.color = C.mu)}>{"\u2197"}</a>}
           </div>
           <h3 style={{ color: C.tx, fontFamily: hf, fontWeight: 700,
             fontSize: big ? (mob ? 18 : 22) : (mob ? 14 : 15), margin: 0 }}>{p.title[lang]}</h3>
@@ -166,4 +166,4 @@ export function Work({ lang, mob }: Props) {
       </div>
     </Section>
   );
-      }
+                                                           }
