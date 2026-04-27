@@ -100,9 +100,14 @@ export async function fetchProjects(databaseId: string): Promise<Project[]> {
     const url = getUrl(p['URL']);
     if (url) project.url = url;
 
-    // Hero image: Notion file URL if available, else static fallback
-    const hero = getFiles(p['Hero Image']);
-    project.hero = hero || `/projects/${project.slug}.jpg`;
+    // Hero image: always use static repo paths (Notion URLs expire after ~1 hour)
+    const heroFilenameMap: Record<string, string> = {
+      'kheit-cpa': 'kheit-cpa-platform.jpg',
+      'tira-meat': 'tira-meat-boutique.jpg',
+      'tira-municipality': 'tira-municipality-digitalization.jpg',
+    };
+    const filename = heroFilenameMap[project.slug] || `${project.slug}.jpg`;
+    project.hero = `/projects/${filename}`;
 
     const year = getRichText(p['Year']);
     if (year) project.year = year;
