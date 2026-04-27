@@ -40,7 +40,7 @@ function Card({ p, lang, hf, mob, big }: {
               onClick={e => e.stopPropagation()}
               style={{ color: C.mu, fontSize: 17, textDecoration: "none", transition: "color .2s" }}
               onMouseOver={e => (e.currentTarget.style.color = C.cyan)}
-              onMouseOut={e => (e.currentTarget.style.color = C.mu)}>↗</a>}
+              onMouseOut={e => (e.currentTarget.style.color = C.mu)}>&nearr;</a>}
           </div>
           <h3 style={{ color: C.tx, fontFamily: hf, fontWeight: 700,
             fontSize: big ? (mob ? 18 : 22) : (mob ? 14 : 15), margin: 0 }}>{p.title[lang]}</h3>
@@ -52,6 +52,45 @@ function Card({ p, lang, hf, mob, big }: {
         </div>
       </Glass>
     </Link>
+  );
+}
+
+const STATS = [
+  { value: `${PROJECTS.length}+`, label: { en: "Projects Delivered", he: "\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8\u05D9\u05DD \u05E9\u05D4\u05D5\u05E9\u05DC\u05DE\u05D5" } },
+  { value: `${new Set(PROJECTS.map(p => p.category)).size}`, label: { en: "Disciplines", he: "\u05EA\u05D7\u05D5\u05DE\u05D9\u05DD" } },
+  { value: "5+", label: { en: "Years Experience", he: "\u05E9\u05E0\u05D5\u05EA \u05E0\u05D9\u05E1\u05D9\u05D5\u05DF" } },
+  { value: "100%", label: { en: "Client Satisfaction", he: "\u05E9\u05D1\u05D9\u05E2\u05D5\u05EA \u05DC\u05E7\u05D5\u05D7\u05D5\u05EA" } },
+];
+
+function StatTile({ stat, lang, hf, mob, delay, v }: {
+  stat: typeof STATS[number]; lang: Lang; hf: string; mob: boolean; delay: number; v: boolean;
+}) {
+  return (
+    <div style={{
+      background: "rgba(15,24,38,.75)",
+      border: "1px solid rgba(0,229,255,.12)",
+      borderRadius: 14,
+      padding: mob ? "20px 12px" : "26px 16px",
+      textAlign: "center" as const,
+      position: "relative" as const,
+      overflow: "hidden" as const,
+      transition: "border-color .3s, transform .3s",
+      ...scale(v, delay),
+    }}
+      onMouseOver={e => { e.currentTarget.style.borderColor = C.cyan; e.currentTarget.style.transform = "translateY(-3px)"; }}
+      onMouseOut={e => { e.currentTarget.style.borderColor = "rgba(0,229,255,.12)"; e.currentTarget.style.transform = "translateY(0)"; }}>
+      <div style={{ position: "absolute", top: 0, left: "15%", right: "15%", height: 2,
+        background: `linear-gradient(90deg, transparent, ${C.cyan}, ${C.vio}, transparent)` }} />
+      <div style={{
+        fontFamily: hf, fontSize: mob ? 30 : 38, fontWeight: 800,
+        background: `linear-gradient(135deg, ${C.cyan}, ${C.vio})`,
+        WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
+        backgroundClip: "text", lineHeight: 1.1,
+      }}>{stat.value}</div>
+      <div style={{ color: C.mu, fontSize: mob ? 11 : 12, marginTop: 8, letterSpacing: 0.4, fontWeight: 600 }}>
+        {stat.label[lang]}
+      </div>
+    </div>
   );
 }
 
@@ -117,6 +156,14 @@ export function Work({ lang, mob }: Props) {
           );
         })}
       </div>
+
+      {/* Stats summary panel */}
+      <div style={{ display: "grid", gridTemplateColumns: mob ? "repeat(2, 1fr)" : "repeat(4, 1fr)",
+        gap: mob ? 10 : 16, marginTop: mob ? 32 : 48 }}>
+        {STATS.map((s, i) => (
+          <StatTile key={i} stat={s} lang={lang} hf={hf} mob={mob} delay={i * 80} v={v} />
+        ))}
+      </div>
     </Section>
   );
-}
+      }
