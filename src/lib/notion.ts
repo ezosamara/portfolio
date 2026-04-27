@@ -155,6 +155,38 @@ export async function fetchProjects(databaseId: string): Promise<Project[]> {
       project.detail = detail;
     }
 
+    // Brand colors (comma-separated hex codes)
+    const brandColors = getRichText(p['Brand Colors']);
+    if (brandColors) project.brandColors = brandColors.split(',').map(c => c.trim()).filter(c => c.startsWith('#'));
+
+    // Video URL
+    const videoUrl = getUrl(p['Video URL']);
+    if (videoUrl) project.videoUrl = videoUrl;
+
+    // Metrics (up to 3)
+    const metrics: { value: string; label: { en: string; he: string } }[] = [];
+    for (let i = 1; i <= 3; i++) {
+      const value = getRichText(p[`Metric ${i} Value`]);
+      const labelEN = getRichText(p[`Metric ${i} Label EN`]);
+      const labelHE = getRichText(p[`Metric ${i} Label HE`]);
+      if (value && (labelEN || labelHE)) {
+        metrics.push({ value, label: { en: labelEN, he: labelHE } });
+      }
+    }
+    if (metrics.length > 0) {
+      if (!project.detail) project.detail = {};
+      project.detail.metrics = metrics;
+    }
+
+    // Gallery — generate filename array from Gallery Count
+    const galleryCount = getNumber(p['Gallery Count']);
+    if (galleryCount > 0) {
+      if (!project.detail) project.detail = {};
+      project.detail.gallery = Array.from({ length: Math.min(galleryCount, 6) }, (_, i) =>
+        `/projects/${project.slug}/gallery-${i + 1}.jpg`
+      );
+    }
+
     return project;
   });
 }
