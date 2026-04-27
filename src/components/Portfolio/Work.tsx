@@ -104,7 +104,8 @@ export function Work({ lang, mob }: Props) {
   const hero = featured[0];
   const subFeat = featured.slice(1, 3);
   const all = cat === "All" ? PROJECTS : PROJECTS.filter(p => p.category === cat);
-  const grid = cat === "All" ? all.filter(p => !p.featured) : all;
+  const shown = new Set([hero?.slug, ...subFeat.map(p => p.slug)]);
+  const grid = cat === "All" ? all.filter(p => !shown.has(p.slug)) : all;
 
   return (
     <Section id="work" bg="rgba(13,18,32,.88)" mob={mob} dir={t.dir} ff={t.ff} innerRef={ref}>
