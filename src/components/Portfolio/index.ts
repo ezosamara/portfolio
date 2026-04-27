@@ -9,3 +9,4 @@ export { TLItem } from "./TLItem";
 export { GitHubSection } from "./GitHubSection";
 export { Contact } from "./Contact";
 export { Footer } from "./Footer";
+export { TiraDataViz } from "./TiraDataViz";
