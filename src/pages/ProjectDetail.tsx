@@ -7,6 +7,8 @@ import { getProjectBySlug, getRelatedProjects, PROJECTS } from "@/data/projects"
 import { useWindowWidth } from "@/hooks";
 import { StarCanvas, Nebula, ScrollProgress, Tag, Glass, tilt, untilt } from "@/components/UI";
 import { Navigation } from "@/components/Portfolio";
+import { Gallery } from "@/components/Portfolio/Gallery";
+import { MetricCallouts } from "@/components/Portfolio/MetricCallouts";
 
 interface Props {
   lang: Lang;
@@ -147,22 +149,10 @@ export function ProjectDetail({ lang, setLang }: Props) {
               </div>
             )}
             {d?.metrics && d.metrics.length > 0 && (
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(120px,1fr))", gap: 12, marginBottom: 32 }}>
-                {d.metrics.map((m, i) => (
-                  <div key={i} style={{ background: "rgba(15,24,38,.85)", border: "1px solid rgba(0,229,255,.15)", borderRadius: 12, padding: "16px 12px", textAlign: "center" }}>
-                    <div style={{ fontFamily: hf, fontSize: 26, fontWeight: 800, background: `linear-gradient(135deg,${C.cyan},${C.vio})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>{m.value}</div>
-                    <div style={{ color: C.mu, fontSize: 11, marginTop: 4 }}>{m.label[lang]}</div>
-                  </div>
-                ))}
-              </div>
+              <MetricCallouts metrics={d.metrics} lang={lang} hf={hf} mob={mob} />
             )}
             {d?.gallery && d.gallery.length > 0 && (
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(200px,1fr))", gap: 12, marginBottom: 32 }}>
-                {d.gallery.map((src, i) => (
-                  <img key={i} src={src} alt={`${project.title[lang]} screenshot ${i + 1}`}
-                    style={{ width: "100%", borderRadius: 10, border: `1px solid ${C.brd}`, objectFit: "cover", aspectRatio: "16/9" }} loading="lazy" />
-                ))}
-              </div>
+              <Gallery images={d.gallery} title={project.title[lang]} mob={mob} lang={lang} />
             )}
           </div>
 
