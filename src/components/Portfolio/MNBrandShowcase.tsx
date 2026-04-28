@@ -1,5 +1,368 @@
 import { useEffect, useRef, useState } from "react";
 
+const BRAND = {
+  navy: "#253e5f",
+  sky: "#baebff",
+  white: "#ffffff",
+  darkCard: "rgba(15,24,38,0.85)",
+  brd: "#1e2d45",
+  tx: "#E8F2FF",
+};
+
+const TX = {
+  en: {
+    dir: "ltr" as const,
+    sectionLabel: "Brand Identity System",
+    logoTitle: "The MN Mark",
+    logoDesc: "The MN mark fuses both letters with a classic-modern aesthetic. Deep navy grounds the brand in authority; sky blue carries the aspirational horizon the company promises its clients.",
+    colorsTitle: "Color Palette",
+    colors: [
+      { name: "Navy", hex: "#253e5f", dark: true },
+      { name: "Sky Blue", hex: "#baebff", dark: false },
+      { name: "White", hex: "#ffffff", dark: false, border: true },
+    ],
+    specTitle: "Specializations",
+    specs: ["Boutique Construction", "Exposed Concrete", "Private Villas"],
+    projectsTitle: "Projects Delivered",
+    projects: [
+      { name: "Harish - Flowers District 23", loc: "Harish" },
+      { name: "HaNasi 63", loc: "Herzliya Pituah" },
+      { name: "HaKadima", loc: "Herzliya Pituah" },
+      { name: "HaTzevoni 16", loc: "Kfar Saba" },
+      { name: "HaMelachim 7", loc: "Ramat HaSharon" },
+      { name: "Almog 15", loc: "Arsuf" },
+    ],
+    galleryTitle: "Brand Materials",
+    gallery: [
+      { src: "/projects/mn-logo-versions.jpg", alt: "Logo versions" },
+      { src: "/projects/mn-business-cards.jpg", alt: "Business cards" },
+      { src: "/projects/mn-letterhead.jpg", alt: "Letterhead" },
+      { src: "/projects/mn-hoodies.jpg", alt: "Branded hoodies" },
+      { src: "/projects/mn-envelope.jpg", alt: "Branded envelope" },
+      { src: "/projects/mn-social-media.jpg", alt: "Social media assets" },
+    ],
+    deliverablesTitle: "Brand Deliverables",
+    deliverables: ["Logo System", "Brand Guide", "Business Cards", "Letterhead", "Webflow Website", "Social Assets"],
+    cta: "View Live Site",
+  },
+  he: {
+    dir: "rtl" as const,
+    sectionLabel: "מערכת זהות מותג",
+    logoTitle: "סמל מ.נ",
+    logoDesc: "סמל MN משלב את שתי האותיות באסתטיקה קלאסית-מודרנית. הנייבי הכהה מעניק סמכות ומהימנות; התכלת נושאת את חלום האופק שהחברה מבטיחה ללקוחותיה.",
+    colorsTitle: "לוח צבעים",
+    colors: [
+      { name: "נייבי", hex: "#253e5f", dark: true },
+      { name: "תכלת", hex: "#baebff", dark: false },
+      { name: "לבן", hex: "#ffffff", dark: false, border: true },
+    ],
+    specTitle: "התמחויות",
+    specs: ["בנייה בוטיק", "עבודות בטון חשוף", "בתים פרטיים ווילות"],
+    projectsTitle: "פרויקטים שיצרנו",
+    projects: [
+      { name: "חריש - שכונת הפרחים 23", loc: "חריש" },
+      { name: "הנשיא 63", loc: "הרצליה פיתוח" },
+      { name: "הקדמה", loc: "הרצליה פיתוח" },
+      { name: "הצבעוני 16", loc: "כפר סבא" },
+      { name: "המלכים 7", loc: "רמת השרון" },
+      { name: "אלמוג 15", loc: "ארסוף" },
+    ],
+    galleryTitle: "חומרי המותג",
+    gallery: [
+      { src: "/projects/mn-logo-versions.jpg", alt: "גרסאות לוגו" },
+      { src: "/projects/mn-business-cards.jpg", alt: "כרטיסי ביקור" },
+      { src: "/projects/mn-letterhead.jpg", alt: "נייר מכתבים" },
+      { src: "/projects/mn-hoodies.jpg", alt: "הודי ממותג" },
+      { src: "/projects/mn-envelope.jpg", alt: "מעטפה ממותגת" },
+      { src: "/projects/mn-social-media.jpg", alt: "נכסי רשתות חברתיות" },
+    ],
+    deliverablesTitle: "תוצרי המיתוג",
+    deliverables: ["מערכת לוגו", "מדריך מותג", "כרטיסי ביקור", "נייר מכתבים", "אתר Webflow", "נכסי רשתות חברתיות"],
+    cta: "לאתר החי",
+  },
+};
+
+interface Props { lang: "en" | "he"; }
+
+export default function MNBrandShowcase({ lang }: Props) {
+  const t = TX[lang];
+  const rtl = t.dir === "rtl";
+  const [vis, setVis] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setVis(true); obs.disconnect(); } },
+      { threshold: 0.1 }
+    );
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, []);
+
+  const fadeIn = (delay = 0): React.CSSProperties => ({
+    opacity: vis ? 1 : 0,
+    transform: vis ? "none" : "translateY(20px)",
+    transition: `opacity 0.55s ease ${delay}s, transform 0.55s ease ${delay}s`,
+  });
+
+  return (
+    <div
+      ref={ref}
+      style={{
+        direction: t.dir,
+        fontFamily: rtl ? "'Heebo', sans-serif" : "'Inter', sans-serif",
+        padding: "32px 0",
+        display: "flex",
+        flexDirection: "column",
+        gap: 24,
+      }}
+    >
+      {/* Section badge */}
+      <div style={{ ...fadeIn(0), textAlign: "center" }}>
+        <span style={{
+          background: BRAND.sky,
+          color: BRAND.navy,
+          borderRadius: 20,
+          padding: "4px 16px",
+          fontSize: 11,
+          fontWeight: 700,
+          letterSpacing: 2,
+          textTransform: "uppercase",
+        }}>
+          {t.sectionLabel}
+        </span>
+      </div>
+
+      {/* Logo hero block */}
+      <div style={{
+        ...fadeIn(0.1),
+        background: `linear-gradient(135deg, ${BRAND.navy} 0%, #1a2e47 100%)`,
+        borderRadius: 16,
+        padding: "36px 28px",
+        display: "flex",
+        flexDirection: rtl ? "row-reverse" : "row",
+        alignItems: "center",
+        gap: 28,
+        flexWrap: "wrap",
+      }}>
+        <div style={{
+          width: 96, height: 96, borderRadius: 14,
+          border: `2px solid ${BRAND.sky}`,
+          display: "flex", alignItems: "center", justifyContent: "center",
+          flexShrink: 0,
+          background: "rgba(186,235,255,0.06)",
+        }}>
+          <svg viewBox="0 0 80 80" width="68" height="68" fill="none">
+            <rect x="8" y="12" width="12" height="56" fill={BRAND.white} rx="2" />
+            <polygon points="20,12 60,12 60,24 40,48 20,24" fill={BRAND.sky} opacity="0.9" />
+            <rect x="20" y="12" width="40" height="12" fill={BRAND.white} rx="2" />
+            <rect x="60" y="12" width="12" height="56" fill={BRAND.white} rx="2" />
+          </svg>
+        </div>
+        <div style={{ flex: 1, minWidth: 200 }}>
+          <div style={{
+            color: BRAND.sky, fontSize: 11, fontWeight: 700,
+            letterSpacing: 2, textTransform: "uppercase", marginBottom: 8,
+          }}>
+            {t.logoTitle}
+          </div>
+          <p style={{
+            color: "rgba(255,255,255,0.82)", fontSize: 14, lineHeight: 1.75, margin: 0,
+            textAlign: rtl ? "right" : "left",
+          }}>
+            {t.logoDesc}
+          </p>
+        </div>
+      </div>
+
+      {/* Colors + Specializations row */}
+      <div style={{
+        ...fadeIn(0.2),
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+        gap: 16,
+      }}>
+        <div style={{ background: "#f0f7fc", borderRadius: 12, padding: "24px 20px" }}>
+          <div style={{
+            fontSize: 11, fontWeight: 700, color: BRAND.navy,
+            letterSpacing: 1.5, textTransform: "uppercase",
+            marginBottom: 16, textAlign: rtl ? "right" : "left",
+          }}>
+            {t.colorsTitle}
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            {t.colors.map(c => (
+              <div key={c.hex} style={{
+                display: "flex",
+                flexDirection: rtl ? "row-reverse" : "row",
+                alignItems: "center", gap: 12,
+              }}>
+                <div style={{
+                  width: 44, height: 44, borderRadius: 8,
+                  background: c.hex,
+                  border: (c as any).border ? "1.5px solid #ddd" : "none",
+                  flexShrink: 0,
+                  boxShadow: "0 2px 8px rgba(37,62,95,0.15)",
+                }} />
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: BRAND.navy }}>{c.name}</div>
+                  <div style={{ fontSize: 11, color: "#666", fontFamily: "monospace" }}>{c.hex}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ background: BRAND.navy, borderRadius: 12, padding: "24px 20px" }}>
+          <div style={{
+            fontSize: 11, fontWeight: 700, color: BRAND.sky,
+            letterSpacing: 1.5, textTransform: "uppercase",
+            marginBottom: 16, textAlign: rtl ? "right" : "left",
+          }}>
+            {t.specTitle}
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            {t.specs.map((s, i) => (
+              <div key={s} style={{
+                display: "flex",
+                flexDirection: rtl ? "row-reverse" : "row",
+                alignItems: "center", gap: 10,
+                opacity: vis ? 1 : 0,
+                transition: `opacity 0.4s ease ${0.35 + i * 0.1}s`,
+              }}>
+                <div style={{ width: 6, height: 6, borderRadius: "50%", background: BRAND.sky, flexShrink: 0 }} />
+                <span style={{ color: "rgba(255,255,255,0.85)", fontSize: 13, fontWeight: 500 }}>{s}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Projects grid */}
+      <div style={{
+        ...fadeIn(0.3),
+        background: BRAND.darkCard,
+        backdropFilter: "blur(14px)",
+        border: `1px solid ${BRAND.brd}`,
+        borderRadius: 14,
+        padding: "24px 22px",
+      }}>
+        <div style={{
+          fontSize: 11, fontWeight: 700, color: "rgba(232,242,255,0.5)",
+          letterSpacing: 1.5, textTransform: "uppercase",
+          marginBottom: 16, textAlign: rtl ? "right" : "left",
+        }}>
+          {t.projectsTitle}
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 10 }}>
+          {t.projects.map((p, i) => (
+            <div key={p.name} style={{
+              background: "rgba(186,235,255,0.05)",
+              border: `1px solid ${BRAND.brd}`,
+              borderTop: `2px solid ${BRAND.sky}`,
+              borderRadius: 10,
+              padding: "12px 14px",
+              textAlign: rtl ? "right" : "left",
+              opacity: vis ? 1 : 0,
+              transform: vis ? "none" : "translateY(10px)",
+              transition: `all 0.4s ease ${0.4 + i * 0.07}s`,
+            }}>
+              <div style={{ color: BRAND.tx, fontSize: 12, fontWeight: 600, marginBottom: 3 }}>{p.name}</div>
+              <div style={{ color: BRAND.sky, fontSize: 11 }}>{p.loc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Gallery — 2-col layout for readable brand detail */}
+      <div style={{ ...fadeIn(0.4) }}>
+        <div style={{
+          fontSize: 11, fontWeight: 700, color: "rgba(232,242,255,0.5)",
+          letterSpacing: 1.5, textTransform: "uppercase",
+          marginBottom: 14, textAlign: rtl ? "right" : "left",
+        }}>
+          {t.galleryTitle}
+        </div>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+          gap: 14,
+        }}>
+          {t.gallery.map((img, i) => (
+            <div key={img.src} style={{
+              borderRadius: 12,
+              overflow: "hidden",
+              border: `1px solid ${BRAND.brd}`,
+              aspectRatio: "4/3",
+              opacity: vis ? 1 : 0,
+              transition: `opacity 0.4s ease ${0.5 + i * 0.06}s`,
+              background: "rgba(15,24,38,0.5)",
+            }}>
+              <img
+                src={img.src}
+                alt={img.alt}
+                loading="lazy"
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Deliverables strip + CTA */}
+      <div style={{
+        ...fadeIn(0.5),
+        background: BRAND.sky,
+        borderRadius: 12,
+        padding: "20px 24px",
+        display: "flex",
+        flexDirection: rtl ? "row-reverse" : "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        flexWrap: "wrap",
+        gap: 14,
+      }}>
+        <div style={{
+          display: "flex",
+          flexDirection: rtl ? "row-reverse" : "row",
+          flexWrap: "wrap",
+          gap: 8,
+          alignItems: "center",
+        }}>
+          <span style={{
+            fontSize: 11, fontWeight: 700, color: BRAND.navy,
+            letterSpacing: 1, textTransform: "uppercase", marginInlineEnd: 4,
+          }}>
+            {t.deliverablesTitle}:
+          </span>
+          {t.deliverables.map(d => (
+            <span key={d} style={{
+              background: BRAND.navy, color: BRAND.white,
+              borderRadius: 20, padding: "3px 12px", fontSize: 11, fontWeight: 500,
+            }}>
+              {d}
+            </span>
+          ))}
+        </div>
+        <a
+          href="https://www.mn-towers.co.il/"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            background: BRAND.navy, color: BRAND.white,
+            borderRadius: 8, padding: "9px 18px",
+            fontSize: 13, fontWeight: 600, textDecoration: "none", whiteSpace: "nowrap",
+          }}
+        >
+          {t.cta} {rtl ? "" : "->"}
+        </a>
+      </div>
+    </div>
+  );
+}
+import { useEffect, useRef, useState } from "react";
+
 /* ââ Brand tokens from the actual M.N Towers Brand Guide V.1 | 2022 ââ */
 const BRAND = {
   navy: "#253E5F",
