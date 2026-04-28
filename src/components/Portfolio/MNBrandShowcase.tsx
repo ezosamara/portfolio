@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-/* ── Brand tokens from the actual M.N Towers Brand Guide V.1 | 2022 ── */
+/* ââ Brand tokens from the actual M.N Towers Brand Guide V.1 | 2022 ââ */
 const BRAND = {
   navy: "#253E5F",
   dreamBlue: "#C6EAFF",
@@ -9,7 +9,18 @@ const BRAND = {
   brd: "#1e2d45",
 };
 
-/* ── Bilingual content — every fact sourced from the PDF ── */
+/* ââ Gallery images (all in /public/projects/) ââ */
+const GALLERY_IMAGES = [
+  { src: "/projects/mn-logo-versions.jpg", en: "Logo Versions", he: "××¨×¡×××ª ××××" },
+  { src: "/projects/mn-logo-chronology.jpg", en: "Logo Chronology", he: "××¨×× ×××××××ª ××××" },
+  { src: "/projects/mn-business-cards.jpg", en: "Business Cards", he: "××¨×××¡× ×××§××¨" },
+  { src: "/projects/mn-letterhead.jpg", en: "Letterhead", he: "× ×××¨××ª ×××ª×××" },
+  { src: "/projects/mn-hoodies.jpg", en: "Branded Hoodies", he: "×§×¤××¦×× ×× ××××ª×××" },
+  { src: "/projects/mn-envelope.jpg", en: "Envelope", he: "××¢××¤×" },
+  { src: "/projects/mn-social-media.jpg", en: "Social Media", he: "×××× ×××¨×ª××ª" },
+];
+
+/* ââ Bilingual content â every fact sourced from the PDF ââ */
 const TX = {
   en: {
     dir: "ltr" as const,
@@ -17,7 +28,7 @@ const TX = {
     tagline: "Building the Dream",
     aboutTitle: "About M.N Towers",
     aboutDesc:
-      "M.N Towers is a construction and engineering company operating for decades, now led by the second generation of founders. Their philosophy treats architecture as frozen music — every building is a potential for beauty, harmony, and an exceptional living environment.",
+      "M.N Towers is a construction and engineering company operating for decades, now led by the second generation of founders. Their philosophy treats architecture as frozen music â every building is a potential for beauty, harmony, and an exceptional living environment.",
     valuesTitle: "Brand Values",
     values: [
       { title: "Reliability", desc: "Our buildings speak for themselves" },
@@ -27,7 +38,7 @@ const TX = {
     ],
     logoTitle: "Logo Design",
     logoDesc:
-      "The MN mark fuses both Hebrew letters מ and נ with a classic-modern aesthetic. The colors represent stability and the dreamy sky-blue horizon the company promises its clients. 6 logo versions were developed to cover all use cases.",
+      "The MN mark fuses both Hebrew letters × and ×  with a classic-modern aesthetic. The colors represent stability and the dreamy sky-blue horizon the company promises its clients. 6 logo versions were developed to cover all use cases.",
     logoVersions: "6 Logo Versions",
     colorsTitle: "Color Palette",
     colors: [
@@ -40,6 +51,7 @@ const TX = {
       { name: "Dlilah / Dlilah Thin", role: "Headings & Designs" },
       { name: "Hebbo", role: "Body Text & General Use" },
     ],
+    galleryTitle: "Brand Materials",
     deliverablesTitle: "Brand Deliverables",
     deliverables: [
       "Logo System",
@@ -48,46 +60,47 @@ const TX = {
       "Letterhead",
       "Webflow Website",
     ],
-    cta: "View Live Site \u2192",
+    cta: "View Live Site â",
   },
   he: {
     dir: "rtl" as const,
-    sectionLabel: "\u05e2\u05e8\u05db\u05ea \u05de\u05d5\u05ea\u05d2",
-    tagline: "\u05d1\u05d5\u05e0\u05d9\u05dd \u05d0\u05ea \u05d4\u05d7\u05dc\u05d5\u05dd",
-    aboutTitle: "\u05d0\u05d5\u05d3\u05d5\u05ea \u05de.\u05e0 \u05de\u05d2\u05d3\u05dc\u05d9\u05dd",
+    sectionLabel: "×¢×¨××ª ×××ª×",
+    tagline: "××× ×× ××ª ×××××",
+    aboutTitle: "×××××ª ×.×  ××××××",
     aboutDesc:
-      "\u05e1\u05d1\u05d9\u05d1\u05ea \u05d4\u05de\u05d7\u05d9\u05d9\u05d4 \u05e9\u05dc\u05e0\u05d5 \u05de\u05e9\u05e4\u05d9\u05e2\u05d4 \u05e2\u05de\u05d5\u05e7\u05d5\u05ea \u05e2\u05dc \u05d4\u05d5\u05d5\u05d9\u05d9\u05ea\u05d5 \u05e9\u05dc \u05db\u05dc \u05d0\u05d3\u05dd. \u05de\u05ea\u05d5\u05da \u05ea\u05e4\u05d9\u05e1\u05ea \u05e2\u05d5\u05dc\u05dd \u05d6\u05d5, \u05e7\u05de\u05d4 \u05d7\u05d1\u05e8\u05ea \u05de.\u05e0 \u05de\u05d2\u05d3\u05dc\u05d9\u05dd \u05dc\u05e4\u05e0\u05d9 \u05e2\u05e9\u05e8\u05d5\u05ea \u05e9\u05e0\u05d9\u05dd, \u05d5\u05de\u05de\u05e9\u05d9\u05db\u05d4 \u05dc\u05e4\u05e2\u05d5\u05dc \u05e2\u05d3 \u05d4\u05d9\u05d5\u05dd \u05e2\u05dc \u05d9\u05d3\u05d9 \u05d4\u05d3\u05d5\u05e8 \u05d4\u05e9\u05e0\u05d9 \u05dc\u05de\u05d9\u05d9\u05e1\u05d3\u05d9\u05dd. \u05ea\u05e4\u05d9\u05e1\u05ea \u05d4\u05e2\u05d5\u05dc\u05dd \u05dc\u05e4\u05d9\u05d4 \u05d1\u05d9\u05ea \u05d0\u05d5 \u05d1\u05e0\u05d9\u05d9\u05df \u05d4\u05dd \u05e4\u05d5\u05d8\u05e0\u05e6\u05d9\u05d0\u05dc \u05dc\u05d9\u05d5\u05e4\u05d9, \u05d4\u05e8\u05de\u05d5\u05e0\u05d9\u05d4 \u05d5\u05e1\u05d1\u05d9\u05d1\u05ea \u05de\u05d2\u05d5\u05e8\u05d9\u05dd \u05d9\u05d5\u05e6\u05d0\u05ea \u05d3\u05d5\u05e4\u05df.",
-    valuesTitle: "\u05e2\u05e8\u05db\u05d9\u05dd \u05dc\u05d4\u05e9\u05e8\u05d0\u05d4 \u05de\u05d9\u05ea\u05d5\u05d2\u05d9\u05ea",
+      "×¡××××ª ×××××× ×©×× × ××©×¤××¢× ×¢×××§××ª ×¢× ××××××ª× ×©× ×× ×××. ××ª×× ×ª×¤××¡×ª ×¢××× ××, ×§×× ×××¨×ª ×.×  ×××××× ××¤× × ×¢×©×¨××ª ×©× ××, ××××©××× ××¤×¢×× ×¢× ×××× ×¢× ××× ××××¨ ××©× × ×××××¡×××. ×ª×¤××¡×ª ××¢××× ××¤×× ×××ª ×× ×× ××× ×× ×¤××× ×¦××× ××××¤×, ××¨××× ×× ××¡××××ª ××××¨×× ×××¦××ª ×××¤×.",
+    valuesTitle: "×¢×¨××× ×××©×¨×× ×××ª××××ª",
     values: [
-      { title: "\u05d0\u05de\u05d9\u05e0\u05d5\u05ea", desc: "\u05d4\u05de\u05d1\u05e0\u05d9\u05dd \u05e9\u05dc\u05e0\u05d5 \u05de\u05d3\u05d1\u05e8\u05d9\u05dd \u05d1\u05e4\u05e0\u05d9 \u05e2\u05e6\u05de\u05dd" },
-      { title: "\u05d5\u05d5\u05ea\u05e7", desc: "\u05d5\u05d5\u05ea\u05e7 \u05d5\u05d7\u05d3\u05e9\u05e0\u05d5\u05ea \u2014 \u05de\u05e4\u05d2\u05e9 \u05d4\u05d9\u05d5\u05e6\u05e8 \u05e2\u05d1\u05d5\u05d3\u05d5\u05ea \u05de\u05d2\u05d5\u05de\u05e8\u05d5\u05ea \u05d1\u05e9\u05d9\u05d0 \u05d4\u05de\u05e7\u05e6\u05d5\u05e2\u05d9\u05d5\u05ea" },
-      { title: "\u05de\u05e7\u05e6\u05d5\u05e2\u05d9\u05d5\u05ea", desc: "\u05d0\u05e0\u05d5 \u05e2\u05d5\u05d1\u05d3\u05d9\u05dd \u05e2\u05dd \u05d0\u05e0\u05e9\u05d9 \u05de\u05e7\u05e6\u05d5\u05e2 \u05de\u05d4\u05d8\u05d5\u05d1\u05d9\u05dd \u05d1\u05d0\u05e8\u05e5" },
-      { title: "\u05d7\u05d3\u05e9\u05e0\u05d5\u05ea", desc: "\u05d3\u05d5\u05e8 \u05d7\u05d3\u05e9 \u05e9\u05dc \u05de.\u05e0" },
+      { title: "×××× ××ª", desc: "×××× ×× ×©×× × ××××¨×× ××¤× × ×¢×¦××" },
+      { title: "×××ª×§", desc: "×××ª×§ ××××©× ××ª â ××¤××© ××××¦×¨ ×¢×××××ª ×××××¨××ª ××©×× ×××§×¦××¢×××ª" },
+      { title: "××§×¦××¢×××ª", desc: "×× × ×¢××××× ×¢× ×× ×©× ××§×¦××¢ ××××××× ×××¨×¥" },
+      { title: "×××©× ××ª", desc: "×××¨ ×××© ×©× ×.× " },
     ],
-    logoTitle: "\u05e2\u05d9\u05e6\u05d5\u05d1 \u05d4\u05dc\u05d5\u05d2\u05d5",
+    logoTitle: "×¢××¦×× ×××××",
     logoDesc:
-      "\u05d4\u05e2\u05e8\u05db\u05d9\u05dd \u05e9\u05dc \u05de.\u05e0 \u05de\u05d2\u05d3\u05dc\u05d9\u05dd \u05dc\u05d4\u05e9\u05e8\u05d0\u05d4 \u05de\u05d9\u05ea\u05d5\u05d2\u05d9\u05ea \u2014 \u05e1\u05d8\u05d8\u05d9\u05e7\u05d4 \u05e7\u05dc\u05d0\u05e1\u05d9\u05ea \u05d5\u05e9\u05d9\u05dc\u05d5\u05d1 \u05e1\u05d5\u05ea\u05e8 \u05e9\u05dc \u05d7\u05d3\u05e9\u05e0\u05d5\u05ea \u05de\u05ea\u05d1\u05d8\u05d0\u05d9\u05dd \u05d1\u05d7\u05d9\u05d1\u05d5\u05e8 \u05d1\u05d9\u05df \u05f4\u05de\u05f4 \u05d5\u05f4\u05e0\u05f4 \u05d5\u05d4\u05e6\u05d1\u05e2\u05d9\u05dd \u05d4\u05de\u05e2\u05d9\u05d3\u05d9\u05dd \u05e2\u05dc \u05d9\u05e6\u05d9\u05d1\u05d5\u05ea \u05d1\u05d0\u05e1\u05e4\u05e7\u05ea \u05d4\u05e2\u05d1\u05d5\u05d3\u05d4 \u05e9\u05dc \u05d4\u05d7\u05d1\u05e8\u05d4. \u05d4\u05e6\u05d1\u05e2\u05d9\u05dd \u05e0\u05d1\u05d7\u05e8\u05d5 \u05d1\u05e6\u05d1\u05e2\u05d9 \u05d4\u05e9\u05de\u05d9\u05d9\u05dd \u05d4\u05d7\u05dc\u05d5\u05de\u05d9\u05d9\u05dd \u05e9\u05ea\u05d5\u05e8\u05de\u05d5\u05ea \u05dc\u05d0\u05d5\u05e4\u05e7 \u05d4\u05d0\u05d5\u05e4\u05d8\u05d9\u05de\u05d9 \u05e9\u05dc \u05dc\u05e7\u05d5\u05d7\u05d5\u05ea\u05d9\u05e0\u05d5.",
-    logoVersions: "6 \u05d2\u05e8\u05e1\u05d0\u05d5\u05ea \u05dc\u05d5\u05d2\u05d5",
-    colorsTitle: "\u05dc\u05d5\u05d7 \u05e6\u05d1\u05e2\u05d9\u05dd",
+      "××¢×¨××× ×©× ×.×  ×××××× ×××©×¨×× ×××ª××××ª â ×¡××××§× ×§×××¡××ª ××©×××× ×¡××ª×¨ ×©× ×××©× ××ª ××ª××××× ××××××¨ ××× ×´××´ ××´× ×´ ×××¦××¢×× ×××¢×××× ×¢× ××¦××××ª ×××¡×¤×§×ª ××¢×××× ×©× ××××¨×. ××¦××¢×× × ×××¨× ××¦××¢× ××©×××× ×××××××× ×©×ª××¨×××ª ××××¤×§ ××××¤×××× ×©× ××§××××ª×× ×.",
+    logoVersions: "6 ××¨×¡×××ª ××××",
+    colorsTitle: "××× ×¦××¢××",
     colors: [
-      { name: "\u05db\u05d7\u05d5\u05dc \u05de\u05d9\u05d9\u05e6\u05d1", hex: "#253E5F", dark: true },
-      { name: "\u05db\u05d7\u05d5\u05dc \u05d7\u05dc\u05d5\u05de\u05d9", hex: "#C6EAFF", dark: false },
-      { name: "\u05dc\u05d1\u05df \u05e0\u05e7\u05d9", hex: "#ffffff", dark: false, border: true },
+      { name: "×××× ××××¦×", hex: "#253E5F", dark: true },
+      { name: "×××× ×××××", hex: "#C6EAFF", dark: false },
+      { name: "××× × ×§×", hex: "#ffffff", dark: false, border: true },
     ],
-    fontsTitle: "\u05d8\u05d9\u05e4\u05d5\u05d2\u05e8\u05e4\u05d9\u05d4",
+    fontsTitle: "×××¤×××¨×¤××",
     fonts: [
-      { name: "Dlilah / Dlilah Thin", role: "\u05dc\u05db\u05d5\u05ea\u05e8\u05d5\u05ea \u05d5\u05e2\u05d9\u05e6\u05d5\u05d1\u05d9\u05dd" },
-      { name: "Hebbo", role: "\u05dc\u05d8\u05e7\u05e1\u05d8\u05d9\u05dd \u05d5\u05e9\u05d9\u05de\u05d5\u05e9 \u05e8\u05d2\u05d9\u05dc" },
+      { name: "Dlilah / Dlilah Thin", role: "××××ª×¨××ª ××¢××¦××××" },
+      { name: "Hebbo", role: "×××§×¡××× ××©××××© ×¨×××" },
     ],
-    deliverablesTitle: "\u05ea\u05d5\u05e6\u05e8\u05d9 \u05d4\u05de\u05d9\u05ea\u05d5\u05d2",
+    galleryTitle: "××××¨× ××××ª×",
+    deliverablesTitle: "×ª××¦×¨× ××××ª××",
     deliverables: [
-      "\u05de\u05e2\u05e8\u05db\u05ea \u05dc\u05d5\u05d2\u05d5",
-      "\u05de\u05d3\u05e8\u05d9\u05da \u05de\u05d5\u05ea\u05d2",
-      "\u05db\u05e8\u05d8\u05d9\u05e1\u05d9 \u05d1\u05d9\u05e7\u05d5\u05e8",
-      "\u05e0\u05d9\u05d9\u05e8\u05d5\u05ea \u05de\u05db\u05ea\u05d1\u05d9\u05dd",
-      "\u05d0\u05ea\u05e8 Webflow",
+      "××¢×¨××ª ××××",
+      "×××¨×× ×××ª×",
+      "××¨×××¡× ×××§××¨",
+      "× ×××¨××ª ×××ª×××",
+      "××ª×¨ Webflow",
     ],
-    cta: "\u2190 \u05dc\u05d0\u05ea\u05e8 \u05d4\u05d7\u05d9",
+    cta: "â ×××ª×¨ ×××",
   },
 };
 
@@ -99,7 +112,9 @@ export default function MNBrandShowcase({ lang }: Props) {
   const t = TX[lang];
   const rtl = t.dir === "rtl";
   const [vis, setVis] = useState(false);
+  const [galVis, setGalVis] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const galRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -112,6 +127,20 @@ export default function MNBrandShowcase({ lang }: Props) {
       { threshold: 0.1 }
     );
     if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          setGalVis(true);
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    if (galRef.current) obs.observe(galRef.current);
     return () => obs.disconnect();
   }, []);
 
@@ -171,7 +200,7 @@ export default function MNBrandShowcase({ lang }: Props) {
             marginBottom: 8,
           }}
         >
-          {"\u05de.\u05e0 \u05de\u05d2\u05d3\u05dc\u05d9\u05dd"} \u2014 M.N TOWERS
+          {"×.×  ××××××"} {"â"} M.N TOWERS
         </div>
         <div
           style={{
@@ -413,6 +442,109 @@ export default function MNBrandShowcase({ lang }: Props) {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+
+      {/* ââ Brand Materials Gallery ââ */}
+      <div ref={galRef} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+        <div
+          style={{
+            opacity: galVis ? 1 : 0,
+            transform: galVis ? "none" : "translateY(20px)",
+            transition: "opacity 0.55s ease, transform 0.55s ease",
+            textAlign: "center",
+          }}
+        >
+          <div
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              color: BRAND.navy,
+              letterSpacing: 2,
+              textTransform: "uppercase",
+              marginBottom: 4,
+            }}
+          >
+            {t.galleryTitle}
+          </div>
+          <div style={{ fontSize: 13, color: "#5a6a7e" }}>
+            {lang === "en"
+              ? "A selection of branded materials developed for M.N Towers"
+              : "××××¨ ××××¨×× ××××ª××× ×©×¤××ª×× ×¢×××¨ ×.×  ××××××"}
+          </div>
+        </div>
+        <div
+          className="mn-gallery-grid"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: 14,
+          }}
+        >
+          <style>{`
+            @media (max-width: 680px) {
+              .mn-gallery-grid { grid-template-columns: repeat(2, 1fr) !important; }
+            }
+          `}</style>
+          {GALLERY_IMAGES.map((img, i) => (
+            <div
+              key={img.src}
+              className="mn-gallery-grid-item"
+              style={{
+                opacity: galVis ? 1 : 0,
+                transform: galVis ? "none" : "translateY(16px)",
+                transition: `opacity 0.5s ease ${0.08 * i}s, transform 0.5s ease ${0.08 * i}s`,
+              }}
+            >
+              <div
+                style={{
+                  position: "relative",
+                  borderRadius: 10,
+                  overflow: "hidden",
+                  border: `1px solid ${BRAND.brd}`,
+                  aspectRatio: "16/9",
+                  cursor: "pointer",
+                  transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLDivElement).style.transform = "scale(1.03)";
+                  (e.currentTarget as HTMLDivElement).style.boxShadow =
+                    "0 8px 28px rgba(37,62,95,0.25)";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLDivElement).style.transform = "scale(1)";
+                  (e.currentTarget as HTMLDivElement).style.boxShadow = "none";
+                }}
+              >
+                <img
+                  src={img.src}
+                  alt={lang === "en" ? img.en : img.he}
+                  loading="lazy"
+                  onError={(e) => {
+                    (e.currentTarget.parentElement as HTMLDivElement).style.display = "none";
+                  }}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    display: "block",
+                  }}
+                />
+              </div>
+              <div
+                style={{
+                  fontSize: 11,
+                  color: BRAND.navy,
+                  fontWeight: 600,
+                  marginTop: 6,
+                  textAlign: "center",
+                  opacity: 0.8,
+                }}
+              >
+                {lang === "en" ? img.en : img.he}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
