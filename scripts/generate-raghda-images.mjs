@@ -30,35 +30,52 @@ async function getResizedLogo(file, width) {
 async function generateHero() {
   const W = 1200;
   const H = 630;
-  const bottomH = 60;
-  const halfW = W / 2;
-  const panelH = H - bottomH;
 
-  const swatches = [COLORS.mauve, COLORS.rose, COLORS.blush, COLORS.cream];
-  const swH = 40;
-  const swatchSvg = swatches
+  // Bottom color strip: 4 rects, 300px wide, at y=580, 50px tall
+  const stripY = 580;
+  const stripH = 50;
+  const stripColors = [COLORS.mauve, COLORS.rose, COLORS.blush, COLORS.cream];
+  const stripSvg = stripColors
     .map(
       (c, i) =>
-        `<rect x="${halfW}" y="${i * swH}" width="${halfW}" height="${swH}" fill="${c}"/>`
+        `<rect x="${i * 300}" y="${stripY}" width="300" height="${stripH}" fill="${c}"/>`
     )
     .join("");
 
   const bgSvg = `
     <svg width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg">
-      <rect x="0" y="0" width="${halfW}" height="${panelH}" fill="${COLORS.dark}"/>
-      <rect x="${halfW}" y="0" width="${halfW}" height="${panelH}" fill="${COLORS.cream}"/>
-      ${swatchSvg}
-      <rect x="0" y="${panelH}" width="${W}" height="${bottomH}" fill="${COLORS.mauve}"/>
-      <text x="${W / 2}" y="${panelH + bottomH / 2 + 7}"
+      <defs>
+        <radialGradient id="rg1" cx="0.75" cy="0.4" r="0.5">
+          <stop offset="0%" stop-color="${COLORS.rose}" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="${COLORS.rose}" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="rg2" cx="0.2" cy="0.65" r="0.45">
+          <stop offset="0%" stop-color="${COLORS.mauve}" stop-opacity="0.2"/>
+          <stop offset="100%" stop-color="${COLORS.mauve}" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect width="${W}" height="${H}" fill="${COLORS.cream}"/>
+      <rect width="${W}" height="${H}" fill="url(#rg1)"/>
+      <rect width="${W}" height="${H}" fill="url(#rg2)"/>
+      <circle cx="${W * 0.75}" cy="${H * 0.4}" r="250"
+              fill="none" stroke="${COLORS.mauve}" stroke-opacity="0.2" stroke-width="1"/>
+      <circle cx="${W * 0.2}" cy="${H * 0.65}" r="160"
+              fill="none" stroke="${COLORS.rose}" stroke-opacity="0.15" stroke-width="1"/>
+      <circle cx="${W * 0.85}" cy="${H * 0.75}" r="90"
+              fill="none" stroke="${COLORS.mauve}" stroke-opacity="0.25" stroke-width="1"/>
+      ${stripSvg}
+      <text x="${W / 2}" y="610"
             font-family="Inter, Helvetica, Arial, sans-serif"
-            font-size="20" font-weight="600" letter-spacing="3"
-            fill="white" text-anchor="middle">RAGHDA BEAUTY — BRAND IDENTITY</text>
+            font-size="14" font-weight="500" letter-spacing="6"
+            fill="${COLORS.mauve}" fill-opacity="0.7"
+            text-anchor="middle">BRAND IDENTITY · WEBFLOW · PRINT</text>
     </svg>
   `;
 
-  const logo = await getResizedLogo(LIGHT_LOGO, 300);
-  const logoX = Math.round(halfW / 2 - logo.w / 2);
-  const logoY = Math.round(panelH / 2 - logo.h / 2);
+  // Logo: dark logo, 420px wide, center at (600, 280)
+  const logo = await getResizedLogo(DARK_LOGO, 420);
+  const logoX = Math.round(600 - logo.w / 2);
+  const logoY = Math.round(280 - logo.h / 2);
 
   const out = path.join(PROJ, "raghda-beauty.jpg");
   await sharp(await svgToBuffer(bgSvg))
@@ -71,40 +88,46 @@ async function generateHero() {
 async function generateBrandSystem() {
   const W = 800;
   const H = 500;
-  const bottomH = 50;
+  const bottomH = 40;
   const panelH = H - bottomH;
 
-  const logo = await getResizedLogo(DARK_LOGO, 240);
-  const leftCenterX = W * 0.25;
-  const logoX = Math.round(leftCenterX - logo.w / 2);
+  // Logo (light, since bg is dark): 300px wide, center horizontally at x=250, vertically centered in panel
+  const logo = await getResizedLogo(LIGHT_LOGO, 300);
+  const logoX = Math.round(250 - logo.w / 2);
   const logoY = Math.round(panelH / 2 - logo.h / 2);
 
-  const dotR = 40;
-  const dotGap = 30;
-  const gridW = dotR * 4 + dotGap;
-  const gridH = dotR * 4 + dotGap;
-  const rightCenterX = W * 0.75;
-  const gridStartX = Math.round(rightCenterX - gridW / 2);
-  const gridStartY = Math.round(panelH / 2 - gridH / 2);
-  const c1x = gridStartX + dotR;
-  const c2x = gridStartX + dotR * 3 + dotGap;
-  const r1y = gridStartY + dotR;
-  const r2y = gridStartY + dotR * 3 + dotGap;
-
-  const stroke = `stroke="${COLORS.mauve}" stroke-opacity="0.3" stroke-width="1.5"`;
+  // 4 swatches stacked, each 80h x 200w, x=500, vertically centered in panel
+  const swatches = [
+    { fill: COLORS.mauve, border: false },
+    { fill: COLORS.rose, border: false },
+    { fill: COLORS.blush, border: true },
+    { fill: COLORS.cream, border: true },
+  ];
+  const swH = 80;
+  const swW = 200;
+  const stackH = swatches.length * swH;
+  const swStartY = Math.round((panelH - stackH) / 2);
+  const swatchSvg = swatches
+    .map((s, i) => {
+      const y = swStartY + i * swH;
+      const stroke = s.border
+        ? `stroke="${COLORS.rose}" stroke-width="1"`
+        : `stroke="none"`;
+      return `<rect x="500" y="${y}" width="${swW}" height="${swH}" fill="${s.fill}" ${stroke}/>`;
+    })
+    .join("");
 
   const bgSvg = `
     <svg width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg">
-      <rect x="0" y="0" width="${W}" height="${panelH}" fill="${COLORS.blush}"/>
+      <rect x="0" y="0" width="${W}" height="${panelH}" fill="${COLORS.dark}"/>
+      <line x1="470" y1="0" x2="470" y2="${panelH}"
+            stroke="${COLORS.mauve}" stroke-opacity="0.3" stroke-width="1"/>
+      ${swatchSvg}
       <rect x="0" y="${panelH}" width="${W}" height="${bottomH}" fill="${COLORS.mauve}"/>
       <text x="${W / 2}" y="${panelH + bottomH / 2 + 5}"
             font-family="Inter, Helvetica, Arial, sans-serif"
-            font-size="14" font-weight="600" letter-spacing="3"
+            font-size="13" font-weight="600" letter-spacing="4"
             fill="white" text-anchor="middle">COLOR PALETTE</text>
-      <circle cx="${c1x}" cy="${r1y}" r="${dotR}" fill="${COLORS.mauve}"/>
-      <circle cx="${c2x}" cy="${r1y}" r="${dotR}" fill="${COLORS.rose}"/>
-      <circle cx="${c1x}" cy="${r2y}" r="${dotR}" fill="${COLORS.blush}" ${stroke}/>
-      <circle cx="${c2x}" cy="${r2y}" r="${dotR}" fill="${COLORS.cream}" ${stroke}/>
     </svg>
   `;
 

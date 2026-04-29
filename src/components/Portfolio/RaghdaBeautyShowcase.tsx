@@ -84,52 +84,60 @@ export default function RaghdaBeautyShowcase({ lang: _lang }: Props) {
         color: BRAND.text,
       }}
     >
-      {/* SECTION 1 — Logo showcase */}
+      {/* SECTION 1 — Logo hero + brand colors row */}
       <FadeIn>
         <div
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-            gap: 20,
-            marginBottom: 16,
+            background: BRAND.cream,
+            border: "1px solid rgba(144,95,104,0.15)",
+            borderRadius: 14,
+            height: "clamp(200px, 30vw, 320px)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: 24,
+            marginBottom: 20,
           }}
         >
-          <div
-            style={{
-              ...cardBaseStyle,
-              background: BRAND.black,
-              minHeight: 280,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: 40,
-            }}
-          >
-            <img
-              src="/projects/raghda-logo-light.png"
-              alt="Raghda Beauty light logo"
-              style={{ width: "70%", maxWidth: 240, height: "auto", display: "block" }}
-              onError={hideOnError}
-            />
-          </div>
-          <div
-            style={{
-              ...cardBaseStyle,
-              background: BRAND.cream,
-              minHeight: 280,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: 40,
-            }}
-          >
-            <img
-              src="/projects/raghda-logo-dark.png"
-              alt="Raghda Beauty dark logo"
-              style={{ width: "70%", maxWidth: 240, height: "auto", display: "block" }}
-              onError={hideOnError}
-            />
-          </div>
+          <img
+            src="/projects/raghda-logo-dark.png"
+            alt="Raghda Beauty logo"
+            style={{ width: "100%", maxWidth: 360, height: "auto", display: "block" }}
+            onError={hideOnError}
+          />
+        </div>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(4, 1fr)",
+            gap: 10,
+            marginBottom: 14,
+          }}
+        >
+          {PALETTE.map((c) => (
+            <div key={c.hex} style={{ textAlign: "center" }}>
+              <div
+                style={{
+                  background: c.hex,
+                  height: 36,
+                  borderRadius: 6,
+                  border: `1px solid ${BRAND.border}`,
+                  marginBottom: 6,
+                }}
+              />
+              <div
+                style={{
+                  fontFamily:
+                    "'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace",
+                  fontSize: 10,
+                  color: BRAND.muted,
+                  letterSpacing: 0.4,
+                }}
+              >
+                {c.hex}
+              </div>
+            </div>
+          ))}
         </div>
         <div
           style={{
