@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import type { Lang } from "@/types";
 import { TRANSLATIONS } from "@/data/translations";
 import { COLORS as C } from "@/data/constants";
@@ -17,8 +17,65 @@ export function Hero({ lang, mob, sm }: Props) {
   const typed = useTypewriter(t.roles);
   const [nameGlitch, setNameGlitch] = useState(false);
 
+  /* ── Cursor spotlight (pointer:fine only) ── */
+  const spotRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const hasFine = useRef(false);
+
+  useEffect(() => {
+    hasFine.current = window.matchMedia("(pointer:fine)").matches;
+    if (!hasFine.current) return;
+
+    let raf = 0;
+    const onMove = (e: MouseEvent) => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        if (spotRef.current) {
+          spotRef.current.style.transform = `translate(${e.clientX - 200}px,${e.clientY - 200}px)`;
+          spotRef.current.style.opacity = "1";
+        }
+      });
+    };
+    const onLeave = () => {
+      if (spotRef.current) spotRef.current.style.opacity = "0";
+    };
+    window.addEventListener("mousemove", onMove);
+    document.addEventListener("mouseleave", onLeave);
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseleave", onLeave);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
+  /* ── Magnetic CTA helper (pointer:fine only) ── */
+  const magnetize = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>) => {
+      if (!hasFine.current) return;
+      const rect = e.currentTarget.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = e.clientX - cx;
+      const dy = e.clientY - cy;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const maxPull = 10;
+      const radius = 100;
+      if (dist < radius) {
+        const pull = (1 - dist / radius) * maxPull;
+        const tx = (dx / dist) * pull;
+        const ty = (dy / dist) * pull;
+        e.currentTarget.style.transform = `translate(${tx}px,${ty}px)`;
+      }
+    },
+    [],
+  );
+  const demagnetize = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.currentTarget.style.transform = "none";
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       style={{
         minHeight: "100svh",
         display: "flex",
@@ -32,6 +89,22 @@ export function Hero({ lang, mob, sm }: Props) {
         direction: t.dir,
       }}
     >
+      {/* Cursor spotlight */}
+      <div
+        ref={spotRef}
+        style={{
+          position: "fixed",
+          width: 400,
+          height: 400,
+          borderRadius: "50%",
+          background: "radial-gradient(circle,rgba(0,229,255,0.08),transparent 70%)",
+          pointerEvents: "none",
+          zIndex: 0,
+          opacity: 0,
+          transition: "opacity .3s",
+          willChange: "transform",
+        }}
+      />
       <div
         style={{
           position: "absolute",
@@ -141,6 +214,8 @@ export function Hero({ lang, mob, sm }: Props) {
         >
           <a
             href="#work"
+            onMouseMove={magnetize}
+            onMouseLeave={demagnetize}
             style={{
               background: `linear-gradient(135deg,${C.cyan},${C.vio})`,
               color: C.bg,
@@ -151,14 +226,12 @@ export function Hero({ lang, mob, sm }: Props) {
               fontSize: mob ? 13 : 14,
               fontFamily: t.ff,
               boxShadow: `0 4px 24px rgba(0,229,255,.25)`,
-              transition: "transform .25s,box-shadow .25s",
+              transition: "transform .18s ease-out,box-shadow .25s",
             }}
             onMouseOver={(e) => {
-              e.currentTarget.style.transform = "translateY(-3px) scale(1.02)";
               e.currentTarget.style.boxShadow = `0 10px 36px rgba(0,229,255,.45)`;
             }}
             onMouseOut={(e) => {
-              e.currentTarget.style.transform = "none";
               e.currentTarget.style.boxShadow = `0 4px 24px rgba(0,229,255,.25)`;
             }}
           >
@@ -166,6 +239,8 @@ export function Hero({ lang, mob, sm }: Props) {
           </a>
           <a
             href="#contact"
+            onMouseMove={magnetize}
+            onMouseLeave={demagnetize}
             style={{
               border: `1px solid rgba(0,229,255,.35)`,
               color: C.tx,
@@ -176,17 +251,15 @@ export function Hero({ lang, mob, sm }: Props) {
               fontSize: mob ? 13 : 14,
               fontFamily: t.ff,
               backdropFilter: "blur(10px)",
-              transition: "all .25s",
+              transition: "all .18s ease-out",
             }}
             onMouseOver={(e) => {
               e.currentTarget.style.borderColor = C.cyan;
               e.currentTarget.style.background = "rgba(0,229,255,.07)";
-              e.currentTarget.style.transform = "translateY(-3px)";
             }}
             onMouseOut={(e) => {
               e.currentTarget.style.borderColor = "rgba(0,229,255,.35)";
               e.currentTarget.style.background = "transparent";
-              e.currentTarget.style.transform = "none";
             }}
           >
             {t.c2}

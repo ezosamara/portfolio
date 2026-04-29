@@ -7,6 +7,11 @@ import { getProjectBySlug, getRelatedProjects, PROJECTS } from "@/data/projects"
 import { useWindowWidth } from "@/hooks";
 import { StarCanvas, Nebula, ScrollProgress, Tag, Glass, tilt, untilt } from "@/components/UI";
 import { Navigation } from "@/components/Portfolio";
+import { TiraDataViz } from "@/components/Portfolio/TiraDataViz";
+import { Gallery } from "@/components/Portfolio/Gallery";
+import { MetricCallouts } from "@/components/Portfolio/MetricCallouts";
+import { DeptBreakdown } from "@/components/Portfolio/DeptBreakdown";
+import MNBrandShowcase from "@/components/Portfolio/MNBrandShowcase";
 
 interface Props {
   lang: Lang;
@@ -31,15 +36,6 @@ function NarrativeCard({ heading, body, accent, ff, hf }: { heading: string; bod
     </div>
   );
 }
-
-const CAT_ICON: Record<string, string> = {
-  Branding: "🎨",
-  "Web Dev": "💻",
-  "AI & Automation": "🤖",
-  "PR & Comms": "🎙️",
-  "Digital Marketing": "📣",
-  Video: "🎬",
-};
 
 export function ProjectDetail({ lang, setLang }: Props) {
   const { slug } = useParams<{ slug: string }>();
@@ -68,8 +64,40 @@ export function ProjectDetail({ lang, setLang }: Props) {
 
       {/* Hero band */}
       <div style={{ paddingTop: 56, position: "relative", zIndex: 1, background: "rgba(13,18,32,.9)", borderBottom: `1px solid ${C.brd}` }}>
-        <div style={{ height: mob ? 200 : 320, background: "linear-gradient(135deg,rgba(0,229,255,.07) 0%,rgba(123,97,255,.09) 100%)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <span style={{ fontSize: 64, opacity: 0.25 }}>{CAT_ICON[project.category] ?? "📁"}</span>
+        {/* Hero image with gradient fallback */}
+        <div style={{ position: "relative", overflow: "hidden" }}>
+          {project.hero ? (
+            <img
+              src={project.hero}
+              alt={project.title[lang]}
+              onError={(e) => {
+                const target = e.currentTarget;
+                target.style.display = "none";
+                const placeholder = target.nextElementSibling as HTMLElement;
+                if (placeholder) placeholder.style.display = "flex";
+              }}
+              style={{
+                width: "100%",
+                height: mob ? 200 : 320,
+                objectFit: "cover",
+                display: "block",
+              }}
+            />
+          ) : null}
+          <div
+            style={{
+              display: project.hero ? "none" : "flex",
+              width: "100%",
+              height: mob ? 200 : 320,
+              background: `linear-gradient(135deg, rgba(0,229,255,0.25) 0%, rgba(123,97,255,0.25) 100%), ${C.sf}`,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <span style={{ fontSize: 64, fontWeight: 800, opacity: 0.3, color: C.tx }}>
+              {project.title[lang].charAt(0)}
+            </span>
+          </div>
         </div>
         <div style={{ maxWidth: 900, margin: "0 auto", padding: `32px ${px}px 40px` }}>
           <Link to="/#work" style={{ color: C.mu, textDecoration: "none", fontSize: 13, fontWeight: 600, display: "inline-flex", alignItems: "center", gap: 6, marginBottom: 20, transition: "color .2s" }}
@@ -115,6 +143,9 @@ export function ProjectDetail({ lang, setLang }: Props) {
                 {d?.outcome && <NarrativeCard heading={t.outcome} body={d.outcome[lang]} accent="#22d3a5" ff={t.ff} hf={hf} />}
               </div>
             )}
+            {slug === "tira-municipality" && (
+              <TiraDataViz lang={lang} mob={mob} hf={hf} ff={t.ff} />
+            )}
             {d?.techStack && d.techStack.length > 0 && (
               <div style={{ marginBottom: 32 }}>
                 <h3 style={{ fontFamily: hf, color: C.tx, fontSize: 14, fontWeight: 700, marginBottom: 12, letterSpacing: 0.5 }}>{t.techStack}</h3>
@@ -124,22 +155,14 @@ export function ProjectDetail({ lang, setLang }: Props) {
               </div>
             )}
             {d?.metrics && d.metrics.length > 0 && (
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(120px,1fr))", gap: 12, marginBottom: 32 }}>
-                {d.metrics.map((m, i) => (
-                  <div key={i} style={{ background: "rgba(15,24,38,.85)", border: "1px solid rgba(0,229,255,.15)", borderRadius: 12, padding: "16px 12px", textAlign: "center" }}>
-                    <div style={{ fontFamily: hf, fontSize: 26, fontWeight: 800, background: `linear-gradient(135deg,${C.cyan},${C.vio})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>{m.value}</div>
-                    <div style={{ color: C.mu, fontSize: 11, marginTop: 4 }}>{m.label[lang]}</div>
-                  </div>
-                ))}
-              </div>
+              <MetricCallouts metrics={d.metrics} lang={lang} hf={hf} mob={mob} />
+            )}
+                        {project.slug === "mn-towers" && <MNBrandShowcase lang={lang} />}
+            {project.slug === "tira-municipality" && (
+              <DeptBreakdown lang={lang} />
             )}
             {d?.gallery && d.gallery.length > 0 && (
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(200px,1fr))", gap: 12, marginBottom: 32 }}>
-                {d.gallery.map((src, i) => (
-                  <img key={i} src={src} alt={`${project.title[lang]} screenshot ${i + 1}`}
-                    style={{ width: "100%", borderRadius: 10, border: `1px solid ${C.brd}`, objectFit: "cover", aspectRatio: "16/9" }} loading="lazy" />
-                ))}
-              </div>
+              <Gallery images={d.gallery} title={project.title[lang]} mob={mob} lang={lang} />
             )}
           </div>
 

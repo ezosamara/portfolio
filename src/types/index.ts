@@ -62,6 +62,8 @@ export interface Project {
   shortDesc: LocalizedText;
   detail?: ProjectDetail;
   featured?: boolean;
+  brandColors?: string[];
+  videoUrl?: string;
 }
 
 // ============================================================================

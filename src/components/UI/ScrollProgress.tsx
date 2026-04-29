@@ -22,7 +22,7 @@ export function ScrollProgress() {
         position: "fixed",
         top: 0,
         left: 0,
-        height: 2,
+        height: 3,
         width: `${p}%`,
         background: `linear-gradient(90deg,${C.cyan},${C.vio})`,
         zIndex: 300,

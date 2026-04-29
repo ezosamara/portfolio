@@ -14,11 +14,11 @@ export type { Project, TimelineItem, Lang, ProjectCategory } from '../types';
 
 // Projects
 export {
-  PROJECTS,
-  PROJECT_CATEGORIES,
-  getProjectBySlug,
-  getFeaturedProjects,
-  getRelatedProjects,
+    PROJECTS,
+    PROJECT_CATEGORIES,
+    getProjectBySlug,
+    getFeaturedProjects,
+    getRelatedProjects,
 } from './projects';
 
 // Timeline
@@ -26,4 +26,4 @@ export { TIMELINE } from './timeline';
 
 // Translations, constants, services, skills
 export { TRANSLATIONS } from './translations';
-export { COLORS, GITHUB_USER } from './constants';
+export { COLORS, GITHUB_USERNAME } from './constants';

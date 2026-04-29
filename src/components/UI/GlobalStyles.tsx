@@ -24,6 +24,7 @@ export function GlobalStyles() {
       }
       @keyframes sonar{0%{transform:translate(-50%,0) scale(1);opacity:.65}100%{transform:translate(-50%,0) scale(4);opacity:0}}
       @keyframes scanOnce{0%{transform:translateX(-100%)}100%{transform:translateX(200%)}}
+      @keyframes fadeRouteIn{from{opacity:0}to{opacity:1}}
     `}</style>
   );
 }
