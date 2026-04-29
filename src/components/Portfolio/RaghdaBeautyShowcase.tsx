@@ -23,8 +23,6 @@ const PALETTE = [
 const GALLERY = [
   { src: "/projects/raghda-brand-system.jpg", label: "Brand Identity System" },
   { src: "/projects/raghda-business-card.jpg", label: "Business Cards" },
-  { src: "/projects/raghda-logo-light.png", label: "Logo — Light Version" },
-  { src: "/projects/raghda-logo-dark.png", label: "Logo — Dark Version" },
 ];
 
 const FEATURES = [
