@@ -1,5 +1,3 @@
-import { useEffect, useRef, useState } from "react";
-
 interface Props {
   lang: "en" | "he";
 }
@@ -23,10 +21,10 @@ const PALETTE = [
 ];
 
 const GALLERY = [
-  { src: "/projects/raghda-brand-guide-en.jpg", label: "Brand Guide EN" },
-  { src: "/projects/raghda-brand-guide-ar.jpg", label: "Brand Guide Arabic" },
-  { src: "/projects/raghda-card-front.jpg", label: "Business Card" },
-  { src: "/projects/raghda-card-back.jpg", label: "Card with QR Code" },
+  { src: "/projects/raghda-brand-system.jpg", label: "Brand Identity System" },
+  { src: "/projects/raghda-business-card.jpg", label: "Business Cards" },
+  { src: "/projects/raghda-logo-light.png", label: "Logo — Light Version" },
+  { src: "/projects/raghda-logo-dark.png", label: "Logo — Dark Version" },
 ];
 
 const FEATURES = [
@@ -47,50 +45,16 @@ const FEATURES = [
   },
 ];
 
-function useInView(threshold = 0.15) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) {
-          setInView(true);
-          obs.disconnect();
-        }
-      },
-      { threshold }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [threshold]);
-  return { ref, inView };
-}
-
 function FadeIn({
   children,
-  delay = 0,
-  inView,
   style,
 }: {
   children: React.ReactNode;
   delay?: number;
-  inView: boolean;
+  inView?: boolean;
   style?: React.CSSProperties;
 }) {
-  return (
-    <div
-      style={{
-        opacity: inView ? 1 : 0,
-        transform: inView ? "translateY(0)" : "translateY(18px)",
-        transition: `opacity .7s ease ${delay}s, transform .7s ease ${delay}s`,
-        ...style,
-      }}
-    >
-      {children}
-    </div>
-  );
+  return <div style={style ?? {}}>{children}</div>;
 }
 
 const hideOnError = (e: React.SyntheticEvent<HTMLImageElement>) => {
@@ -114,11 +78,8 @@ const cardBaseStyle: React.CSSProperties = {
 };
 
 export default function RaghdaBeautyShowcase({ lang: _lang }: Props) {
-  const { ref, inView } = useInView(0.1);
-
   return (
     <div
-      ref={ref}
       style={{
         margin: "48px 0",
         fontFamily: "'Inter', system-ui, sans-serif",
@@ -126,7 +87,7 @@ export default function RaghdaBeautyShowcase({ lang: _lang }: Props) {
       }}
     >
       {/* SECTION 1 — Logo showcase */}
-      <FadeIn inView={inView} delay={0}>
+      <FadeIn>
         <div
           style={{
             display: "grid",
@@ -187,7 +148,7 @@ export default function RaghdaBeautyShowcase({ lang: _lang }: Props) {
       </FadeIn>
 
       {/* SECTION 2 — Color palette */}
-      <FadeIn inView={inView} delay={0.1}>
+      <FadeIn>
         <h3 style={sectionTitleStyle}>Color Palette</h3>
         <div
           style={{
@@ -241,7 +202,7 @@ export default function RaghdaBeautyShowcase({ lang: _lang }: Props) {
       </FadeIn>
 
       {/* SECTION 3 — Typography */}
-      <FadeIn inView={inView} delay={0.15}>
+      <FadeIn>
         <h3 style={sectionTitleStyle}>Typography</h3>
         <div
           style={{
@@ -320,7 +281,7 @@ export default function RaghdaBeautyShowcase({ lang: _lang }: Props) {
       </FadeIn>
 
       {/* SECTION 4 — Gallery */}
-      <FadeIn inView={inView} delay={0.2}>
+      <FadeIn>
         <h3 style={sectionTitleStyle}>Brand Deliverables</h3>
         <div
           style={{
@@ -335,12 +296,12 @@ export default function RaghdaBeautyShowcase({ lang: _lang }: Props) {
               key={g.src}
               style={{
                 border: `1px solid ${BRAND.border}`,
-                borderRadius: 12,
+                borderRadius: 10,
                 overflow: "hidden",
                 background: BRAND.blush,
               }}
             >
-              <div style={{ aspectRatio: "4 / 3", overflow: "hidden", background: BRAND.cream }}>
+              <div style={{ aspectRatio: "16 / 10", overflow: "hidden", background: BRAND.cream, borderRadius: 10 }}>
                 <img
                   src={g.src}
                   alt={g.label}
@@ -367,7 +328,7 @@ export default function RaghdaBeautyShowcase({ lang: _lang }: Props) {
       </FadeIn>
 
       {/* SECTION 5 — Website features */}
-      <FadeIn inView={inView} delay={0.25}>
+      <FadeIn>
         <h3 style={sectionTitleStyle}>Website Features</h3>
         <div
           style={{
@@ -425,7 +386,7 @@ export default function RaghdaBeautyShowcase({ lang: _lang }: Props) {
       </FadeIn>
 
       {/* SECTION 6 — Vision strip + CTA */}
-      <FadeIn inView={inView} delay={0.3}>
+      <FadeIn>
         <div
           style={{
             background: BRAND.cream,
