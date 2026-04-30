@@ -14,6 +14,7 @@ import { DeptBreakdown } from "@/components/Portfolio/DeptBreakdown";
 import MNBrandShowcase from "@/components/Portfolio/MNBrandShowcase";
 import RaghdaBeautyShowcase from "@/components/Portfolio/RaghdaBeautyShowcase";
 import RevibesShowcase from "@/components/Portfolio/RevibesShowcase";
+import KheitBrandShowcase from "@/components/Portfolio/KheitBrandShowcase";
 
 interface Props {
   lang: Lang;
@@ -162,6 +163,7 @@ export function ProjectDetail({ lang, setLang }: Props) {
             {project.slug === "mn-towers" && <MNBrandShowcase lang={lang} />}
             {project.slug === "raghda-beauty" && <RaghdaBeautyShowcase lang={lang} />}
             {project.slug === "revibes" && <RevibesShowcase lang={lang} />}
+            {project.slug === "kheit-brand" && <KheitBrandShowcase lang={lang} />}
             {project.slug === "tira-municipality" && (
               <DeptBreakdown lang={lang} />
             )}
