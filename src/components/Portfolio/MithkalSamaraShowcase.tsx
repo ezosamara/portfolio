@@ -169,8 +169,8 @@ export default function MithkalSamaraShowcase({ lang }: Props) {
           />
         </div>
         <div style={{
-          background: BRAND.white, borderRadius: 12,
-          border: `1px solid ${BRAND.secondary}20`,
+          background: BRAND.dark, borderRadius: 12,
+          border: `1px solid ${BRAND.secondary}30`,
           display: "flex", alignItems: "center", justifyContent: "center",
           padding: "24px 20px", minHeight: 130,
         }}>
