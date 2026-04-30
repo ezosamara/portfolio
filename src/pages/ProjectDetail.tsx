@@ -15,6 +15,7 @@ import MNBrandShowcase from "@/components/Portfolio/MNBrandShowcase";
 import RaghdaBeautyShowcase from "@/components/Portfolio/RaghdaBeautyShowcase";
 import RevibesShowcase from "@/components/Portfolio/RevibesShowcase";
 import KheitBrandShowcase from "@/components/Portfolio/KheitBrandShowcase";
+import MithkalSamaraShowcase from "@/components/Portfolio/MithkalSamaraShowcase";
 
 interface Props {
   lang: Lang;
@@ -164,6 +165,7 @@ export function ProjectDetail({ lang, setLang }: Props) {
             {project.slug === "raghda-beauty" && <RaghdaBeautyShowcase lang={lang} />}
             {project.slug === "revibes" && <RevibesShowcase lang={lang} />}
             {project.slug === "kheit-brand" && <KheitBrandShowcase lang={lang} />}
+            {project.slug === "mithkal-samara" && <MithkalSamaraShowcase lang={lang} />}
             {project.slug === "tira-municipality" && (
               <DeptBreakdown lang={lang} />
             )}
